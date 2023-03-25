@@ -163,141 +163,6 @@ namespace MusicBeePlugin {
             }
         }
 
-        public void incPoints(int pointGain) {
-            if(player == 1) {
-                Player1Score += Math.Min(pointGain, player1Needs-(Player1Score % player1Needs));
-                if (Player1Score % player1Needs == 0) {
-                    TimerP1.Font = smallerFont;
-                    TimerP2.Font = biggerFont;
-
-                    player = 2;
-                    timeP1 += timePass1;
-                }
-            }
-            else {
-                Player2Score += Math.Min(pointGain, player2Needs-(Player2Score % player2Needs));
-                if (Player2Score % player2Needs == 0) {
-                    TimerP2.Font = smallerFont;
-                    TimerP1.Font = biggerFont;
-
-                    player = 1;
-                    timeP2 += timePass2;
-                }
-            }
-            updateText(ScoreP1, Player1Score.ToString());
-            updateText(ScoreP2, Player2Score.ToString());
-            updateTimers();
-            updateColors();
-
-        }
-
-        public void updateTimers() {
-            int P1Min = (int)Math.Ceiling(timeP1 / 1000.0) / 60;
-            int P2Min = (int)Math.Ceiling(timeP2 / 1000.0) / 60;
-            int P1Sec = (int)Math.Ceiling(timeP1 / 1000.0) % 60;
-            int P2Sec = (int)Math.Ceiling(timeP2 / 1000.0) % 60;
-
-            string P1Seconds = P1Sec.ToString();
-            string P2Seconds = P2Sec.ToString();
-
-            //add leading 0s
-            if (P1Sec < 10) { P1Seconds = "0" + P1Sec.ToString(); }
-            if (P2Sec < 10) { P2Seconds = "0" + P2Sec.ToString(); }
-            updateText(TimerP1, P1Min.ToString() + ":" + P1Seconds);
-            updateText(TimerP2, P2Min.ToString() + ":" + P2Seconds);
-        }
-
-        public void updateColors() {
-            if (player == 1) {
-                ScoreP1.ForeColor = P1Col;
-                ScoreP2.ForeColor = Color.Black;
-            }
-            else {
-                ScoreP1.ForeColor = Color.Black;
-                ScoreP2.ForeColor = P2Col;
-            }
-        }
-
-        private Timer timer1;
-        public void InitTimer() {
-            timer1 = new Timer();
-            timer1.Tick += new EventHandler(timer1_Tick);
-            timer1.Interval = 50; // in miliseconds
-            timer1.Start();
-        }
-
-        private void timer1_Tick(object sender, EventArgs e) {
-            int A = mApi.Player_GetPosition(); //song playlength in ms
-            if(A <= 700) {
-                A = 0;
-            }
-            if (!GAMEOVER && shouldCountTime && mApi.Player_GetPlayState() == Plugin.PlayState.Playing) { //if time should move AND song playing,
-
-                if (player == 1) { //tick
-                    timeP1 = P1TimeAtNew - A;
-                }
-                else {
-                    timeP2 = P2TimeAtNew - A;
-                }
-                if(timeP1 <= -1000 || timeP2 <= -1000) {
-                    GAMEOVER = true;
-                    timeP1 = Math.Max(timeP1, 0);
-                    timeP2 = Math.Max(timeP2, 0);
-                    showSong(true);
-                    pictureBox2.Show();
-                    label6.Show();
-                    if (timeP1 <= 0) {
-                        label6.Text = "Player 1 Lost";
-                    }
-                    else {
-                        label6.Text = "Player 2 Lost";
-                    }
-                }
-            }
-
-            updateTimers();
-        }
-
-        public void showSong(bool showBoxes) {
-            if (showBoxes) {
-                songName.Show();
-                pictureBox1.Show();
-                shouldCountTime = false;
-            }
-
-
-            try {
-
-                Plugin.PictureLocations temp1;
-                string temp2;
-                byte[] img;
-                mApi.Library_GetArtworkEx(mApi.NowPlaying_GetFileUrl(), 0, true, out temp1, out temp2, out img);
-                Bitmap Art = (Bitmap)new ImageConverter().ConvertFrom(img);
-                
-                pictureBox1.Image = Art;
-            }
-            catch {
-                pictureBox1.Image = Properties.Resources.nocover;
-            }
-
-            updateText(songName, mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.TrackTitle) + "\n" + mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.Album));
-
-        }
-
-        public void updateText(Label label, string textChange) {
-            label.Text = textChange;
-            label.TextAlign = ContentAlignment.MiddleCenter;
-        }
-
-        public void shuffleList() {
-            //mApi.NowPlayingList_PlayLibraryShuffled(); //shuffles ALL songs
-            mApi.Player_SetShuffle(false);
-            mApi.Player_SetShuffle(true); // shuffles current list
-
-            //mApi.Playlist_QueryFilesEx();
-
-        }
-
         public void start() {
             //string startingSong = mApi.NowPlayingList_GetListFileUrl(0); //gets current song
             //mApi.NowPlayingList_QueueLast(startingSong); //plays the first song last in the queue
@@ -382,6 +247,146 @@ namespace MusicBeePlugin {
                 mApi.Player_PlayPause(); //unpause if needed
             }
         }
+
+        public void incPoints(int pointGain) {
+            if(player == 1) {
+                Player1Score += Math.Min(pointGain, player1Needs-(Player1Score % player1Needs));
+                if (Player1Score % player1Needs == 0) {
+                    TimerP1.Font = smallerFont;
+                    TimerP2.Font = biggerFont;
+
+                    player = 2;
+                    timeP1 += timePass1;
+                }
+            }
+            else {
+                Player2Score += Math.Min(pointGain, player2Needs-(Player2Score % player2Needs));
+                if (Player2Score % player2Needs == 0) {
+                    TimerP2.Font = smallerFont;
+                    TimerP1.Font = biggerFont;
+
+                    player = 1;
+                    timeP2 += timePass2;
+                }
+            }
+            updateText(ScoreP1, Player1Score.ToString());
+            updateText(ScoreP2, Player2Score.ToString());
+            updateTimers();
+            updateColors();
+
+        }
+
+        public void updateTimers() {
+            int P1Min = (int)Math.Ceiling(timeP1 / 1000.0) / 60;
+            int P2Min = (int)Math.Ceiling(timeP2 / 1000.0) / 60;
+            int P1Sec = (int)Math.Ceiling(timeP1 / 1000.0) % 60;
+            int P2Sec = (int)Math.Ceiling(timeP2 / 1000.0) % 60;
+
+            string P1Seconds = P1Sec.ToString();
+            string P2Seconds = P2Sec.ToString();
+
+            //add leading 0s
+            if (P1Sec < 10) { P1Seconds = "0" + P1Sec.ToString(); }
+            if (P2Sec < 10) { P2Seconds = "0" + P2Sec.ToString(); }
+            updateText(TimerP1, P1Min.ToString() + ":" + P1Seconds);
+            updateText(TimerP2, P2Min.ToString() + ":" + P2Seconds);
+        }
+
+        public void updateColors() {
+            if (player == 1) {
+                ScoreP1.ForeColor = P1Col;
+                ScoreP2.ForeColor = Color.Black;
+            }
+            else {
+                ScoreP1.ForeColor = Color.Black;
+                ScoreP2.ForeColor = P2Col;
+            }
+        }
+
+
+        //timer
+        private Timer timer1;
+        public void InitTimer() {
+            timer1 = new Timer();
+            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Interval = 50; // in miliseconds
+            timer1.Start();
+        }
+        private void timer1_Tick(object sender, EventArgs e) {
+            int A = mApi.Player_GetPosition(); //song playlength in ms
+            if(A <= 700) {
+                A = 0;
+            }
+            if (!GAMEOVER && shouldCountTime && mApi.Player_GetPlayState() == Plugin.PlayState.Playing) { //if time should move AND song playing,
+
+                if (player == 1) { //tick
+                    timeP1 = P1TimeAtNew - A;
+                }
+                else {
+                    timeP2 = P2TimeAtNew - A;
+                }
+                if(timeP1 <= -1000 || timeP2 <= -1000) {
+                    GAMEOVER = true;
+                    timeP1 = Math.Max(timeP1, 0);
+                    timeP2 = Math.Max(timeP2, 0);
+                    showSong(true);
+                    pictureBox2.Show();
+                    label6.Show();
+                    if (timeP1 <= 0) {
+                        label6.Text = "Player 1 Lost";
+                    }
+                    else {
+                        label6.Text = "Player 2 Lost";
+                    }
+                }
+            }
+
+            updateTimers();
+        }
+        //end timer
+
+
+        public void showSong(bool showBoxes) {
+            if (showBoxes) {
+                songName.Show();
+                pictureBox1.Show();
+                shouldCountTime = false;
+            }
+
+            if(!showBoxes && !GAMEOVER) { //dont update if game is not over, and hide the game 
+                pictureBox1.Hide();
+                songName.Hide();
+                return; 
+            } 
+
+            try {
+
+                Plugin.PictureLocations temp1;
+                string temp2;
+                byte[] img;
+                mApi.Library_GetArtworkEx(mApi.NowPlaying_GetFileUrl(), 0, true, out temp1, out temp2, out img);
+                Bitmap Art = (Bitmap)new ImageConverter().ConvertFrom(img);
+                
+                pictureBox1.Image = Art;
+            }
+            catch {
+                pictureBox1.Image = Properties.Resources.nocover;
+            }
+
+            updateText(songName, mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.TrackTitle) + "\n" + mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.Album));
+
+        }
+
+        public void updateText(Label label, string textChange) {
+            label.Text = textChange;
+            label.TextAlign = ContentAlignment.MiddleCenter;
+        }
+
+        public void shuffleList() {
+            mApi.Player_SetShuffle(false);
+            mApi.Player_SetShuffle(true); // shuffles current list
+        }
+
 
 
 
