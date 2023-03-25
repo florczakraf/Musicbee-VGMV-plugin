@@ -34,6 +34,7 @@
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.displayHistory = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
@@ -76,10 +77,10 @@
             this.songName.BackColor = System.Drawing.Color.Transparent;
             this.songName.Font = new System.Drawing.Font("Montserrat", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.songName.ForeColor = System.Drawing.Color.Coral;
-            this.songName.Location = new System.Drawing.Point(180, 9);
+            this.songName.Location = new System.Drawing.Point(204, 9);
             this.songName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.songName.Name = "songName";
-            this.songName.Size = new System.Drawing.Size(801, 122);
+            this.songName.Size = new System.Drawing.Size(773, 122);
             this.songName.TabIndex = 1;
             this.songName.Text = "VGM Versus";
             this.songName.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -185,7 +186,7 @@
             this.displayHistory.Checked = true;
             this.displayHistory.CheckState = System.Windows.Forms.CheckState.Checked;
             this.displayHistory.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.displayHistory.Location = new System.Drawing.Point(372, 177);
+            this.displayHistory.Location = new System.Drawing.Point(304, 169);
             this.displayHistory.Name = "displayHistory";
             this.displayHistory.Size = new System.Drawing.Size(156, 26);
             this.displayHistory.TabIndex = 12;
@@ -196,6 +197,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.groupBox1.Controls.Add(this.checkBox2);
             this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.numericUpDown4);
@@ -214,11 +216,25 @@
             this.groupBox1.Controls.Add(this.Mins);
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 62);
+            this.groupBox1.Location = new System.Drawing.Point(12, 59);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1181, 221);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Checked = true;
+            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox2.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox2.Location = new System.Drawing.Point(673, 169);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(155, 26);
+            this.checkBox2.TabIndex = 17;
+            this.checkBox2.Text = "Shuffle Playlist";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // checkBox1
             // 
@@ -226,7 +242,7 @@
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox1.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(607, 177);
+            this.checkBox1.Location = new System.Drawing.Point(499, 169);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(137, 26);
             this.checkBox1.TabIndex = 16;
@@ -580,5 +596,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDown3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }

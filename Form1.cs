@@ -69,6 +69,7 @@ namespace MusicBeePlugin {
         int player; //starting player
         bool GAMEOVER = false;
         bool shouldLoop = true;
+        bool shouldShuffle = true;
 
         Font smallerFont;
         Font biggerFont;
@@ -307,12 +308,13 @@ namespace MusicBeePlugin {
             else {
                 mApi.Player_SetRepeat(Plugin.RepeatMode.None); //dont loop playlist
             }
+            if (shouldShuffle) {
+                shuffleList();
 
-            shuffleList();
+                mApi.Player_PlayNextTrack(); //play next track (random not first song)
 
-            mApi.Player_PlayNextTrack(); //play next track (random not first song)
-
-            shuffleList(); //now first song is randomly in there
+                shuffleList(); //now first song is randomly in there
+            }
 
 
             //shuffleList();
@@ -612,6 +614,10 @@ namespace MusicBeePlugin {
 
         private void checkBox1_CheckedChanged_1(object sender, EventArgs e) {
             shouldLoop = checkBox1.Checked;
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e) {
+            shouldShuffle = checkBox2.Checked;
         }
     }
 }
