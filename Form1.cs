@@ -51,8 +51,8 @@ namespace MusicBeePlugin {
         int player2Needs = 2;
 
         int startTime = 150000; //ms
-        int timePass1 = 4000; //ms
-        int timePass2 = 4000; //ms
+        int timePass1 = 2000; //ms
+        int timePass2 = 2000; //ms
 
         Color P1Col = Color.Green;
         Color P2Col = Color.Blue;
@@ -303,6 +303,7 @@ namespace MusicBeePlugin {
             }
         }
 
+        //TODO: singleplayer
 
         //timer
         private Timer timer1;
@@ -313,6 +314,8 @@ namespace MusicBeePlugin {
             timer1.Start();
         }
         private void timer1_Tick(object sender, EventArgs e) {
+
+
             int A = mApi.Player_GetPosition(); //song playlength in ms
             if(A <= 700) {
                 A = 0;
@@ -353,11 +356,15 @@ namespace MusicBeePlugin {
                 shouldCountTime = false;
             }
 
-            if(!showBoxes && !GAMEOVER) { //dont update if game is not over, and hide the game 
+            if (!showBoxes && !GAMEOVER) { //dont update if game is not over, and hide the game 
                 pictureBox1.Hide();
                 songName.Hide();
                 return; 
             } 
+            if(!showBoxes && GAMEOVER) { //hide the D: if the game is over and a new track plays
+                pictureBox2.Hide();
+                label6.Hide();
+            }
 
             try {
 

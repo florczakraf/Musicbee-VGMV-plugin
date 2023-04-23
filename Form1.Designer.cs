@@ -84,6 +84,7 @@
             this.songName.TabIndex = 1;
             this.songName.Text = "VGM Versus";
             this.songName.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.songName.UseMnemonic = false;
             // 
             // Start
             // 
@@ -179,6 +180,7 @@
             this.listBox2.TabIndex = 11;
             this.listBox2.TabStop = false;
             this.listBox2.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox2_DrawItem);
+            this.listBox2.Controls.Clear();
             // 
             // displayHistory
             // 
@@ -305,6 +307,11 @@
             0,
             0,
             0});
+            this.numericUpDown2.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(37, 27);
             this.numericUpDown2.TabIndex = 11;
@@ -321,6 +328,11 @@
             this.numericUpDown1.Location = new System.Drawing.Point(8, 103);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             1000,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
@@ -490,6 +502,7 @@
             this.listBox1.Size = new System.Drawing.Size(297, 425);
             this.listBox1.TabIndex = 15;
             this.listBox1.TabStop = false;
+            this.listBox1.Controls.Clear();
             // 
             // pictureBox2
             // 
