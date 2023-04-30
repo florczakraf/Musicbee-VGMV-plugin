@@ -88,6 +88,7 @@ namespace MusicBeePlugin {
         bool GAMEOVER = false;
         bool shouldLoop = true;
         bool shouldShuffle = true;
+        bool singlePlayer = false;
 
         Font smallerFont;
         Font biggerFont;
@@ -273,10 +274,24 @@ namespace MusicBeePlugin {
             if (mApi.Player_GetPlayState() == Plugin.PlayState.Paused) {
                 mApi.Player_PlayPause(); //unpause if needed
             }
+
+            if (singlePlayer) {
+                listBox2.Hide();
+                ScoreP2.Hide();
+                TimerP2.Hide();
+            }
+            else {
+                listBox2.Show();
+                ScoreP2.Show();
+                TimerP2.Show();
+            }
         }
 
         public void incPoints(int pointGain) {
-            if(player == 1) {
+            if (singlePlayer) {
+                player = 1;
+            }
+            if(player == 1 || singlePlayer) {
                 Player1Score += Math.Min(pointGain, player1Needs-(Player1Score % player1Needs));
                 if (Player1Score % player1Needs == 0) {
                     TimerP1.Font = smallerFont;
@@ -285,6 +300,7 @@ namespace MusicBeePlugin {
                     player = 2;
                     timeP1 += timePass1;
                 }
+
             }
             else {
                 Player2Score += Math.Min(pointGain, player2Needs-(Player2Score % player2Needs));
@@ -296,8 +312,11 @@ namespace MusicBeePlugin {
                     timeP2 += timePass2;
                 }
             }
-            updateText(ScoreP1, Player1Score.ToString());
-            updateText(ScoreP2, Player2Score.ToString());
+            if (singlePlayer) {
+                TimerP1.Font = biggerFont;
+            }
+            updateText(ScoreP1, Player1Score.ToString() + "\n(" + (Player1Score % player1Needs).ToString() + "/" + player1Needs.ToString() + ")");
+            updateText(ScoreP2, Player2Score.ToString() + "\n(" + (Player2Score % player2Needs).ToString() + "/" + player2Needs.ToString() + ")");
             updateTimers();
             updateColors();
 
@@ -320,7 +339,7 @@ namespace MusicBeePlugin {
         }
 
         public void updateColors() {
-            if (player == 1) {
+            if (player == 1 || singlePlayer) {
                 ScoreP1.ForeColor = P1Col;
                 ScoreP2.ForeColor = Color.Black;
             }
@@ -353,7 +372,7 @@ namespace MusicBeePlugin {
             }
             if (!GAMEOVER && shouldCountTime && mApi.Player_GetPlayState() == Plugin.PlayState.Playing) { //if time should move AND song playing,
 
-                if (player == 1) { //tick
+                if (player == 1 || singlePlayer) { //tick
                     timeP1 = P1TimeAtNew - A;
                 }
                 else {
@@ -452,7 +471,8 @@ namespace MusicBeePlugin {
             if (!showHistory) { 
 
             }
-            if (player == 1) {
+            if (player == 1 || singlePlayer) {
+               
 
 
 
@@ -666,6 +686,20 @@ namespace MusicBeePlugin {
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e) {
             shouldShuffle = checkBox2.Checked;
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e) {
+            singlePlayer = checkBox3.Checked;
+            if (singlePlayer) {
+                listBox2.Hide();
+                ScoreP2.Hide();
+                TimerP2.Hide();
+            }
+            else {
+                listBox2.Show();
+                ScoreP2.Show();
+                TimerP2.Show();
+            }
         }
     }
 }
