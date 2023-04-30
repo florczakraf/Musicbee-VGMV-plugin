@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Windows.Forms;
 
@@ -44,7 +45,24 @@ namespace MusicBeePlugin {
             this.KeyPreview = true;
             InitializeComponent();
             this.KeyDown += new KeyEventHandler(VGMV_KeyDown);
+
+            LoadImages();
+
         }
+        Image[] images = new Image[66];
+
+        private void LoadImages() {
+            Image image = Properties.Resources.alienDanceFast;
+            FrameDimension dimension = new FrameDimension(image.FrameDimensionsList[0]);
+
+            for (int i = 0; i < 65; i++) {
+                image.SelectActiveFrame(dimension, i);
+                images[i] = new Bitmap(image);
+            }
+            //pictureBox3.Image = images[1];
+        }
+
+        int i = 0;
 
         int startingPlayer = 1;
         int player1Needs = 2;
@@ -116,6 +134,8 @@ namespace MusicBeePlugin {
 
 
 
+            pictureBox3.Visible = false;
+            pictureBox4.Visible = false;
 
 
             showHistory = displayHistory.Checked;
@@ -180,6 +200,10 @@ namespace MusicBeePlugin {
 
                 shuffleList(); //now first song is randomly in there
             }
+            else {
+                mApi.Player_SetShuffle(false);
+                mApi.Player_SetPosition(0);
+            }
 
 
             //shuffleList();
@@ -192,6 +216,9 @@ namespace MusicBeePlugin {
 
             listBox1.Items.Clear();
             listBox2.Items.Clear();
+
+            pictureBox3.Visible = false;
+            pictureBox4.Visible = false;
 
             startTime = (int)(Mins.Value * 60 + Secs.Value) * 1000;
             timePass1 = (int)(numericUpDown3.Value * 1000);
@@ -315,6 +342,10 @@ namespace MusicBeePlugin {
         }
         private void timer1_Tick(object sender, EventArgs e) {
 
+            i = i % 65;
+            pictureBox3.Image = images[(i * 2) % 65];
+            pictureBox4.Image = images[(i * 2) % 65];
+            i++;
 
             int A = mApi.Player_GetPosition(); //song playlength in ms
             if(A <= 700) {
@@ -496,6 +527,11 @@ namespace MusicBeePlugin {
         }
 
         public void VGMV_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.P) {
+                pictureBox3.Visible = !pictureBox3.Visible;
+                pictureBox4.Visible = !pictureBox4.Visible;
+
+            }
 
             if (!GAMEOVER) {
                 if (e.KeyCode == Keys.Left || e.KeyCode == Keys.J || e.KeyCode == Keys.A) { //should next song 1 point
