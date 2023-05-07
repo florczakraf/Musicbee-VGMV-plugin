@@ -82,13 +82,14 @@ namespace MusicBeePlugin {
         int timeP2;
         public int P1TimeAtNew;
         public int P2TimeAtNew;
-        int Player1Score = 0;
-        int Player2Score = 0;
         int player; //starting player
         bool GAMEOVER = false;
         bool shouldLoop = true;
         bool shouldShuffle = true;
         bool singlePlayer = false;
+
+        Score p1Score = new Score();
+        Score p2Score = new Score();
 
         Font smallerFont;
         Font biggerFont;
@@ -150,13 +151,10 @@ namespace MusicBeePlugin {
 
             updateTimers();
 
-            Player1Score = 0;
-            Player2Score = 0;
-
             groupBox1.Hide();
 
-            updateText(ScoreP1, Player1Score.ToString());
-            updateText(ScoreP2, Player2Score.ToString());
+            updateText(ScoreP1, p1Score._score.ToString());
+            updateText(ScoreP2, p2Score._score.ToString());
 
             ScoreP1.Hide();
             ScoreP2.Hide();
@@ -172,7 +170,11 @@ namespace MusicBeePlugin {
             listBox2.MeasureItem += listBox2_MeasureItem;
             listBox2.DrawItem += listBox2_DrawItem;
 
+            p1Score.reset();
+            p2Score.reset();
+
             pictureBox2.Hide();
+            pictureBox5.Hide();
             label6.Hide();
             if (showHistory) {
                 listBox1.Show();
@@ -211,9 +213,13 @@ namespace MusicBeePlugin {
 
             GAMEOVER = false;
 
-            Player1Score = 0;
-            Player2Score = 0;
+            p1Score.reset();
+            p2Score.reset();
+
             incPoints(0); // to update text
+
+            p1Score.reset();
+            p2Score.reset();
 
             listBox1.Items.Clear();
             listBox2.Items.Clear();
@@ -259,6 +265,7 @@ namespace MusicBeePlugin {
             groupBox1.Hide();
             label6.Hide();
             pictureBox2.Hide();
+            pictureBox5.Hide();
             Start.Hide();
 
             if (showHistory) {
@@ -288,26 +295,21 @@ namespace MusicBeePlugin {
         }
 
         public void incPoints(int pointGain) {
-            if (singlePlayer) {
-                player = 1;
-            }
             if(player == 1 || singlePlayer) {
-                Player1Score += Math.Min(pointGain, player1Needs-(Player1Score % player1Needs));
-                if (Player1Score % player1Needs == 0) {
+                p1Score.intPoints(pointGain, player1Needs);
+                if (p1Score._score % player1Needs == 0 && pointGain > 0) {
                     TimerP1.Font = smallerFont;
                     TimerP2.Font = biggerFont;
-
                     player = 2;
                     timeP1 += timePass1;
                 }
 
             }
             else {
-                Player2Score += Math.Min(pointGain, player2Needs-(Player2Score % player2Needs));
-                if (Player2Score % player2Needs == 0) {
+                p2Score.intPoints(pointGain, player2Needs);
+                if (p2Score._score % player2Needs == 0 && pointGain > 0) {
                     TimerP2.Font = smallerFont;
                     TimerP1.Font = biggerFont;
-
                     player = 1;
                     timeP2 += timePass2;
                 }
@@ -315,8 +317,8 @@ namespace MusicBeePlugin {
             if (singlePlayer) {
                 TimerP1.Font = biggerFont;
             }
-            updateText(ScoreP1, Player1Score.ToString() + "\n(" + (Player1Score % player1Needs).ToString() + "/" + player1Needs.ToString() + ")");
-            updateText(ScoreP2, Player2Score.ToString() + "\n(" + (Player2Score % player2Needs).ToString() + "/" + player2Needs.ToString() + ")");
+            updateText(ScoreP1, p1Score._score.ToString() + "\n(" + (p1Score._score % player1Needs).ToString() + "/" + player1Needs.ToString() + ")");
+            updateText(ScoreP2, p2Score._score.ToString() + "\n(" + (p2Score._score % player2Needs).ToString() + "/" + player2Needs.ToString() + ")");
             updateTimers();
             updateColors();
 
@@ -384,6 +386,7 @@ namespace MusicBeePlugin {
                     timeP2 = Math.Max(timeP2, 0);
                     showSong(true);
                     pictureBox2.Show();
+                    pictureBox5.Show();
                     label6.Show();
                     if (timeP1 <= 0) {
                         label6.Text = "Player 1 Lost";
@@ -391,6 +394,11 @@ namespace MusicBeePlugin {
                     else {
                         label6.Text = "Player 2 Lost";
                     }
+                    int sumP1 = p1Score._zeroPoint + p1Score._onePoint + p1Score._twoPoint;
+                    int sumP2 = p2Score._zeroPoint + p2Score._onePoint + p2Score._twoPoint;
+                    updateText(ScoreP1, p1Score._score + "\n" + p1Score._twoPoint + "/" + p1Score._onePoint + "/" + p1Score._zeroPoint + " - " + sumP1);
+                    updateText(ScoreP2, p2Score._score + "\n" + p2Score._twoPoint + "/" + p2Score._onePoint + "/" + p2Score._zeroPoint + " - " + sumP2);
+
                 }
             }
 
@@ -413,6 +421,7 @@ namespace MusicBeePlugin {
             } 
             if(!showBoxes && GAMEOVER) { //hide the D: if the game is over and a new track plays
                 pictureBox2.Hide();
+                pictureBox5.Hide();
                 label6.Hide();
             }
 
@@ -472,10 +481,6 @@ namespace MusicBeePlugin {
 
             }
             if (player == 1 || singlePlayer) {
-               
-
-
-
                 listBox1.DrawMode = DrawMode.OwnerDrawVariable;
 
                 listBox1.Items.Add(new MyListBoxItem(Color.Transparent, "empty line"));
@@ -573,11 +578,17 @@ namespace MusicBeePlugin {
                     mApi.Player_PlayNextTrack();
                     shouldCountTime = true;
                     addSong(0);
+                    incPoints(0);
 
                     handleNextSong();
                 }
                 else if (e.KeyCode == Keys.Space || e.KeyCode == Keys.M) {
                     mApi.Player_PlayPause();
+                }
+            }
+            else {
+                if (e.KeyCode == Keys.Down || e.KeyCode == Keys.K || e.KeyCode == Keys.S) { //skip song
+                    mApi.Player_PlayNextTrack();
                 }
             }
 
@@ -700,6 +711,44 @@ namespace MusicBeePlugin {
                 ScoreP2.Show();
                 TimerP2.Show();
             }
+        }
+
+        private void label6_Click(object sender, EventArgs e) {
+
+        }
+    }
+
+    public class Score {
+        public int _score { get; set; }
+        public int _twoPoint { get; set; }
+        public int _onePoint { get; set; }
+        public int _zeroPoint { get; set; }
+
+        public void reset() {
+            _score = 0;
+            _twoPoint = 0;
+            _onePoint = 0;
+            _zeroPoint = 0;
+        }
+
+        public void intPoints(int points, int required) {
+
+            _score += Math.Min(points, required - (_score % required));
+
+            switch (points){
+                case 0:
+                    _zeroPoint++;
+                    break;
+                case 1:
+                    _onePoint++;
+                    break;
+                case 2:
+                    _twoPoint++;
+                    break;
+                default:
+                    break;
+            }
+            return;
         }
     }
 }

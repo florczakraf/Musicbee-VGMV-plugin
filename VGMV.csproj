@@ -150,6 +150,12 @@
   <ItemGroup>
     <None Include="Resources\alienDanceFast.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Agony.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\noooo.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetDir)\*.*" "C:\Program Files (x86)\MusicBee\Plugins\"</PostBuildEvent>
