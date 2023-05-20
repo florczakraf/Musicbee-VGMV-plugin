@@ -368,10 +368,19 @@ namespace MusicBeePlugin {
             pictureBox4.Image = images[(i * 2) % 65];
             i++;
 
+
+
+            gameOverCheck(false);
+            updateTimers();
+        }
+        //end timer
+
+        private void gameOverCheck(bool quickEnd) {
             int A = mApi.Player_GetPosition(); //song playlength in ms
-            if(A <= 700) {
+            if (A <= 700) {
                 A = 0;
             }
+
             if (!GAMEOVER && shouldCountTime && mApi.Player_GetPlayState() == Plugin.PlayState.Playing) { //if time should move AND song playing,
 
                 if (player == 1 || singlePlayer) { //tick
@@ -380,7 +389,7 @@ namespace MusicBeePlugin {
                 else {
                     timeP2 = P2TimeAtNew - A;
                 }
-                if(timeP1 <= -1000 || timeP2 <= -1000) {
+                if (timeP1 <= -1000 || timeP2 <= -1000 || quickEnd) {
                     GAMEOVER = true;
                     timeP1 = Math.Max(timeP1, 0);
                     timeP2 = Math.Max(timeP2, 0);
@@ -401,10 +410,7 @@ namespace MusicBeePlugin {
 
                 }
             }
-
-            updateTimers();
         }
-        //end timer
 
 
         public void showSong(bool showBoxes) {
@@ -584,6 +590,9 @@ namespace MusicBeePlugin {
                 }
                 else if (e.KeyCode == Keys.Space || e.KeyCode == Keys.M) {
                     mApi.Player_PlayPause();
+                }
+                else if (e.KeyCode == Keys.Q) {
+                    gameOverCheck(true);
                 }
             }
             else {
