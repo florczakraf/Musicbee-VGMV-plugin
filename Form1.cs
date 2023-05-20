@@ -296,7 +296,7 @@ namespace MusicBeePlugin {
 
         public void incPoints(int pointGain) {
             if(player == 1 || singlePlayer) {
-                p1Score.intPoints(pointGain, player1Needs);
+                p1Score.intPoints(pointGain, player1Needs, singlePlayer);
                 if (p1Score._score % player1Needs == 0 && pointGain > 0) {
                     TimerP1.Font = smallerFont;
                     TimerP2.Font = biggerFont;
@@ -306,7 +306,7 @@ namespace MusicBeePlugin {
 
             }
             else {
-                p2Score.intPoints(pointGain, player2Needs);
+                p2Score.intPoints(pointGain, player2Needs, singlePlayer);
                 if (p2Score._score % player2Needs == 0 && pointGain > 0) {
                     TimerP2.Font = smallerFont;
                     TimerP1.Font = biggerFont;
@@ -590,6 +590,9 @@ namespace MusicBeePlugin {
                 if (e.KeyCode == Keys.Down || e.KeyCode == Keys.K || e.KeyCode == Keys.S) { //skip song
                     mApi.Player_PlayNextTrack();
                 }
+                else if(e.KeyCode == Keys.Space || e.KeyCode == Keys.M) {
+                    mApi.Player_PlayPause();
+                }
             }
 
 
@@ -731,9 +734,13 @@ namespace MusicBeePlugin {
             _zeroPoint = 0;
         }
 
-        public void intPoints(int points, int required) {
-
-            _score += Math.Min(points, required - (_score % required));
+        public void intPoints(int points, int required, bool singlePlayer) {
+            if (singlePlayer) {
+                _score += points;
+            }
+            else {
+                _score += Math.Min(points, required - (_score % required));
+            }
 
             switch (points){
                 case 0:
