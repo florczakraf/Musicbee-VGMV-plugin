@@ -591,7 +591,7 @@ namespace MusicBeePlugin {
                 else if (e.KeyCode == Keys.Space || e.KeyCode == Keys.M) {
                     mApi.Player_PlayPause();
                 }
-                else if (e.KeyCode == Keys.Q) {
+                else if (e.KeyCode == Keys.T) {
                     gameOverCheck(true);
                 }
             }
