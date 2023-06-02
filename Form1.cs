@@ -381,7 +381,7 @@ namespace MusicBeePlugin {
                 A = 0;
             }
 
-            if (!GAMEOVER && shouldCountTime && mApi.Player_GetPlayState() == Plugin.PlayState.Playing) { //if time should move AND song playing,
+            if ((!GAMEOVER && shouldCountTime && mApi.Player_GetPlayState() == Plugin.PlayState.Playing) || quickEnd) { //if time should move AND song playing,
 
                 if (player == 1 || singlePlayer) { //tick
                     timeP1 = P1TimeAtNew - A;
