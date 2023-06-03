@@ -63,6 +63,8 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.export = new System.Windows.Forms.Button();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -205,6 +207,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.groupBox1.Controls.Add(this.export);
             this.groupBox1.Controls.Add(this.checkBox3);
             this.groupBox1.Controls.Add(this.checkBox2);
             this.groupBox1.Controls.Add(this.checkBox1);
@@ -227,7 +230,7 @@
             this.groupBox1.Controls.Add(this.radioButton1);
             this.groupBox1.Location = new System.Drawing.Point(12, 59);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1181, 257);
+            this.groupBox1.Size = new System.Drawing.Size(1181, 299);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             // 
@@ -334,6 +337,7 @@
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(37, 27);
             this.numericUpDown2.TabIndex = 11;
+            this.numericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDown2.Value = new decimal(new int[] {
             2,
             0,
@@ -358,6 +362,7 @@
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(37, 27);
             this.numericUpDown1.TabIndex = 10;
+            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDown1.Value = new decimal(new int[] {
             2,
             0,
@@ -531,7 +536,6 @@
             this.label6.TabIndex = 17;
             this.label6.Text = "PLAYER 1 LOST";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // pictureBox5
             // 
@@ -586,6 +590,16 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
+            // 
+            // export
+            // 
+            this.export.Location = new System.Drawing.Point(515, 250);
+            this.export.Name = "export";
+            this.export.Size = new System.Drawing.Size(98, 31);
+            this.export.TabIndex = 21;
+            this.export.Text = "Export Tracklist";
+            this.export.UseVisualStyleBackColor = true;
+            this.export.Click += new System.EventHandler(this.export_Click);
             // 
             // VGMV
             // 
@@ -672,5 +686,7 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.Button export;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }

@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace MusicBeePlugin {
     public partial class VGMV: Form {
@@ -128,10 +129,12 @@ namespace MusicBeePlugin {
             numericUpDown3.Font = mFont12;
             Secs.Font           = mFont12;
             Mins.Font           = mFont12;
+            export.Font         = mFont12;
 
             radioButton2.Font   = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
             radioButton1.Font   = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
             listBox1.Font       = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+
 
 
 
@@ -152,7 +155,6 @@ namespace MusicBeePlugin {
             updateTimers();
 
             groupBox1.Hide();
-
             updateText(ScoreP1, p1Score._score.ToString());
             updateText(ScoreP2, p2Score._score.ToString());
 
@@ -267,6 +269,7 @@ namespace MusicBeePlugin {
             pictureBox2.Hide();
             pictureBox5.Hide();
             Start.Hide();
+
 
             if (showHistory) {
                 listBox1.Show();
@@ -725,10 +728,82 @@ namespace MusicBeePlugin {
             }
         }
 
-        private void label6_Click(object sender, EventArgs e) {
+        private void editMakeFile(string path, string text) {
+            string name = path + "\\VGMV " + DateTime.Now.ToString().Replace("/", "-").Replace(":", "-") + ".csv";
 
+            Clipboard.SetText(name);
+
+            if (!File.Exists(name)) { // If file does not exists
+                File.Create(name).Close(); // Create file
+                using (StreamWriter sw = File.AppendText(name)) {
+                    sw.WriteLine(text); // Write text to .txt file
+                }
+            }
+        }
+
+        private void export_Click(object sender, EventArgs e) {
+
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.Cancel) {
+                return;
+            }
+
+            string output = "Player,Game,Track,Points\n";
+            output += getExportFromListbox(listBox1, 1);
+            
+            if (!singlePlayer) {
+                output += "\n----------\n";
+                output += getExportFromListbox(listBox2, 2);
+            }
+            editMakeFile(folderBrowserDialog1.SelectedPath, output.TrimEnd('\r', '\n'));
+        }
+
+        private string getExportFromListbox(ListBox listBox, int player) {
+            string output = "";
+            foreach (MyListBoxItem item in listBox.Items) {
+                if (item.Message != "empty line") {
+                    //string finalIn = track + "\n" + album + "\n";
+
+                    string track = item.Message.Split('\n')[0];
+                    string album = item.Message.Split('\n')[1];
+                    string score = item.ItemColor.Equals(Color.Green) ? "2" : item.ItemColor.Equals(Color.DarkOrange) ? "1" : "0";
+
+                    string format1 = String.Format("Player {3},\"{1}\",\"{0}\",\"{2}\"\n", track, album, score, player);
+                    output += format1;
+                }
+            }
+
+            return output.TrimEnd('\r', '\n'); //remove ending newline
+        }
+
+        private string getExportFromListboxFancy(ListBox listBox) {
+            string output = "";
+            int maxLength = 0;
+            int maxAlbum = 0;
+
+            foreach (MyListBoxItem item in listBox.Items) {
+                if (item.Message != "empty line") {
+                    maxLength = Math.Max(maxLength, item.Message.Split('\n')[0].Length);
+                    maxAlbum  = Math.Max(maxAlbum,  item.Message.Split('\n')[1].Length);
+                }
+            }
+            foreach (MyListBoxItem item in listBox.Items) {
+                if (item.Message != "empty line") {
+                    //string finalIn = track + "\n" + album + "\n";
+
+                    string track = item.Message.Split('\n')[0];
+                    string album = item.Message.Split('\n')[1];
+                    string score = item.ItemColor.Equals(Color.Green) ? "2" : item.ItemColor.Equals(Color.DarkOrange) ? "1" : "0";
+
+                    string format1 = String.Format("{{0,-{0}}} {{1,-{1}}} ({{2}}) \n", maxLength + 2, maxAlbum + 2);
+                    output += String.Format(format1, track, album, score);
+                }
+            }
+
+            return output.TrimEnd('\r', '\n'); //remove ending newline
         }
     }
+
+
 
     public class Score {
         public int _score { get; set; }
