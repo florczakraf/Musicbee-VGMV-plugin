@@ -137,7 +137,7 @@ namespace MusicBeePlugin {
 
 
 
-
+            trackBar1.Value = (int) (mApi.Player_GetVolume() * 100);
 
             pictureBox3.Visible = false;
             pictureBox4.Visible = false;
@@ -594,6 +594,9 @@ namespace MusicBeePlugin {
                 else if (e.KeyCode == Keys.Space || e.KeyCode == Keys.M) {
                     mApi.Player_PlayPause();
                 }
+                else if (e.KeyCode == Keys.H) {
+                    mApi.Player_SetPosition(0);
+                }
                 else if (e.KeyCode == Keys.T) {
                     gameOverCheck(true);
                 }
@@ -801,6 +804,11 @@ namespace MusicBeePlugin {
 
             return output.TrimEnd('\r', '\n'); //remove ending newline
         }
+
+        private void trackBar1_Scroll(object sender, EventArgs e) {
+            mApi.Player_SetVolume((float) trackBar1.Value / 100);
+        }
+
     }
 
 
