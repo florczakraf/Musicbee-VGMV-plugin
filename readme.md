@@ -10,6 +10,7 @@ Then, in the Musicbee text at the top, click tools and there will be a "Start VG
 * M to pause
 * P to show funny alienDance
 * T to quickly end a round
+* H to restart a song
 
 
 You start by playing a song in the playlist you want to run and then hit start or restart and it'll shuffle in the current playlist.
