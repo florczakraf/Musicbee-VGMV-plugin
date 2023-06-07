@@ -584,8 +584,6 @@ namespace MusicBeePlugin {
                     showSong(true);
                 }
                 else if (e.KeyCode == Keys.Down || e.KeyCode == Keys.K || e.KeyCode == Keys.S) { //skip song
-                    mApi.Player_PlayNextTrack();
-                    shouldCountTime = true;
                     addSong(0);
                     incPoints(0);
 
