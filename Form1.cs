@@ -106,9 +106,11 @@ namespace MusicBeePlugin {
             ScoreP1.Font        = rFont2175;
             TimerP1.Font        = rFont2175;
             TimerP2.Font        = rFont2175;
+            Player1Name.Font    = rFont2175;
+            Player2Name.Font    = rFont2175;
             restartButton.Font  = new Font(rfont.Families[0], 15.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
             settingsButton.Font = new Font(rfont.Families[0], 15.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            label6.Font         = new Font(rfont.Families[0], 36F,    FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            LosingPlayerLabel.Font         = new Font(rfont.Families[0], 20F,    FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
             Start.Font          = new Font(rfont.Families[0], 36F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
 
             //montserrat
@@ -150,6 +152,8 @@ namespace MusicBeePlugin {
 
             TimerP1.Font = smallerFont;
             TimerP2.Font = smallerFont;
+            Player1Name.Font = smallerFont;
+            Player2Name.Font = smallerFont;
 
 
             updateTimers();
@@ -177,7 +181,9 @@ namespace MusicBeePlugin {
 
             pictureBox2.Hide();
             pictureBox5.Hide();
-            label6.Hide();
+            LosingPlayerLabel.Hide();
+            Player1Name.Hide();
+            Player2Name.Hide();
             if (showHistory) {
                 listBox1.Show();
                 listBox2.Show();
@@ -238,6 +244,8 @@ namespace MusicBeePlugin {
             //update fonts
             TimerP1.ForeColor = P1Col;
             TimerP2.ForeColor = P2Col;
+            Player1Name.ForeColor = P1Col;
+            Player2Name.ForeColor = P2Col;
 
             if (player == 2) {
                 TimerP1.Font = smallerFont;
@@ -265,10 +273,12 @@ namespace MusicBeePlugin {
             TimerP1.Show();
             TimerP2.Show();
             groupBox1.Hide();
-            label6.Hide();
+            LosingPlayerLabel.Hide();
             pictureBox2.Hide();
             pictureBox5.Hide();
             Start.Hide();
+            Player1Name.Show();
+            Player2Name.Show();
 
 
             if (showHistory) {
@@ -288,11 +298,13 @@ namespace MusicBeePlugin {
             if (singlePlayer) {
                 listBox2.Hide();
                 ScoreP2.Hide();
+                Player2Name.Hide();
                 TimerP2.Hide();
             }
             else {
                 listBox2.Show();
                 ScoreP2.Show();
+                Player2Name.Show();
                 TimerP2.Show();
             }
         }
@@ -399,12 +411,12 @@ namespace MusicBeePlugin {
                     showSong(true);
                     pictureBox2.Show();
                     pictureBox5.Show();
-                    label6.Show();
+                    LosingPlayerLabel.Show();
                     if (timeP1 <= 0) {
-                        label6.Text = "Player 1 Lost";
+                        LosingPlayerLabel.Text = Player1Name.Text + " Lost";
                     }
                     else {
-                        label6.Text = "Player 2 Lost";
+                        LosingPlayerLabel.Text = Player2Name.Text + " Lost";
                     }
                     int sumP1 = p1Score._zeroPoint + p1Score._onePoint + p1Score._twoPoint;
                     int sumP2 = p2Score._zeroPoint + p2Score._onePoint + p2Score._twoPoint;
@@ -431,7 +443,7 @@ namespace MusicBeePlugin {
             if(!showBoxes && GAMEOVER) { //hide the D: if the game is over and a new track plays
                 pictureBox2.Hide();
                 pictureBox5.Hide();
-                label6.Hide();
+                LosingPlayerLabel.Hide();
             }
 
             try {
@@ -561,6 +573,13 @@ namespace MusicBeePlugin {
         }
 
         public void VGMV_KeyDown(object sender, KeyEventArgs e) {
+            //Typing in text box while settings is open will press the keys so better to have disabled until closed again
+            if (groupBox1.Visible)
+            {
+                e.Handled = false;
+                return;
+            }
+            
             if (e.KeyCode == Keys.P) {
                 pictureBox3.Visible = !pictureBox3.Visible;
                 pictureBox4.Visible = !pictureBox4.Visible;
@@ -679,7 +698,7 @@ namespace MusicBeePlugin {
 
         private void settingsButton_Click(object sender, EventArgs e) {
             if (groupBox1.Visible) { 
-                groupBox1.Hide(); 
+                groupBox1.Hide();
             }
             else {
                 groupBox1.Show();
@@ -810,6 +829,15 @@ namespace MusicBeePlugin {
             mApi.Player_SetVolume((float) trackBar1.Value / 100);
         }
 
+        private void P1NameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            updateText(Player1Name, P1NameTextBox.Text);
+        }
+
+        private void P2NameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            updateText(Player2Name, P2NameTextBox.Text);
+        }
     }
 
 
