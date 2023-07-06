@@ -102,16 +102,16 @@ namespace MusicBeePlugin {
             Font mFont12 = new Font(mfont.Families[0], 12F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
             Font rFont2175 = new Font(rfont.Families[0], 21.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
             //riffic
-            ScoreP2.Font        = rFont2175;
-            ScoreP1.Font        = rFont2175;
-            TimerP1.Font        = rFont2175;
-            TimerP2.Font        = rFont2175;
-            Player1Name.Font    = rFont2175;
-            Player2Name.Font    = rFont2175;
-            restartButton.Font  = new Font(rfont.Families[0], 15.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            settingsButton.Font = new Font(rfont.Families[0], 15.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            LosingPlayerLabel.Font         = new Font(rfont.Families[0], 20F,    FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            Start.Font          = new Font(rfont.Families[0], 36F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            ScoreP2.Font           = rFont2175;
+            ScoreP1.Font           = rFont2175;
+            TimerP1.Font           = rFont2175;
+            TimerP2.Font           = rFont2175;
+            Player1Name.Font       = rFont2175;
+            Player2Name.Font       = rFont2175;
+            restartButton.Font     = new Font(rfont.Families[0], 15.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            settingsButton.Font    = new Font(rfont.Families[0], 15.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            LosingPlayerLabel.Font = new Font(rfont.Families[0], 25F,    FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            Start.Font             = new Font(rfont.Families[0], 36F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
 
             //montserrat
             songName.Font       = new Font(mfont.Families[0], 21.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
@@ -673,11 +673,11 @@ namespace MusicBeePlugin {
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e) {
-            player = 1;
+            startingPlayer = 1;
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e) {
-            player = 2;
+            startingPlayer = 2;
         }
 
         private void button1_Click(object sender, EventArgs e) {
@@ -837,6 +837,10 @@ namespace MusicBeePlugin {
         private void P2NameTextBox_TextChanged(object sender, EventArgs e)
         {
             updateText(Player2Name, P2NameTextBox.Text);
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e) {
+
         }
     }
 
