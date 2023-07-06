@@ -34,11 +34,15 @@
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.displayHistory = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.P2NameTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.export = new System.Windows.Forms.Button();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.P2NameSettingsLabel = new System.Windows.Forms.Label();
+            this.P1NameTextBox = new System.Windows.Forms.TextBox();
+            this.P1NameSettingsLabel = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
@@ -60,13 +64,15 @@
             this.settingsButton = new System.Windows.Forms.Button();
             this.colorDialog2 = new System.Windows.Forms.ColorDialog();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.LosingPlayerLabel = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.Player1Name = new System.Windows.Forms.Label();
+            this.Player2Name = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
@@ -144,7 +150,7 @@
             this.TimerP1.BackColor = System.Drawing.Color.Transparent;
             this.TimerP1.Font = new System.Drawing.Font("Riffic Free Medium", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TimerP1.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.TimerP1.Location = new System.Drawing.Point(22, 59);
+            this.TimerP1.Location = new System.Drawing.Point(45, 59);
             this.TimerP1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.TimerP1.Name = "TimerP1";
             this.TimerP1.Size = new System.Drawing.Size(178, 51);
@@ -210,11 +216,15 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.groupBox1.Controls.Add(this.P2NameTextBox);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.trackBar1);
             this.groupBox1.Controls.Add(this.export);
             this.groupBox1.Controls.Add(this.checkBox3);
             this.groupBox1.Controls.Add(this.checkBox2);
+            this.groupBox1.Controls.Add(this.P2NameSettingsLabel);
+            this.groupBox1.Controls.Add(this.P1NameTextBox);
+            this.groupBox1.Controls.Add(this.P1NameSettingsLabel);
             this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.numericUpDown4);
@@ -238,6 +248,18 @@
             this.groupBox1.Size = new System.Drawing.Size(1181, 257);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // P2NameTextBox
+            // 
+            this.P2NameTextBox.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold);
+            this.P2NameTextBox.Location = new System.Drawing.Point(1009, 46);
+            this.P2NameTextBox.Multiline = true;
+            this.P2NameTextBox.Name = "P2NameTextBox";
+            this.P2NameTextBox.Size = new System.Drawing.Size(166, 49);
+            this.P2NameTextBox.TabIndex = 26;
+            this.P2NameTextBox.Text = "Player 2";
+            this.P2NameTextBox.TextChanged += new System.EventHandler(this.P2NameTextBox_TextChanged);
             // 
             // label3
             // 
@@ -297,6 +319,37 @@
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
+            // P2NameSettingsLabel
+            // 
+            this.P2NameSettingsLabel.Font = new System.Drawing.Font("Montserrat", 15.75F, System.Drawing.FontStyle.Bold);
+            this.P2NameSettingsLabel.Location = new System.Drawing.Point(909, 47);
+            this.P2NameSettingsLabel.Name = "P2NameSettingsLabel";
+            this.P2NameSettingsLabel.Size = new System.Drawing.Size(116, 49);
+            this.P2NameSettingsLabel.TabIndex = 27;
+            this.P2NameSettingsLabel.Text = "Name:";
+            this.P2NameSettingsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // P1NameTextBox
+            // 
+            this.P1NameTextBox.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.P1NameTextBox.Location = new System.Drawing.Point(101, 46);
+            this.P1NameTextBox.Multiline = true;
+            this.P1NameTextBox.Name = "P1NameTextBox";
+            this.P1NameTextBox.Size = new System.Drawing.Size(166, 49);
+            this.P1NameTextBox.TabIndex = 25;
+            this.P1NameTextBox.Text = "Player 1";
+            this.P1NameTextBox.TextChanged += new System.EventHandler(this.P1NameTextBox_TextChanged);
+            // 
+            // P1NameSettingsLabel
+            // 
+            this.P1NameSettingsLabel.Font = new System.Drawing.Font("Montserrat", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.P1NameSettingsLabel.Location = new System.Drawing.Point(6, 46);
+            this.P1NameSettingsLabel.Name = "P1NameSettingsLabel";
+            this.P1NameSettingsLabel.Size = new System.Drawing.Size(89, 49);
+            this.P1NameSettingsLabel.TabIndex = 24;
+            this.P1NameSettingsLabel.Text = "Name:";
+            this.P1NameSettingsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
@@ -341,7 +394,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(1005, 105);
+            this.label5.Location = new System.Drawing.Point(1005, 153);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(127, 22);
             this.label5.TabIndex = 13;
@@ -351,7 +404,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(51, 105);
+            this.label4.Location = new System.Drawing.Point(50, 153);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(127, 22);
             this.label4.TabIndex = 12;
@@ -360,7 +413,7 @@
             // numericUpDown2
             // 
             this.numericUpDown2.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown2.Location = new System.Drawing.Point(1138, 103);
+            this.numericUpDown2.Location = new System.Drawing.Point(1138, 151);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -385,7 +438,7 @@
             // numericUpDown1
             // 
             this.numericUpDown1.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown1.Location = new System.Drawing.Point(8, 103);
+            this.numericUpDown1.Location = new System.Drawing.Point(7, 151);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -410,7 +463,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(1036, 58);
+            this.button2.Location = new System.Drawing.Point(1036, 106);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(139, 39);
             this.button2.TabIndex = 9;
@@ -421,7 +474,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(8, 58);
+            this.button1.Location = new System.Drawing.Point(7, 106);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(139, 39);
             this.button1.TabIndex = 8;
@@ -514,7 +567,7 @@
             // 
             this.radioButton2.AutoSize = true;
             this.radioButton2.Font = new System.Drawing.Font("Montserrat", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton2.Location = new System.Drawing.Point(1004, 26);
+            this.radioButton2.Location = new System.Drawing.Point(1003, 13);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.radioButton2.Size = new System.Drawing.Size(172, 30);
@@ -529,7 +582,7 @@
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
             this.radioButton1.Font = new System.Drawing.Font("Montserrat", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton1.Location = new System.Drawing.Point(6, 26);
+            this.radioButton1.Location = new System.Drawing.Point(6, 13);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(168, 30);
             this.radioButton1.TabIndex = 0;
@@ -564,15 +617,15 @@
             this.listBox1.TabIndex = 15;
             this.listBox1.TabStop = false;
             // 
-            // label6
+            // LosingPlayerLabel
             // 
-            this.label6.Font = new System.Drawing.Font("Riffic Free Medium", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(470, 517);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(255, 124);
-            this.label6.TabIndex = 17;
-            this.label6.Text = "PLAYER 1 LOST";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LosingPlayerLabel.Font = new System.Drawing.Font("Riffic Free Medium", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LosingPlayerLabel.Location = new System.Drawing.Point(470, 517);
+            this.LosingPlayerLabel.Name = "LosingPlayerLabel";
+            this.LosingPlayerLabel.Size = new System.Drawing.Size(255, 124);
+            this.LosingPlayerLabel.TabIndex = 17;
+            this.LosingPlayerLabel.Text = "PLAYER 1 LOST";
+            this.LosingPlayerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox5
             // 
@@ -628,19 +681,40 @@
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             // 
+            // Player1Name
+            // 
+            this.Player1Name.Font = new System.Drawing.Font("Riffic Free Medium", 12F, System.Drawing.FontStyle.Bold);
+            this.Player1Name.Location = new System.Drawing.Point(8, 110);
+            this.Player1Name.Name = "Player1Name";
+            this.Player1Name.Size = new System.Drawing.Size(253, 39);
+            this.Player1Name.TabIndex = 21;
+            this.Player1Name.Text = "Player1";
+            this.Player1Name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Player2Name
+            // 
+            this.Player2Name.Font = new System.Drawing.Font("Riffic Free Medium", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Player2Name.Location = new System.Drawing.Point(944, 110);
+            this.Player2Name.Name = "Player2Name";
+            this.Player2Name.Size = new System.Drawing.Size(253, 39);
+            this.Player2Name.TabIndex = 22;
+            this.Player2Name.Text = "Player2";
+            this.Player2Name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // VGMV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Lavender;
             this.ClientSize = new System.Drawing.Size(1204, 668);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.Player1Name);
+            this.Controls.Add(this.Player2Name);
             this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.LosingPlayerLabel);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.restartButton);
             this.Controls.Add(this.settingsButton);
@@ -675,6 +749,12 @@
         }
 
         #endregion
+        private System.Windows.Forms.TextBox P2NameTextBox;
+        private System.Windows.Forms.Label P2NameSettingsLabel;
+        private System.Windows.Forms.Label Player2Name;
+        private System.Windows.Forms.TextBox P1NameTextBox;
+        private System.Windows.Forms.Label P1NameSettingsLabel;
+        private System.Windows.Forms.Label Player1Name;
         private System.Windows.Forms.Label songName;
         private System.Windows.Forms.Button Start;
         private System.Windows.Forms.Label ScoreP2;
@@ -707,7 +787,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDown4;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown numericUpDown3;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label LosingPlayerLabel;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.PictureBox pictureBox4;
