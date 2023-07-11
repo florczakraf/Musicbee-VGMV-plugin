@@ -63,6 +63,8 @@ namespace MusicBeePlugin {
             //pictureBox3.Image = images[1];
         }
 
+        private SettingsManager _settingsManager = new SettingsManager();
+
         int i = 0;
 
         int startingPlayer = 1;
@@ -144,9 +146,9 @@ namespace MusicBeePlugin {
             pictureBox3.Visible = false;
             pictureBox4.Visible = false;
 
-
-            showHistory = displayHistory.Checked;
+            UpdateSettings();
             player = startingPlayer;
+
             timeP1 = startTime;
             timeP2 = startTime;
 
@@ -191,6 +193,32 @@ namespace MusicBeePlugin {
             else {
                 listBox1.Hide();
                 listBox2.Hide();
+            }
+
+
+        }
+
+        private void UpdateSettings()
+        {
+            if (_settingsManager.LoadSettings())
+            {
+                startingPlayer = _settingsManager.P1Start ? 1 : 2;
+
+                updateText(Player1Name, _settingsManager.P1Name);
+                P1Col = _settingsManager.P1Color;
+                player1Needs = _settingsManager.P1PointsToPass;
+                timePass1 = (int)_settingsManager.P1TimeIncrement * 1000;
+
+                updateText(Player2Name, _settingsManager.P2Name);
+                P2NameTextBox.Text = _settingsManager.P2Name;
+                P2Col = _settingsManager.P2Color;
+                player2Needs = _settingsManager.P2PointsToPass;
+                timePass2 = (int)_settingsManager.P2TimeIncrement * 1000;
+
+                showHistory = _settingsManager.DisplayHistory;
+                shouldLoop = _settingsManager.LoopPlaylist;
+                shouldShuffle = _settingsManager.ShufflePlaylist;
+                singlePlayer = _settingsManager.SinglePlayer;
             }
         }
 
