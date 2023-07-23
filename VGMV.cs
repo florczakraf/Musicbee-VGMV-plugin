@@ -18,13 +18,13 @@ namespace MusicBeePlugin
             mbApiInterface.Initialise(apiInterfacePtr);
             about.PluginInfoVersion = PluginInfoVersion;
             about.Name = "VGM Versus";
-            about.Description = "Testing to try and make a VGM Vesus in Musicbee!";
+            about.Description = "VGM Vesus in Musicbee!";
             about.Author = "MarvelousBilly";
             about.TargetApplication = "";   //  the name of a Plugin Storage device or panel header for a dockable panel
             about.Type = PluginType.General;
             about.VersionMajor = 1;  // your plugin version
-            about.VersionMinor = 0;
-            about.Revision = 1;
+            about.VersionMinor = 3;
+            about.Revision = 0;
             about.MinInterfaceVersion = MinInterfaceVersion;
             about.MinApiRevision = MinApiRevision;
             about.ReceiveNotifications = (ReceiveNotificationFlags.PlayerEvents | ReceiveNotificationFlags.TagEvents);
@@ -72,7 +72,9 @@ namespace MusicBeePlugin
         // uninstall this plugin - clean up any persisted files
         public void Uninstall()
         {
-            //File.Delete(mbApiInterface.Setting_GetPersistentStoragePath.Invoke() + "mb_VGMV.xml");
+            //File.Delete(mbApiInterface.Setting_GetPersistentStoragePath.Invoke() + "mb_VGMV.dll");
+            File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/MusicBee/VGMVSettingsFile.ini");
+
         }
 
         // receive event notifications from MusicBee
@@ -88,22 +90,20 @@ namespace MusicBeePlugin
                     {
                         case PlayState.Playing:
                         case PlayState.Paused:
-                            // ...
                             break;
                     }
                     break;
                 case NotificationType.TrackChanged:
                     myForm.showSong(false);
-                    string track = mbApiInterface.NowPlaying_GetFileTag(MetaDataType.TrackTitle);
-                    string artist = mbApiInterface.NowPlaying_GetFileTag(MetaDataType.Artist);
-                    // ...
                     break;
-                
+                case NotificationType.VolumeLevelChanged:
+                    myForm.trackBar1_Set();
+                    break;
             }
         }
 
         private void createMenuItem() {
-            mbApiInterface.MB_AddMenuItem("mnuTools/Start VGMV", "HotKey For VGMV", menuClicked);
+            mbApiInterface.MB_AddMenuItem("mnuTools/Start VGMV", "Open VGMV", menuClicked);
         }
         
         private void menuClicked(object sender, EventArgs args) {
