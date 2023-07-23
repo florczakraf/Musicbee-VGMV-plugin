@@ -63,6 +63,8 @@ namespace MusicBeePlugin {
             //pictureBox3.Image = images[1];
         }
 
+        private SettingsManager _settingsManager = new SettingsManager();
+
         int i = 0;
 
         int startingPlayer = 1;
@@ -97,59 +99,64 @@ namespace MusicBeePlugin {
 
         public void VGMV_Load(object sender, EventArgs e) {
             InitTimer();
+
             smallerFont = new Font(rfont.Families[0], 15F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            biggerFont  = new Font(rfont.Families[0], 30F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            biggerFont = new Font(rfont.Families[0], 30F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
             Font mFont12 = new Font(mfont.Families[0], 12F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
             Font rFont2175 = new Font(rfont.Families[0], 21.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
             //riffic
-            ScoreP2.Font        = rFont2175;
-            ScoreP1.Font        = rFont2175;
-            TimerP1.Font        = rFont2175;
-            TimerP2.Font        = rFont2175;
-            restartButton.Font  = new Font(rfont.Families[0], 15.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            ScoreP2.Font = rFont2175;
+            ScoreP1.Font = rFont2175;
+            TimerP1.Font = rFont2175;
+            TimerP2.Font = rFont2175;
+            Player1Name.Font = rFont2175;
+            Player2Name.Font = rFont2175;
+            restartButton.Font = new Font(rfont.Families[0], 15.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
             settingsButton.Font = new Font(rfont.Families[0], 15.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            label6.Font         = new Font(rfont.Families[0], 36F,    FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            Start.Font          = new Font(rfont.Families[0], 36F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            LosingPlayerLabel.Font = new Font(rfont.Families[0], 25.00F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            Start.Font = new Font(rfont.Families[0], 36.00F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
 
             //montserrat
-            songName.Font       = new Font(mfont.Families[0], 21.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            listBox2.Font       = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            songName.Font = new Font(mfont.Families[0], 20.00F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            listBox2.Font = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
 
-            displayHistory.Font = mFont12;
-            label8.Font         = mFont12;
-            numericUpDown4.Font = mFont12;
-            label5.Font         = mFont12;
-            label4.Font         = mFont12;
-            numericUpDown2.Font = mFont12;
-            numericUpDown1.Font = mFont12;
-            button2.Font        = mFont12;
-            button1.Font        = mFont12;
-            label2.Font         = mFont12;
-            label1.Font         = mFont12;
-            numericUpDown3.Font = mFont12;
-            Secs.Font           = mFont12;
-            Mins.Font           = mFont12;
-            export.Font         = mFont12;
+            DisplayHistoryCheckBox.Font = mFont12;
+            label8.Font = mFont12;
+            P2IncrementUpDown.Font = mFont12;
+            label5.Font = mFont12;
+            label4.Font = mFont12;
+            P2PointsToPassUpDown.Font = mFont12;
+            P1PointsToPassUpDown.Font = mFont12;
+            P2ChangeColorButton.Font = mFont12;
+            P1ChangeColorButton.Font = mFont12;
+            label2.Font = mFont12;
+            label1.Font = mFont12;
+            P1IncrementUpDown.Font = mFont12;
+            Secs.Font = mFont12;
+            Mins.Font = mFont12;
+            export.Font = mFont12;
 
-            radioButton2.Font   = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            radioButton1.Font   = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            listBox1.Font       = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            P2StartsRadioButton.Font = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            P1StartsRadioButton.Font = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            listBox1.Font = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
 
 
 
-            trackBar1.Value = (int) (mApi.Player_GetVolume() * 100);
+            trackBar1_Set();
 
             pictureBox3.Visible = false;
             pictureBox4.Visible = false;
 
-
-            showHistory = displayHistory.Checked;
+            UpdateSettings();
             player = startingPlayer;
+
             timeP1 = startTime;
             timeP2 = startTime;
 
             TimerP1.Font = smallerFont;
             TimerP2.Font = smallerFont;
+            Player1Name.Font = smallerFont;
+            Player2Name.Font = smallerFont;
 
 
             updateTimers();
@@ -177,7 +184,10 @@ namespace MusicBeePlugin {
 
             pictureBox2.Hide();
             pictureBox5.Hide();
-            label6.Hide();
+            LosingPlayerLabel.Hide();
+            Player1Name.Hide();
+            Player2Name.Hide();
+
             if (showHistory) {
                 listBox1.Show();
                 listBox2.Show();
@@ -186,12 +196,84 @@ namespace MusicBeePlugin {
                 listBox1.Hide();
                 listBox2.Hide();
             }
+
+
+        }
+
+
+
+        private void UpdateSettings() {
+            if (_settingsManager.LoadSettings()) {
+                startingPlayer = _settingsManager.P1Start ? 1 : 2;
+                if (startingPlayer == 1) {
+                    P1StartsRadioButton.Checked = true;
+                } else {
+                    P2StartsRadioButton.Checked = true;
+                }
+
+                Mins.Value = _settingsManager.Minutes;
+                Secs.Value = _settingsManager.Seconds;
+
+                startTime = (int)(Mins.Value * 60 + Secs.Value) * 1000;
+
+                updateText(Player1Name, _settingsManager.P1Name);
+                P1NameTextBox.Text = _settingsManager.P1Name;
+
+                P1Col = _settingsManager.P1Color;
+                P1ChangeColorButton.ForeColor = P1Col;
+                colorDialog1.Color = P1Col;
+
+                player1Needs = _settingsManager.P1PointsToPass;
+                P1PointsToPassUpDown.Value = player1Needs;
+
+                timePass1 = (int)_settingsManager.P1TimeIncrement * 1000;
+                P1IncrementUpDown.Value = (decimal)_settingsManager.P1TimeIncrement;
+
+                updateText(Player2Name, _settingsManager.P2Name);
+                P2NameTextBox.Text = _settingsManager.P2Name;
+
+                P2Col = _settingsManager.P2Color;
+                P2ChangeColorButton.ForeColor = P2Col;
+                colorDialog2.Color = P2Col;
+
+                player2Needs = _settingsManager.P2PointsToPass;
+                P2PointsToPassUpDown.Value = player2Needs;
+
+                timePass2 = (int)_settingsManager.P2TimeIncrement * 1000;
+                P2IncrementUpDown.Value = (decimal)_settingsManager.P2TimeIncrement;
+
+                showHistory = _settingsManager.DisplayHistory;
+                DisplayHistoryCheckBox.Checked = showHistory;
+
+
+                shouldLoop = _settingsManager.LoopPlaylist;
+                LoopPlaylistCheckBox.Checked = shouldLoop;
+
+                shouldShuffle = _settingsManager.ShufflePlaylist;
+                ShufflePlaylistCheckBox.Checked = shouldShuffle;
+
+                singlePlayer = _settingsManager.SinglePlayer;
+                SingePlayerCheckBox.Checked = singlePlayer;
+
+
+                if (showHistory) {
+                    listBox1.Show();
+                    listBox2.Show();
+                }
+                else {
+                    listBox1.Hide();
+                    listBox2.Hide();
+                }
+
+                updateColors();
+            }
         }
 
         public void start() {
             //string startingSong = mApi.NowPlayingList_GetListFileUrl(0); //gets current song
             //mApi.NowPlayingList_QueueLast(startingSong); //plays the first song last in the queue
-
+            //TODO:
+            //make loop and repeat automatically update if the setting is changed in MusicBee
             if (shouldLoop) {
                 mApi.Player_SetRepeat(Plugin.RepeatMode.All); //loop playlist
             }
@@ -230,14 +312,16 @@ namespace MusicBeePlugin {
             pictureBox4.Visible = false;
 
             startTime = (int)(Mins.Value * 60 + Secs.Value) * 1000;
-            timePass1 = (int)(numericUpDown3.Value * 1000);
-            timePass2 = (int)(numericUpDown4.Value * 1000);
+            timePass1 = (int)(P1IncrementUpDown.Value * 1000);
+            timePass2 = (int)(P2IncrementUpDown.Value * 1000);
 
             player = startingPlayer;
 
             //update fonts
             TimerP1.ForeColor = P1Col;
             TimerP2.ForeColor = P2Col;
+            Player1Name.ForeColor = P1Col;
+            Player2Name.ForeColor = P2Col;
 
             if (player == 2) {
                 TimerP1.Font = smallerFont;
@@ -265,10 +349,12 @@ namespace MusicBeePlugin {
             TimerP1.Show();
             TimerP2.Show();
             groupBox1.Hide();
-            label6.Hide();
+            LosingPlayerLabel.Hide();
             pictureBox2.Hide();
             pictureBox5.Hide();
             Start.Hide();
+            Player1Name.Show();
+            Player2Name.Show();
 
 
             if (showHistory) {
@@ -288,17 +374,19 @@ namespace MusicBeePlugin {
             if (singlePlayer) {
                 listBox2.Hide();
                 ScoreP2.Hide();
+                Player2Name.Hide();
                 TimerP2.Hide();
             }
             else {
-                listBox2.Show();
+                if (showHistory) { listBox2.Show(); }
                 ScoreP2.Show();
+                Player2Name.Show();
                 TimerP2.Show();
             }
         }
 
         public void incPoints(int pointGain) {
-            if(player == 1 || singlePlayer) {
+            if (player == 1 || singlePlayer) {
                 p1Score.intPoints(pointGain, player1Needs, singlePlayer);
                 if (p1Score._score % player1Needs == 0 && pointGain > 0) {
                     TimerP1.Font = smallerFont;
@@ -354,7 +442,6 @@ namespace MusicBeePlugin {
             }
         }
 
-        //TODO: singleplayer
 
         //timer
         private Timer timer1;
@@ -399,12 +486,12 @@ namespace MusicBeePlugin {
                     showSong(true);
                     pictureBox2.Show();
                     pictureBox5.Show();
-                    label6.Show();
+                    LosingPlayerLabel.Show();
                     if (timeP1 <= 0) {
-                        label6.Text = "Player 1 Lost";
+                        LosingPlayerLabel.Text = Player1Name.Text + " Lost";
                     }
                     else {
-                        label6.Text = "Player 2 Lost";
+                        LosingPlayerLabel.Text = Player2Name.Text + " Lost";
                     }
                     int sumP1 = p1Score._zeroPoint + p1Score._onePoint + p1Score._twoPoint;
                     int sumP2 = p2Score._zeroPoint + p2Score._onePoint + p2Score._twoPoint;
@@ -426,12 +513,12 @@ namespace MusicBeePlugin {
             if (!showBoxes && !GAMEOVER) { //dont update if game is not over, and hide the game 
                 pictureBox1.Hide();
                 songName.Hide();
-                return; 
-            } 
-            if(!showBoxes && GAMEOVER) { //hide the D: if the game is over and a new track plays
+                return;
+            }
+            if (!showBoxes && GAMEOVER) { //hide the D: if the game is over and a new track plays
                 pictureBox2.Hide();
                 pictureBox5.Hide();
-                label6.Hide();
+                LosingPlayerLabel.Hide();
             }
 
             try {
@@ -441,7 +528,7 @@ namespace MusicBeePlugin {
                 byte[] img;
                 mApi.Library_GetArtworkEx(mApi.NowPlaying_GetFileUrl(), 0, true, out temp1, out temp2, out img);
                 Bitmap Art = (Bitmap)new ImageConverter().ConvertFrom(img);
-                
+
                 pictureBox1.Image = Art;
             }
             catch {
@@ -473,7 +560,7 @@ namespace MusicBeePlugin {
             public Color ItemColor { get; set; }
             public string Message { get; set; }
         }
-        
+
         public void addSong(int value) {
             string album = mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.Album);
             string track = mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.TrackTitle);
@@ -486,7 +573,7 @@ namespace MusicBeePlugin {
             else if (value == 2) {
                 toBeAss = Color.Green;
             }
-            if (!showHistory) { 
+            if (!showHistory) {
 
             }
             if (player == 1 || singlePlayer) {
@@ -561,6 +648,12 @@ namespace MusicBeePlugin {
         }
 
         public void VGMV_KeyDown(object sender, KeyEventArgs e) {
+            //Typing in text box while settings is open will press the keys so better to have disabled until closed again
+            if (groupBox1.Visible) {
+                e.Handled = false;
+                return;
+            }
+
             if (e.KeyCode == Keys.P) {
                 pictureBox3.Visible = !pictureBox3.Visible;
                 pictureBox4.Visible = !pictureBox4.Visible;
@@ -594,12 +687,17 @@ namespace MusicBeePlugin {
                 }
                 else if (e.KeyCode == Keys.H) {
                     mApi.Player_SetPosition(0);
-                    if(mApi.Player_GetPlayState() == Plugin.PlayState.Paused) {
+                    if (mApi.Player_GetPlayState() == Plugin.PlayState.Paused) {
                         mApi.Player_PlayPause();
                     }
                 }
                 else if (e.KeyCode == Keys.T) {
                     gameOverCheck(true);
+                }
+                else if (e.Control && e.Shift && e.KeyCode == Keys.R) {
+                    //reset settings (with pop-up?)
+                    _settingsManager.SetDefaultSettings();
+                    UpdateSettings();
                 }
             }
             else {
@@ -642,7 +740,7 @@ namespace MusicBeePlugin {
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e) {
-            showHistory = displayHistory.Checked;
+            showHistory = DisplayHistoryCheckBox.Checked;
             if (showHistory) {
                 listBox1.Show();
                 listBox2.Show();
@@ -651,35 +749,45 @@ namespace MusicBeePlugin {
                 listBox1.Hide();
                 listBox2.Hide();
             }
+            _settingsManager.DisplayHistory = showHistory;
+            _settingsManager.SaveSettings();
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e) {
-            player = 1;
+            startingPlayer = 1;
+            _settingsManager.P1Start = true;
+            _settingsManager.SaveSettings();
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e) {
-            player = 2;
+            startingPlayer = 2;
+            _settingsManager.P1Start = false;
+            _settingsManager.SaveSettings();
         }
 
         private void button1_Click(object sender, EventArgs e) {
             if (colorDialog1.ShowDialog() == DialogResult.OK) {
-                button1.ForeColor = colorDialog1.Color;
+                P1ChangeColorButton.ForeColor = colorDialog1.Color;
                 P1Col = colorDialog1.Color;
                 updateColors();
+                _settingsManager.P1Color = P1Col;
+                _settingsManager.SaveSettings();
             }
         }
 
         private void button2_Click(object sender, EventArgs e) {
             if (colorDialog2.ShowDialog() == DialogResult.OK) {
-                button2.ForeColor = colorDialog2.Color;
+                P2ChangeColorButton.ForeColor = colorDialog2.Color;
                 P2Col = colorDialog2.Color;
                 updateColors();
+                _settingsManager.P2Color = P2Col;
+                _settingsManager.SaveSettings();
             }
         }
 
         private void settingsButton_Click(object sender, EventArgs e) {
             if (groupBox1.Visible) { 
-                groupBox1.Hide(); 
+                groupBox1.Hide();
             }
             else {
                 groupBox1.Show();
@@ -687,49 +795,67 @@ namespace MusicBeePlugin {
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e) {
-            player1Needs = (int)numericUpDown1.Value;
+            player1Needs = (int)P1PointsToPassUpDown.Value;
+            _settingsManager.P1PointsToPass = player1Needs;
+            _settingsManager.SaveSettings();
         }
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e) {
-            player2Needs = (int)numericUpDown2.Value;
+            player2Needs = (int)P2PointsToPassUpDown.Value;
+            _settingsManager.P2PointsToPass = player2Needs;
+            _settingsManager.SaveSettings();
         }
 
         private void Mins_ValueChanged(object sender, EventArgs e) {
             startTime = (int)(Mins.Value * 60 + Secs.Value) * 1000;
+            _settingsManager.Minutes = (int)Mins.Value;
+            _settingsManager.SaveSettings();
         }
 
         private void Secs_ValueChanged(object sender, EventArgs e) {
             startTime = (int)(Mins.Value * 60 + Secs.Value) * 1000;
+            _settingsManager.Seconds = (int)Secs.Value;
+            _settingsManager.SaveSettings();
         }
 
         private void numericUpDown3_ValueChanged(object sender, EventArgs e) {
-            timePass1 = (int)(numericUpDown3.Value * 1000);
+            timePass1 = (int)(P1IncrementUpDown.Value * 1000);
+            _settingsManager.P1TimeIncrement = (float) P1IncrementUpDown.Value;
+            _settingsManager.SaveSettings();
         }
 
         private void numericUpDown4_ValueChanged(object sender, EventArgs e) {
-            timePass2 = (int)(numericUpDown4.Value * 1000);
+            timePass2 = (int)(P2IncrementUpDown.Value * 1000);
+            _settingsManager.P2TimeIncrement = (float) P2IncrementUpDown.Value;
+            _settingsManager.SaveSettings();
         }
 
         private void checkBox1_CheckedChanged_1(object sender, EventArgs e) {
-            shouldLoop = checkBox1.Checked;
+            shouldLoop = LoopPlaylistCheckBox.Checked;
+            _settingsManager.LoopPlaylist = shouldLoop;
+            _settingsManager.SaveSettings();
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e) {
-            shouldShuffle = checkBox2.Checked;
+            shouldShuffle = ShufflePlaylistCheckBox.Checked;
+            _settingsManager.ShufflePlaylist = shouldShuffle;
+            _settingsManager.SaveSettings();
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e) {
-            singlePlayer = checkBox3.Checked;
+            singlePlayer = SingePlayerCheckBox.Checked;
             if (singlePlayer) {
                 listBox2.Hide();
                 ScoreP2.Hide();
                 TimerP2.Hide();
             }
             else {
-                listBox2.Show();
+                if (showHistory) { listBox2.Show(); }
                 ScoreP2.Show();
                 TimerP2.Show();
             }
+            _settingsManager.SinglePlayer = singlePlayer;
+            _settingsManager.SaveSettings();
         }
 
         private void editMakeFile(string path, string text) {
@@ -808,6 +934,27 @@ namespace MusicBeePlugin {
 
         private void trackBar1_Scroll(object sender, EventArgs e) {
             mApi.Player_SetVolume((float) trackBar1.Value / 100);
+        }
+        public void trackBar1_Set() {
+            trackBar1.Value = (int) (mApi.Player_GetVolume() * 100);
+        }
+
+        private void P1NameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            updateText(Player1Name, P1NameTextBox.Text);
+            _settingsManager.P1Name = P1NameTextBox.Text;
+            _settingsManager.SaveSettings();
+        }
+
+        private void P2NameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            updateText(Player2Name, P2NameTextBox.Text);
+            _settingsManager.P2Name = P2NameTextBox.Text;
+            _settingsManager.SaveSettings();
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e) {
+
         }
 
     }

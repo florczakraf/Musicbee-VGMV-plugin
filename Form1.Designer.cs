@@ -32,47 +32,53 @@
             this.TimerP2 = new System.Windows.Forms.Label();
             this.restartButton = new System.Windows.Forms.Button();
             this.listBox2 = new System.Windows.Forms.ListBox();
-            this.displayHistory = new System.Windows.Forms.CheckBox();
+            this.DisplayHistoryCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.P2NameTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.export = new System.Windows.Forms.Button();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.SingePlayerCheckBox = new System.Windows.Forms.CheckBox();
+            this.ShufflePlaylistCheckBox = new System.Windows.Forms.CheckBox();
+            this.P2NameSettingsLabel = new System.Windows.Forms.Label();
+            this.P1NameTextBox = new System.Windows.Forms.TextBox();
+            this.P1NameSettingsLabel = new System.Windows.Forms.Label();
+            this.LoopPlaylistCheckBox = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.P2IncrementUpDown = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.P2PointsToPassUpDown = new System.Windows.Forms.NumericUpDown();
+            this.P1PointsToPassUpDown = new System.Windows.Forms.NumericUpDown();
+            this.P2ChangeColorButton = new System.Windows.Forms.Button();
+            this.P1ChangeColorButton = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.P1IncrementUpDown = new System.Windows.Forms.NumericUpDown();
             this.Secs = new System.Windows.Forms.NumericUpDown();
             this.Mins = new System.Windows.Forms.NumericUpDown();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.P2StartsRadioButton = new System.Windows.Forms.RadioButton();
+            this.P1StartsRadioButton = new System.Windows.Forms.RadioButton();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.settingsButton = new System.Windows.Forms.Button();
             this.colorDialog2 = new System.Windows.Forms.ColorDialog();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.LosingPlayerLabel = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.Player1Name = new System.Windows.Forms.Label();
+            this.Player2Name = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.P2IncrementUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.P2PointsToPassUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.P1PointsToPassUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.P1IncrementUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Secs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mins)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
@@ -89,10 +95,10 @@
             this.songName.BackColor = System.Drawing.Color.Transparent;
             this.songName.Font = new System.Drawing.Font("Montserrat", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.songName.ForeColor = System.Drawing.Color.Coral;
-            this.songName.Location = new System.Drawing.Point(204, 9);
+            this.songName.Location = new System.Drawing.Point(266, 9);
             this.songName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.songName.Name = "songName";
-            this.songName.Size = new System.Drawing.Size(773, 122);
+            this.songName.Size = new System.Drawing.Size(673, 122);
             this.songName.TabIndex = 1;
             this.songName.Text = "VGM Versus";
             this.songName.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -144,7 +150,7 @@
             this.TimerP1.BackColor = System.Drawing.Color.Transparent;
             this.TimerP1.Font = new System.Drawing.Font("Riffic Free Medium", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TimerP1.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.TimerP1.Location = new System.Drawing.Point(22, 59);
+            this.TimerP1.Location = new System.Drawing.Point(45, 59);
             this.TimerP1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.TimerP1.Name = "TimerP1";
             this.TimerP1.Size = new System.Drawing.Size(178, 51);
@@ -193,51 +199,67 @@
             this.listBox2.TabStop = false;
             this.listBox2.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox2_DrawItem);
             // 
-            // displayHistory
+            // DisplayHistoryCheckBox
             // 
-            this.displayHistory.AutoSize = true;
-            this.displayHistory.Checked = true;
-            this.displayHistory.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.displayHistory.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.displayHistory.Location = new System.Drawing.Point(304, 169);
-            this.displayHistory.Name = "displayHistory";
-            this.displayHistory.Size = new System.Drawing.Size(156, 26);
-            this.displayHistory.TabIndex = 12;
-            this.displayHistory.Text = "Display History";
-            this.displayHistory.UseVisualStyleBackColor = true;
-            this.displayHistory.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.DisplayHistoryCheckBox.AutoSize = true;
+            this.DisplayHistoryCheckBox.Checked = true;
+            this.DisplayHistoryCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.DisplayHistoryCheckBox.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DisplayHistoryCheckBox.Location = new System.Drawing.Point(304, 169);
+            this.DisplayHistoryCheckBox.Name = "DisplayHistoryCheckBox";
+            this.DisplayHistoryCheckBox.Size = new System.Drawing.Size(156, 26);
+            this.DisplayHistoryCheckBox.TabIndex = 12;
+            this.DisplayHistoryCheckBox.Text = "Display History";
+            this.DisplayHistoryCheckBox.UseVisualStyleBackColor = true;
+            this.DisplayHistoryCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.groupBox1.Controls.Add(this.P2NameTextBox);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.trackBar1);
             this.groupBox1.Controls.Add(this.export);
-            this.groupBox1.Controls.Add(this.checkBox3);
-            this.groupBox1.Controls.Add(this.checkBox2);
-            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Controls.Add(this.SingePlayerCheckBox);
+            this.groupBox1.Controls.Add(this.ShufflePlaylistCheckBox);
+            this.groupBox1.Controls.Add(this.P2NameSettingsLabel);
+            this.groupBox1.Controls.Add(this.P1NameTextBox);
+            this.groupBox1.Controls.Add(this.P1NameSettingsLabel);
+            this.groupBox1.Controls.Add(this.LoopPlaylistCheckBox);
             this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.numericUpDown4);
+            this.groupBox1.Controls.Add(this.P2IncrementUpDown);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.numericUpDown2);
-            this.groupBox1.Controls.Add(this.displayHistory);
-            this.groupBox1.Controls.Add(this.numericUpDown1);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.P2PointsToPassUpDown);
+            this.groupBox1.Controls.Add(this.DisplayHistoryCheckBox);
+            this.groupBox1.Controls.Add(this.P1PointsToPassUpDown);
+            this.groupBox1.Controls.Add(this.P2ChangeColorButton);
+            this.groupBox1.Controls.Add(this.P1ChangeColorButton);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.numericUpDown3);
+            this.groupBox1.Controls.Add(this.P1IncrementUpDown);
             this.groupBox1.Controls.Add(this.Secs);
             this.groupBox1.Controls.Add(this.Mins);
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.P2StartsRadioButton);
+            this.groupBox1.Controls.Add(this.P1StartsRadioButton);
             this.groupBox1.Location = new System.Drawing.Point(12, 59);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1181, 257);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // P2NameTextBox
+            // 
+            this.P2NameTextBox.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold);
+            this.P2NameTextBox.Location = new System.Drawing.Point(1009, 46);
+            this.P2NameTextBox.Multiline = true;
+            this.P2NameTextBox.Name = "P2NameTextBox";
+            this.P2NameTextBox.Size = new System.Drawing.Size(166, 49);
+            this.P2NameTextBox.TabIndex = 26;
+            this.P2NameTextBox.Text = "Player 2";
+            this.P2NameTextBox.TextChanged += new System.EventHandler(this.P2NameTextBox_TextChanged);
             // 
             // label3
             // 
@@ -271,45 +293,76 @@
             this.export.UseVisualStyleBackColor = true;
             this.export.Click += new System.EventHandler(this.export_Click);
             // 
-            // checkBox3
+            // SingePlayerCheckBox
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox3.Location = new System.Drawing.Point(499, 213);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(134, 26);
-            this.checkBox3.TabIndex = 18;
-            this.checkBox3.Text = "Singleplayer";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            this.SingePlayerCheckBox.AutoSize = true;
+            this.SingePlayerCheckBox.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SingePlayerCheckBox.Location = new System.Drawing.Point(499, 213);
+            this.SingePlayerCheckBox.Name = "SingePlayerCheckBox";
+            this.SingePlayerCheckBox.Size = new System.Drawing.Size(134, 26);
+            this.SingePlayerCheckBox.TabIndex = 18;
+            this.SingePlayerCheckBox.Text = "Singleplayer";
+            this.SingePlayerCheckBox.UseVisualStyleBackColor = true;
+            this.SingePlayerCheckBox.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
-            // checkBox2
+            // ShufflePlaylistCheckBox
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = true;
-            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox2.Location = new System.Drawing.Point(673, 169);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(155, 26);
-            this.checkBox2.TabIndex = 17;
-            this.checkBox2.Text = "Shuffle Playlist";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            this.ShufflePlaylistCheckBox.AutoSize = true;
+            this.ShufflePlaylistCheckBox.Checked = true;
+            this.ShufflePlaylistCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ShufflePlaylistCheckBox.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ShufflePlaylistCheckBox.Location = new System.Drawing.Point(673, 169);
+            this.ShufflePlaylistCheckBox.Name = "ShufflePlaylistCheckBox";
+            this.ShufflePlaylistCheckBox.Size = new System.Drawing.Size(155, 26);
+            this.ShufflePlaylistCheckBox.TabIndex = 17;
+            this.ShufflePlaylistCheckBox.Text = "Shuffle Playlist";
+            this.ShufflePlaylistCheckBox.UseVisualStyleBackColor = true;
+            this.ShufflePlaylistCheckBox.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
-            // checkBox1
+            // P2NameSettingsLabel
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(499, 169);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(137, 26);
-            this.checkBox1.TabIndex = 16;
-            this.checkBox1.Text = "Loop Playlist";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
+            this.P2NameSettingsLabel.Font = new System.Drawing.Font("Montserrat", 15.75F, System.Drawing.FontStyle.Bold);
+            this.P2NameSettingsLabel.Location = new System.Drawing.Point(909, 47);
+            this.P2NameSettingsLabel.Name = "P2NameSettingsLabel";
+            this.P2NameSettingsLabel.Size = new System.Drawing.Size(116, 49);
+            this.P2NameSettingsLabel.TabIndex = 27;
+            this.P2NameSettingsLabel.Text = "Name:";
+            this.P2NameSettingsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // P1NameTextBox
+            // 
+            this.P1NameTextBox.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.P1NameTextBox.Location = new System.Drawing.Point(101, 46);
+            this.P1NameTextBox.Multiline = true;
+            this.P1NameTextBox.Name = "P1NameTextBox";
+            this.P1NameTextBox.Size = new System.Drawing.Size(166, 49);
+            this.P1NameTextBox.TabIndex = 25;
+            this.P1NameTextBox.Text = "Player 1";
+            this.P1NameTextBox.TextChanged += new System.EventHandler(this.P1NameTextBox_TextChanged);
+            // 
+            // P1NameSettingsLabel
+            // 
+            this.P1NameSettingsLabel.Font = new System.Drawing.Font("Montserrat", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.P1NameSettingsLabel.Location = new System.Drawing.Point(6, 46);
+            this.P1NameSettingsLabel.Name = "P1NameSettingsLabel";
+            this.P1NameSettingsLabel.Size = new System.Drawing.Size(89, 49);
+            this.P1NameSettingsLabel.TabIndex = 24;
+            this.P1NameSettingsLabel.Text = "Name:";
+            this.P1NameSettingsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // LoopPlaylistCheckBox
+            // 
+            this.LoopPlaylistCheckBox.AutoSize = true;
+            this.LoopPlaylistCheckBox.Checked = true;
+            this.LoopPlaylistCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.LoopPlaylistCheckBox.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoopPlaylistCheckBox.Location = new System.Drawing.Point(499, 169);
+            this.LoopPlaylistCheckBox.Name = "LoopPlaylistCheckBox";
+            this.LoopPlaylistCheckBox.Size = new System.Drawing.Size(137, 26);
+            this.LoopPlaylistCheckBox.TabIndex = 16;
+            this.LoopPlaylistCheckBox.Text = "Loop Playlist";
+            this.LoopPlaylistCheckBox.UseVisualStyleBackColor = true;
+            this.LoopPlaylistCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
             // 
             // label8
             // 
@@ -321,27 +374,27 @@
             this.label8.TabIndex = 15;
             this.label8.Text = "Increment on Pass";
             // 
-            // numericUpDown4
+            // P2IncrementUpDown
             // 
-            this.numericUpDown4.DecimalPlaces = 2;
-            this.numericUpDown4.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown4.Location = new System.Drawing.Point(584, 118);
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(200, 27);
-            this.numericUpDown4.TabIndex = 14;
-            this.numericUpDown4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numericUpDown4.Value = new decimal(new int[] {
+            this.P2IncrementUpDown.DecimalPlaces = 2;
+            this.P2IncrementUpDown.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.P2IncrementUpDown.Location = new System.Drawing.Point(584, 118);
+            this.P2IncrementUpDown.Name = "P2IncrementUpDown";
+            this.P2IncrementUpDown.Size = new System.Drawing.Size(200, 27);
+            this.P2IncrementUpDown.TabIndex = 14;
+            this.P2IncrementUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.P2IncrementUpDown.Value = new decimal(new int[] {
             4,
             0,
             0,
             0});
-            this.numericUpDown4.ValueChanged += new System.EventHandler(this.numericUpDown4_ValueChanged);
+            this.P2IncrementUpDown.ValueChanged += new System.EventHandler(this.numericUpDown4_ValueChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(1005, 105);
+            this.label5.Location = new System.Drawing.Point(1005, 153);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(127, 22);
             this.label5.TabIndex = 13;
@@ -351,83 +404,84 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(51, 105);
+            this.label4.Location = new System.Drawing.Point(50, 153);
+            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(127, 22);
             this.label4.TabIndex = 12;
             this.label4.Text = "Points to pass";
             // 
-            // numericUpDown2
+            // P2PointsToPassUpDown
             // 
-            this.numericUpDown2.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown2.Location = new System.Drawing.Point(1138, 103);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
+            this.P2PointsToPassUpDown.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.P2PointsToPassUpDown.Location = new System.Drawing.Point(1138, 151);
+            this.P2PointsToPassUpDown.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDown2.Minimum = new decimal(new int[] {
+            this.P2PointsToPassUpDown.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(37, 27);
-            this.numericUpDown2.TabIndex = 11;
-            this.numericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numericUpDown2.Value = new decimal(new int[] {
+            this.P2PointsToPassUpDown.Name = "P2PointsToPassUpDown";
+            this.P2PointsToPassUpDown.Size = new System.Drawing.Size(37, 27);
+            this.P2PointsToPassUpDown.TabIndex = 11;
+            this.P2PointsToPassUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.P2PointsToPassUpDown.Value = new decimal(new int[] {
             2,
             0,
             0,
             0});
-            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
+            this.P2PointsToPassUpDown.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
             // 
-            // numericUpDown1
+            // P1PointsToPassUpDown
             // 
-            this.numericUpDown1.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown1.Location = new System.Drawing.Point(8, 103);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.P1PointsToPassUpDown.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.P1PointsToPassUpDown.Location = new System.Drawing.Point(7, 151);
+            this.P1PointsToPassUpDown.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.P1PointsToPassUpDown.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(37, 27);
-            this.numericUpDown1.TabIndex = 10;
-            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.P1PointsToPassUpDown.Name = "P1PointsToPassUpDown";
+            this.P1PointsToPassUpDown.Size = new System.Drawing.Size(37, 27);
+            this.P1PointsToPassUpDown.TabIndex = 10;
+            this.P1PointsToPassUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.P1PointsToPassUpDown.Value = new decimal(new int[] {
             2,
             0,
             0,
             0});
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            this.P1PointsToPassUpDown.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
-            // button2
+            // P2ChangeColorButton
             // 
-            this.button2.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(1036, 58);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(139, 39);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "Change Color";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.P2ChangeColorButton.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.P2ChangeColorButton.Location = new System.Drawing.Point(1036, 106);
+            this.P2ChangeColorButton.Name = "P2ChangeColorButton";
+            this.P2ChangeColorButton.Size = new System.Drawing.Size(139, 39);
+            this.P2ChangeColorButton.TabIndex = 9;
+            this.P2ChangeColorButton.Text = "Change Color";
+            this.P2ChangeColorButton.UseVisualStyleBackColor = true;
+            this.P2ChangeColorButton.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button1
+            // P1ChangeColorButton
             // 
-            this.button1.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(8, 58);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(139, 39);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Change Color";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.P1ChangeColorButton.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.P1ChangeColorButton.Location = new System.Drawing.Point(7, 106);
+            this.P1ChangeColorButton.Name = "P1ChangeColorButton";
+            this.P1ChangeColorButton.Size = new System.Drawing.Size(139, 39);
+            this.P1ChangeColorButton.TabIndex = 8;
+            this.P1ChangeColorButton.Text = "Change Color";
+            this.P1ChangeColorButton.UseVisualStyleBackColor = true;
+            this.P1ChangeColorButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // label7
             // 
@@ -443,7 +497,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(640, 34);
+            this.label2.Location = new System.Drawing.Point(640, 32);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 22);
             this.label2.TabIndex = 6;
@@ -459,21 +513,21 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Minutes";
             // 
-            // numericUpDown3
+            // P1IncrementUpDown
             // 
-            this.numericUpDown3.DecimalPlaces = 2;
-            this.numericUpDown3.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown3.Location = new System.Drawing.Point(352, 118);
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(200, 27);
-            this.numericUpDown3.TabIndex = 4;
-            this.numericUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numericUpDown3.Value = new decimal(new int[] {
+            this.P1IncrementUpDown.DecimalPlaces = 2;
+            this.P1IncrementUpDown.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.P1IncrementUpDown.Location = new System.Drawing.Point(352, 118);
+            this.P1IncrementUpDown.Name = "P1IncrementUpDown";
+            this.P1IncrementUpDown.Size = new System.Drawing.Size(200, 27);
+            this.P1IncrementUpDown.TabIndex = 4;
+            this.P1IncrementUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.P1IncrementUpDown.Value = new decimal(new int[] {
             4,
             0,
             0,
             0});
-            this.numericUpDown3.ValueChanged += new System.EventHandler(this.numericUpDown3_ValueChanged);
+            this.P1IncrementUpDown.ValueChanged += new System.EventHandler(this.numericUpDown3_ValueChanged);
             // 
             // Secs
             // 
@@ -493,7 +547,8 @@
             // Mins
             // 
             this.Mins.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Mins.Location = new System.Drawing.Point(353, 57);
+            this.Mins.Location = new System.Drawing.Point(353, 58);
+            this.Mins.Margin = new System.Windows.Forms.Padding(6);
             this.Mins.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -510,33 +565,33 @@
             0});
             this.Mins.ValueChanged += new System.EventHandler(this.Mins_ValueChanged);
             // 
-            // radioButton2
+            // P2StartsRadioButton
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Font = new System.Drawing.Font("Montserrat", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton2.Location = new System.Drawing.Point(1004, 26);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.radioButton2.Size = new System.Drawing.Size(172, 30);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Player 2 Starts";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            this.P2StartsRadioButton.AutoSize = true;
+            this.P2StartsRadioButton.Font = new System.Drawing.Font("Montserrat", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.P2StartsRadioButton.Location = new System.Drawing.Point(1003, 13);
+            this.P2StartsRadioButton.Name = "P2StartsRadioButton";
+            this.P2StartsRadioButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.P2StartsRadioButton.Size = new System.Drawing.Size(172, 30);
+            this.P2StartsRadioButton.TabIndex = 1;
+            this.P2StartsRadioButton.TabStop = true;
+            this.P2StartsRadioButton.Text = "Player 2 Starts";
+            this.P2StartsRadioButton.UseVisualStyleBackColor = true;
+            this.P2StartsRadioButton.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
-            // radioButton1
+            // P1StartsRadioButton
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Font = new System.Drawing.Font("Montserrat", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton1.Location = new System.Drawing.Point(6, 26);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(168, 30);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Player 1 Starts";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.P1StartsRadioButton.AutoSize = true;
+            this.P1StartsRadioButton.Checked = true;
+            this.P1StartsRadioButton.Font = new System.Drawing.Font("Montserrat", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.P1StartsRadioButton.Location = new System.Drawing.Point(6, 13);
+            this.P1StartsRadioButton.Name = "P1StartsRadioButton";
+            this.P1StartsRadioButton.Size = new System.Drawing.Size(168, 30);
+            this.P1StartsRadioButton.TabIndex = 0;
+            this.P1StartsRadioButton.TabStop = true;
+            this.P1StartsRadioButton.Text = "Player 1 Starts";
+            this.P1StartsRadioButton.UseVisualStyleBackColor = true;
+            this.P1StartsRadioButton.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // settingsButton
             // 
@@ -558,21 +613,22 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 25;
             this.listBox1.Location = new System.Drawing.Point(12, 141);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(6);
             this.listBox1.Name = "listBox1";
             this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.listBox1.Size = new System.Drawing.Size(297, 425);
             this.listBox1.TabIndex = 15;
             this.listBox1.TabStop = false;
             // 
-            // label6
+            // LosingPlayerLabel
             // 
-            this.label6.Font = new System.Drawing.Font("Riffic Free Medium", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(470, 517);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(255, 124);
-            this.label6.TabIndex = 17;
-            this.label6.Text = "PLAYER 1 LOST";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LosingPlayerLabel.Font = new System.Drawing.Font("Riffic Free Medium", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LosingPlayerLabel.Location = new System.Drawing.Point(470, 517);
+            this.LosingPlayerLabel.Name = "LosingPlayerLabel";
+            this.LosingPlayerLabel.Size = new System.Drawing.Size(255, 124);
+            this.LosingPlayerLabel.TabIndex = 17;
+            this.LosingPlayerLabel.Text = "PLAYER 1 LOST";
+            this.LosingPlayerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox5
             // 
@@ -590,7 +646,7 @@
             this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox4.Location = new System.Drawing.Point(-3, 214);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(351, 352);
+            this.pictureBox4.Size = new System.Drawing.Size(351, 351);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 19;
             this.pictureBox4.TabStop = false;
@@ -601,7 +657,7 @@
             this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox3.Location = new System.Drawing.Point(848, 214);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(350, 352);
+            this.pictureBox3.Size = new System.Drawing.Size(351, 351);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox3.TabIndex = 18;
             this.pictureBox3.TabStop = false;
@@ -628,22 +684,44 @@
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             // 
+            // Player1Name
+            // 
+            this.Player1Name.Font = new System.Drawing.Font("Riffic Free Medium", 12F, System.Drawing.FontStyle.Bold);
+            this.Player1Name.Location = new System.Drawing.Point(8, 110);
+            this.Player1Name.Name = "Player1Name";
+            this.Player1Name.Size = new System.Drawing.Size(253, 39);
+            this.Player1Name.TabIndex = 21;
+            this.Player1Name.Text = "Player1";
+            this.Player1Name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Player2Name
+            // 
+            this.Player2Name.Font = new System.Drawing.Font("Riffic Free Medium", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Player2Name.Location = new System.Drawing.Point(944, 110);
+            this.Player2Name.Name = "Player2Name";
+            this.Player2Name.Size = new System.Drawing.Size(253, 39);
+            this.Player2Name.TabIndex = 22;
+            this.Player2Name.Text = "Player2";
+            this.Player2Name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // VGMV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Lavender;
             this.ClientSize = new System.Drawing.Size(1204, 668);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.settingsButton);
+            this.Controls.Add(this.songName);
+            this.Controls.Add(this.Player1Name);
+            this.Controls.Add(this.Player2Name);
             this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.LosingPlayerLabel);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.restartButton);
-            this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.TimerP2);
@@ -651,7 +729,6 @@
             this.Controls.Add(this.ScoreP1);
             this.Controls.Add(this.ScoreP2);
             this.Controls.Add(this.Start);
-            this.Controls.Add(this.songName);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "VGMV";
             this.Text = "VGMV";
@@ -659,10 +736,10 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.P2IncrementUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.P2PointsToPassUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.P1PointsToPassUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.P1IncrementUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Secs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mins)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
@@ -675,6 +752,12 @@
         }
 
         #endregion
+        private System.Windows.Forms.TextBox P2NameTextBox;
+        private System.Windows.Forms.Label P2NameSettingsLabel;
+        private System.Windows.Forms.Label Player2Name;
+        private System.Windows.Forms.TextBox P1NameTextBox;
+        private System.Windows.Forms.Label P1NameSettingsLabel;
+        private System.Windows.Forms.Label Player1Name;
         private System.Windows.Forms.Label songName;
         private System.Windows.Forms.Button Start;
         private System.Windows.Forms.Label ScoreP2;
@@ -684,35 +767,35 @@
         private System.Windows.Forms.Button restartButton;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.CheckBox displayHistory;
+        private System.Windows.Forms.CheckBox DisplayHistoryCheckBox;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton P2StartsRadioButton;
+        private System.Windows.Forms.RadioButton P1StartsRadioButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown Secs;
         private System.Windows.Forms.NumericUpDown Mins;
         private System.Windows.Forms.ColorDialog colorDialog1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button P2ChangeColorButton;
+        private System.Windows.Forms.Button P1ChangeColorButton;
         private System.Windows.Forms.Button settingsButton;
         private System.Windows.Forms.ColorDialog colorDialog2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown P2PointsToPassUpDown;
+        private System.Windows.Forms.NumericUpDown P1PointsToPassUpDown;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
+        private System.Windows.Forms.NumericUpDown P2IncrementUpDown;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.NumericUpDown P1IncrementUpDown;
+        private System.Windows.Forms.Label LosingPlayerLabel;
+        private System.Windows.Forms.CheckBox LoopPlaylistCheckBox;
+        private System.Windows.Forms.CheckBox ShufflePlaylistCheckBox;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox SingePlayerCheckBox;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Button export;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
