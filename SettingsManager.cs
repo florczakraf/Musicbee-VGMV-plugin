@@ -7,6 +7,7 @@ namespace MusicBeePlugin
 {
     public class SettingsManager
     {
+        private readonly string SETTINGS_FILE_LOC = "./Plugins/VGMVSettingsFile.ini";
         public bool P1Start { get; set; }
         public int Minutes { get; set; }
         public int Seconds { get; set; }
@@ -30,7 +31,7 @@ namespace MusicBeePlugin
 
         public void SaveSettings()
         {
-            using (var writer = new StreamWriter("../SettingsFile.ini"))
+            using (var writer = new StreamWriter(SETTINGS_FILE_LOC))
             {
                 writer.WriteLine($"P1Start={P1Start}");
                 writer.WriteLine($"Minutes={Minutes}");
@@ -90,17 +91,40 @@ namespace MusicBeePlugin
 
             throw new Exception($"Failed to load float value: {value}");
         }
-        
+
+        private void SetDefaultSettings()
+        {
+            P1Start = true;
+            Minutes = 2;
+            Seconds = 30;
+            P1Name = "Player 1";
+            P1Color = Color.Green;
+            P1PointsToPass = 2;
+            P1TimeIncrement = 4.0f;
+            P2Name = "Player 2";
+            P2Color = Color.Blue;
+            P2PointsToPass = 2;
+            P2TimeIncrement = 4.0f;
+            DisplayHistory = true;
+            LoopPlaylist = true;
+            ShufflePlaylist = true;
+            SinglePlayer = false;
+
+            SaveSettings();
+        }
+
         public bool LoadSettings()
         {
-            if (!File.Exists("../SettingsFile.ini"))
+            Console.WriteLine("Loading Settings");
+            if (!File.Exists(SETTINGS_FILE_LOC))
             {
-                return false;
+                Console.WriteLine("SettingsFile did not exist, creating new one");
+                SetDefaultSettings();
             }
 
             try
             {
-                using (var reader = new StreamReader("../SettingsFile.ini"))
+                using (var reader = new StreamReader(SETTINGS_FILE_LOC))
                 {
                     string line;
                     while ((line = reader.ReadLine()) != null)
@@ -119,7 +143,7 @@ namespace MusicBeePlugin
                                 case "Minutes":
                                     Minutes = LoadInt(value);
                                     break;
-                                case "Second":
+                                case "Seconds":
                                     Seconds = LoadInt(value);
                                     break;
                                 case "P1Name":
