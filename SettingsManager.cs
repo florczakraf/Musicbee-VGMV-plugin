@@ -7,7 +7,7 @@ namespace MusicBeePlugin
 {
     public class SettingsManager
     {
-        private readonly string SETTINGS_FILE_LOC = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/VGMVSettingsFile.ini";
+        private readonly string SETTINGS_FILE_LOC = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/MusicBee/VGMVSettingsFile.ini";
         public bool P1Start { get; set; }
         public int Minutes { get; set; }
         public int Seconds { get; set; }
@@ -92,7 +92,7 @@ namespace MusicBeePlugin
             throw new Exception($"Failed to load float value: {value}");
         }
 
-        private void SetDefaultSettings()
+        public void SetDefaultSettings()
         {
             P1Start = true;
             Minutes = 2;
@@ -100,11 +100,11 @@ namespace MusicBeePlugin
             P1Name = "Player 1";
             P1Color = Color.Green;
             P1PointsToPass = 2;
-            P1TimeIncrement = 4.0f;
+            P1TimeIncrement = 2.0f;
             P2Name = "Player 2";
             P2Color = Color.Blue;
             P2PointsToPass = 2;
-            P2TimeIncrement = 4.0f;
+            P2TimeIncrement = 2.0f;
             DisplayHistory = true;
             LoopPlaylist = true;
             ShufflePlaylist = true;
