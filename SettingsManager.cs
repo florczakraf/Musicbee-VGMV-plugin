@@ -8,6 +8,7 @@ namespace MusicBeePlugin
     public class SettingsManager
     {
         private readonly string SETTINGS_FILE_LOC = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/MusicBee/VGMVSettingsFile.ini";
+
         public bool P1Start { get; set; }
         public int Minutes { get; set; }
         public int Seconds { get; set; }
@@ -115,6 +116,14 @@ namespace MusicBeePlugin
 
         public bool LoadSettings()
         {
+            // Combine the base folder with your specific folder....
+            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MusicBee");
+
+            // Check if folder exists and if not, create it
+            if (!Directory.Exists(filePath))
+                Directory.CreateDirectory(filePath);
+
+
             Console.WriteLine("Loading Settings");
             if (!File.Exists(SETTINGS_FILE_LOC))
             {
