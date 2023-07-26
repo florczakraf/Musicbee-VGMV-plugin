@@ -97,6 +97,8 @@ namespace MusicBeePlugin {
         Font smallerFont;
         Font biggerFont;
 
+        MyListBoxItem currentlyHighlightedItem = null;
+
         public void VGMV_Load(object sender, EventArgs e) {
             InitTimer();
 
@@ -468,14 +470,10 @@ namespace MusicBeePlugin {
 
         private void songEndingCheck()
         {
-            Console.WriteLine("Checking song ending");
             int currentSongTime = mApi.Player_GetPosition();
             int totalSongTime = mApi.NowPlaying_GetDuration();
-            Console.WriteLine("CurrentTime: " + currentSongTime);
-            Console.WriteLine("TotalTime: " + totalSongTime);
             if (totalSongTime - 1000 < currentSongTime)
             {
-                Console.WriteLine("Calling PlayPause");
                 if (mApi.Player_GetPlayState() == Plugin.PlayState.Playing)
                 {
                     mApi.Player_PlayPause();
@@ -570,17 +568,24 @@ namespace MusicBeePlugin {
 
 
         public class MyListBoxItem {
-            public MyListBoxItem(Color c, string m) {
+            public MyListBoxItem(Color c, string m, string f, Font font) {
                 ItemColor = c;
                 Message = m;
+                FileURL = f;
+                Font = font;
             }
             public Color ItemColor { get; set; }
             public string Message { get; set; }
+            public string FileURL { get; set; }
+
+            public Font Font { get; set; }
         }
 
         public void addSong(int value) {
+            MyListBoxItem EmptyListItem = new MyListBoxItem(Color.Transparent, "empty line", "", listBox1.Font);
             string album = mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.Album);
             string track = mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.TrackTitle);
+            string fileURL = mApi.NowPlayingList_GetListFileUrl(mApi.NowPlayingList_GetCurrentIndex());
             string finalIn = track + "\n" + album + "\n";
 
             Color toBeAss = Color.Tomato;
@@ -595,9 +600,9 @@ namespace MusicBeePlugin {
             }
             if (player == 1 || singlePlayer) {
                 listBox1.DrawMode = DrawMode.OwnerDrawVariable;
-
-                listBox1.Items.Add(new MyListBoxItem(Color.Transparent, "empty line"));
-                listBox1.Items.Add(new MyListBoxItem(toBeAss, finalIn));
+                listBox1.Items.Add(EmptyListItem);
+                listBox1.Items.Add(new MyListBoxItem(toBeAss, finalIn, fileURL, listBox1.Font));
+                
 
                 listBox1.TopIndex = listBox1.Items.Count - 1;
                 listBox1.Refresh();
@@ -607,8 +612,8 @@ namespace MusicBeePlugin {
             else {
                 listBox2.DrawMode = DrawMode.OwnerDrawVariable;
 
-                listBox2.Items.Add(new MyListBoxItem(Color.Transparent, "empty line"));
-                listBox2.Items.Add(new MyListBoxItem(toBeAss, finalIn));
+                listBox2.Items.Add(EmptyListItem);
+                listBox2.Items.Add(new MyListBoxItem(toBeAss, finalIn, fileURL, listBox2.Font));
 
                 listBox2.TopIndex = listBox2.Items.Count - 1;
                 listBox2.Refresh();
@@ -629,7 +634,7 @@ namespace MusicBeePlugin {
                 MyListBoxItem item = listBox1.Items[e.Index] as MyListBoxItem;
                 e.DrawBackground();
                 e.DrawFocusRectangle();
-                e.Graphics.DrawString(item.Message, e.Font, new SolidBrush(item.ItemColor), e.Bounds);
+                e.Graphics.DrawString(item.Message, item.Font, new SolidBrush(item.ItemColor), e.Bounds);
             }
             catch { }
         }
@@ -647,11 +652,123 @@ namespace MusicBeePlugin {
                 MyListBoxItem item = listBox2.Items[e.Index] as MyListBoxItem;
                 e.DrawBackground();
                 e.DrawFocusRectangle();
-                e.Graphics.DrawString(item.Message, e.Font, new SolidBrush(item.ItemColor), e.Bounds);
+                e.Graphics.DrawString(item.Message, item.Font, new SolidBrush(item.ItemColor), e.Bounds);
             }
             catch { }
         }
 
+        private void listBox1_MouseClick(object Sender, MouseEventArgs e)
+        {
+            int index = listBox1.IndexFromPoint(e.Location);
+            if (index != ListBox.NoMatches && (index < 65535)) //Index is meant to return -1 but instead returns 65535 if it can't find something and causes an exception
+            {
+                MyListBoxItem clickedItem = listBox1.Items[index] as MyListBoxItem;
+                if (clickedItem != null)
+                {
+                    Console.WriteLine(clickedItem.FileURL);
+                    mApi.NowPlayingList_PlayNow(clickedItem.FileURL);
+                }
+            }
+        }
+
+        private void listBox2_MouseClick(object Sender, MouseEventArgs e)
+        {
+            int index = listBox2.IndexFromPoint(e.Location);
+            if (index != ListBox.NoMatches && (index < 65535)) //Index is meant to return -1 but instead returns 65535 if it can't find something and causes an exception
+            {
+                MyListBoxItem clickedItem = listBox2.Items[index] as MyListBoxItem;
+                if (clickedItem != null)
+                {
+                    Console.WriteLine(clickedItem.FileURL);
+                    mApi.NowPlayingList_PlayNow(clickedItem.FileURL);
+                }
+            }
+        }
+
+        private void listBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            int index = listBox1.IndexFromPoint(e.Location);
+            
+            if (index != ListBox.NoMatches && (index < 65535)) //Index is meant to return -1 but instead returns 65535 if it can't find something and causes an exception
+            {
+                MyListBoxItem item = listBox1.Items[index] as MyListBoxItem;
+                if (item != null)
+                {
+                    listBox1.Cursor = Cursors.Hand;
+                    if (item != currentlyHighlightedItem)
+                    {
+                        foreach (MyListBoxItem listItem in listBox1.Items)
+                        {
+                            listItem.Font = new Font(listBox1.Font, FontStyle.Bold);
+                        }
+                        item.Font = new Font(listBox1.Font, FontStyle.Underline | FontStyle.Bold);
+                        currentlyHighlightedItem = item;
+                        listBox1.Invalidate();
+                    }
+                }
+            } 
+            else
+            {
+                if (currentlyHighlightedItem != null)
+                {
+                    currentlyHighlightedItem = null;
+                    listBox1.Invalidate();
+                }
+            }
+        }
+
+        private void listBox1_MouseLeave(object sender, EventArgs e)
+        {
+            listBox1.Cursor = Cursors.Default;
+            foreach (MyListBoxItem listItem in listBox1.Items)
+            {
+                listItem.Font = new Font(listBox1.Font, FontStyle.Bold);
+            }
+            currentlyHighlightedItem = null;
+            listBox1.Invalidate();
+        }
+        private void listBox2_MouseMove(object sender, MouseEventArgs e)
+        {
+            int index = listBox2.IndexFromPoint(e.Location);
+
+            if (index != ListBox.NoMatches && (index < 65535)) //Index is meant to return -1 but instead returns 65535 if it can't find something and causes an exception
+            {
+                MyListBoxItem item = listBox2.Items[index] as MyListBoxItem;
+                if (item != null)
+                {
+                    listBox2.Cursor = Cursors.Hand;
+                    if (item != currentlyHighlightedItem)
+                    {
+                        foreach (MyListBoxItem listItem in listBox2.Items)
+                        {
+                            listItem.Font = new Font(listBox2.Font, FontStyle.Bold);
+                        }
+                        item.Font = new Font(listBox2.Font, FontStyle.Underline | FontStyle.Bold);
+                        currentlyHighlightedItem = item;
+                        listBox2.Invalidate();
+                    }
+                }
+            }
+            else
+            {
+                if (currentlyHighlightedItem != null)
+                {
+                    currentlyHighlightedItem = null;
+                    listBox2.Invalidate();
+                }
+            }
+        }
+
+        private void listBox2_MouseLeave(object sender, EventArgs e)
+        {
+            listBox2.Cursor = Cursors.Default;
+            foreach (MyListBoxItem listItem in listBox2.Items)
+            {
+                listItem.Font = new Font(listBox2.Font, FontStyle.Bold);
+            }
+            currentlyHighlightedItem = null;
+            listBox2.Invalidate();
+        }
         public void handleNextSong() {
 
             mApi.Player_PlayNextTrack();
