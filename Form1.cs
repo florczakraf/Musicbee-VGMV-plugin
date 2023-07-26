@@ -461,10 +461,27 @@ namespace MusicBeePlugin {
 
 
             gameOverCheck(false);
+            songEndingCheck();
             updateTimers();
         }
         //end timer
 
+        private void songEndingCheck()
+        {
+            Console.WriteLine("Checking song ending");
+            int currentSongTime = mApi.Player_GetPosition();
+            int totalSongTime = mApi.NowPlaying_GetDuration();
+            Console.WriteLine("CurrentTime: " + currentSongTime);
+            Console.WriteLine("TotalTime: " + totalSongTime);
+            if (totalSongTime - 1000 < currentSongTime)
+            {
+                Console.WriteLine("Calling PlayPause");
+                if (mApi.Player_GetPlayState() == Plugin.PlayState.Playing)
+                {
+                    mApi.Player_PlayPause();
+                }
+            }
+        }
         private void gameOverCheck(bool quickEnd) {
             int A = mApi.Player_GetPosition(); //song playlength in ms
             if (A <= 700) {
@@ -956,7 +973,6 @@ namespace MusicBeePlugin {
         private void groupBox1_Enter(object sender, EventArgs e) {
 
         }
-
     }
 
 
