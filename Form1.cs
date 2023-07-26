@@ -87,8 +87,8 @@ namespace MusicBeePlugin {
         public int P2TimeAtNew;
         int player; //starting player
         bool GAMEOVER = false;
-        bool shouldLoop = true;
-        bool shouldShuffle = true;
+        public bool shouldLoop = true;
+        public bool shouldShuffle = true;
         bool singlePlayer = false;
 
         Score p1Score = new Score();
@@ -98,50 +98,56 @@ namespace MusicBeePlugin {
         Font biggerFont;
 
         MyListBoxItem currentlyHighlightedItem = null;
-
+        public bool havePaused = false;
         public void VGMV_Load(object sender, EventArgs e) {
             InitTimer();
 
-            smallerFont = new Font(rfont.Families[0], 15F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            biggerFont = new Font(rfont.Families[0], 30F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            Font mFont12 = new Font(mfont.Families[0], 12F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            Font rFont2175 = new Font(rfont.Families[0], 21.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            smallerFont =                   new Font(rfont.Families[0], 15F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            biggerFont =                    new Font(rfont.Families[0], 30F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            Font mFont12 =                  new Font(mfont.Families[0], 12F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            Font rFont2175 =                new Font(rfont.Families[0], 21.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
             //riffic
-            ScoreP2.Font = rFont2175;
-            ScoreP1.Font = rFont2175;
-            TimerP1.Font = rFont2175;
-            TimerP2.Font = rFont2175;
-            Player1Name.Font = rFont2175;
-            Player2Name.Font = rFont2175;
-            restartButton.Font = new Font(rfont.Families[0], 15.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            settingsButton.Font = new Font(rfont.Families[0], 15.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            LosingPlayerLabel.Font = new Font(rfont.Families[0], 25.00F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            Start.Font = new Font(rfont.Families[0], 36.00F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            ScoreP2.Font =                  rFont2175;
+            ScoreP1.Font =                  rFont2175;
+            TimerP1.Font =                  rFont2175;
+            TimerP2.Font =                  rFont2175;
+            Player1Name.Font =              rFont2175;
+            Player2Name.Font =              rFont2175;
+            restartButton.Font =            new Font(rfont.Families[0], 15.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            settingsButton.Font =           new Font(rfont.Families[0], 15.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            LosingPlayerLabel.Font =        new Font(rfont.Families[0], 25.00F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            Start.Font =                    new Font(rfont.Families[0], 36.00F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
 
             //montserrat
-            songName.Font = new Font(mfont.Families[0], 20.00F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            listBox2.Font = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            songName.Font =                 new Font(mfont.Families[0], 20.00F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            listBox2.Font =                 new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            P2StartsRadioButton.Font =      new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            P1StartsRadioButton.Font =      new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            listBox1.Font =                 new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            DisplayHistoryCheckBox.Font =   mFont12;
+            LoopPlaylistCheckBox.Font =     mFont12;
+            ShufflePlaylistCheckBox.Font =  mFont12;
+            SingePlayerCheckBox.Font =      mFont12;
+            P1NameTextBox.Font =            mFont12;
+            P2NameTextBox.Font =            mFont12;
+            label8.Font =                   mFont12;
+            P2IncrementUpDown.Font =        mFont12;
+            label5.Font =                   mFont12;
+            label4.Font =                   mFont12;
+            P2PointsToPassUpDown.Font =     mFont12;
+            P1PointsToPassUpDown.Font =     mFont12;
+            P2ChangeColorButton.Font =      mFont12;
+            P1ChangeColorButton.Font =      mFont12;
+            label2.Font =                   mFont12;
+            label1.Font =                   mFont12;
+            P1IncrementUpDown.Font =        mFont12;
+            Secs.Font =                     mFont12;
+            Mins.Font =                     mFont12;
+            export.Font =                   mFont12;
 
-            DisplayHistoryCheckBox.Font = mFont12;
-            label8.Font = mFont12;
-            P2IncrementUpDown.Font = mFont12;
-            label5.Font = mFont12;
-            label4.Font = mFont12;
-            P2PointsToPassUpDown.Font = mFont12;
-            P1PointsToPassUpDown.Font = mFont12;
-            P2ChangeColorButton.Font = mFont12;
-            P1ChangeColorButton.Font = mFont12;
-            label2.Font = mFont12;
-            label1.Font = mFont12;
-            P1IncrementUpDown.Font = mFont12;
-            Secs.Font = mFont12;
-            Mins.Font = mFont12;
-            export.Font = mFont12;
-
-            P2StartsRadioButton.Font = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            P1StartsRadioButton.Font = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            listBox1.Font = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-
+            //Fonts now no longer need to be set in Form1.Designer.cs -- they are set here instead.
+            //The sizing of other elements though depends on the DPI scaling of the computer you are editing on??
+            //Either we move the size settings also to here which would be kinda ugly ngl gonna lie, or we just keep editing it each PR
 
 
             trackBar1_Set();
@@ -340,6 +346,7 @@ namespace MusicBeePlugin {
             P1TimeAtNew = timeP1;
             P2TimeAtNew = timeP2;
             shouldCountTime = true;
+            havePaused = false;
 
             //show hide stuff
             ScoreP1.Show();
@@ -468,16 +475,14 @@ namespace MusicBeePlugin {
         }
         //end timer
 
-        private void songEndingCheck()
-        {
+        private void songEndingCheck() {
             int currentSongTime = mApi.Player_GetPosition();
             int totalSongTime = mApi.NowPlaying_GetDuration();
-            if (totalSongTime - 1000 < currentSongTime)
-            {
-                if (mApi.Player_GetPlayState() == Plugin.PlayState.Playing)
-                {
+            if (totalSongTime - 5000 < currentSongTime && !havePaused) {
+                if (mApi.Player_GetPlayState() == Plugin.PlayState.Playing) {
                     mApi.Player_PlayPause();
                 }
+                havePaused = true;
             }
         }
         private void gameOverCheck(bool quickEnd) {
@@ -519,15 +524,18 @@ namespace MusicBeePlugin {
 
 
         public void showSong(bool showBoxes) {
+
             if (showBoxes) {
                 songName.Show();
                 pictureBox1.Show();
                 shouldCountTime = false;
+                havePaused = false;
             }
 
             if (!showBoxes && !GAMEOVER) { //dont update if game is not over, and hide the game 
                 pictureBox1.Hide();
                 songName.Hide();
+                havePaused = false;
                 return;
             }
             if (!showBoxes && GAMEOVER) { //hide the D: if the game is over and a new track plays
