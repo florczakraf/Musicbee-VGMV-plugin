@@ -99,6 +99,12 @@ namespace MusicBeePlugin
                 case NotificationType.VolumeLevelChanged:
                     myForm.trackBar1_Set();
                     break;
+                /*case NotificationType.PlayerShuffleChanged: //this doesnt actually work rn because the checkboxes need to be updated
+                    myForm.shouldShuffle = mbApiInterface.Player_GetShuffle();
+                    break;
+                case NotificationType.PlayerRepeatChanged:
+                    myForm.shouldShuffle = mbApiInterface.Player_GetRepeat() == 0 ? true : false;
+                    break;*/
             }
         }
 
