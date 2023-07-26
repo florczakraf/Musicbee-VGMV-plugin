@@ -87,8 +87,8 @@ namespace MusicBeePlugin {
         public int P2TimeAtNew;
         int player; //starting player
         bool GAMEOVER = false;
-        bool shouldLoop = true;
-        bool shouldShuffle = true;
+        public bool shouldLoop = true;
+        public bool shouldShuffle = true;
         bool singlePlayer = false;
 
         Score p1Score = new Score();
@@ -97,49 +97,57 @@ namespace MusicBeePlugin {
         Font smallerFont;
         Font biggerFont;
 
+        MyListBoxItem currentlyHighlightedItem = null;
+        public bool havePaused = false;
         public void VGMV_Load(object sender, EventArgs e) {
             InitTimer();
 
-            smallerFont = new Font(rfont.Families[0], 15F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            biggerFont = new Font(rfont.Families[0], 30F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            Font mFont12 = new Font(mfont.Families[0], 12F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            Font rFont2175 = new Font(rfont.Families[0], 21.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            smallerFont =                   new Font(rfont.Families[0], 15F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            biggerFont =                    new Font(rfont.Families[0], 30F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            Font mFont12 =                  new Font(mfont.Families[0], 12F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            Font rFont2175 =                new Font(rfont.Families[0], 21.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
             //riffic
-            ScoreP2.Font = rFont2175;
-            ScoreP1.Font = rFont2175;
-            TimerP1.Font = rFont2175;
-            TimerP2.Font = rFont2175;
-            Player1Name.Font = rFont2175;
-            Player2Name.Font = rFont2175;
-            restartButton.Font = new Font(rfont.Families[0], 15.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            settingsButton.Font = new Font(rfont.Families[0], 15.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            LosingPlayerLabel.Font = new Font(rfont.Families[0], 25.00F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            Start.Font = new Font(rfont.Families[0], 36.00F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            ScoreP2.Font =                  rFont2175;
+            ScoreP1.Font =                  rFont2175;
+            TimerP1.Font =                  rFont2175;
+            TimerP2.Font =                  rFont2175;
+            Player1Name.Font =              rFont2175;
+            Player2Name.Font =              rFont2175;
+            restartButton.Font =            new Font(rfont.Families[0], 15.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            settingsButton.Font =           new Font(rfont.Families[0], 15.75F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            LosingPlayerLabel.Font =        new Font(rfont.Families[0], 25.00F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            Start.Font =                    new Font(rfont.Families[0], 36.00F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
 
             //montserrat
-            songName.Font = new Font(mfont.Families[0], 20.00F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            listBox2.Font = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            songName.Font =                 new Font(mfont.Families[0], 20.00F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            listBox2.Font =                 new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            P2StartsRadioButton.Font =      new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            P1StartsRadioButton.Font =      new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            listBox1.Font =                 new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            DisplayHistoryCheckBox.Font =   mFont12;
+            LoopPlaylistCheckBox.Font =     mFont12;
+            ShufflePlaylistCheckBox.Font =  mFont12;
+            SingePlayerCheckBox.Font =      mFont12;
+            P1NameTextBox.Font =            mFont12;
+            P2NameTextBox.Font =            mFont12;
+            label8.Font =                   mFont12;
+            P2IncrementUpDown.Font =        mFont12;
+            label5.Font =                   mFont12;
+            label4.Font =                   mFont12;
+            P2PointsToPassUpDown.Font =     mFont12;
+            P1PointsToPassUpDown.Font =     mFont12;
+            P2ChangeColorButton.Font =      mFont12;
+            P1ChangeColorButton.Font =      mFont12;
+            label2.Font =                   mFont12;
+            label1.Font =                   mFont12;
+            P1IncrementUpDown.Font =        mFont12;
+            Secs.Font =                     mFont12;
+            Mins.Font =                     mFont12;
+            export.Font =                   mFont12;
 
-            DisplayHistoryCheckBox.Font = mFont12;
-            label8.Font = mFont12;
-            P2IncrementUpDown.Font = mFont12;
-            label5.Font = mFont12;
-            label4.Font = mFont12;
-            P2PointsToPassUpDown.Font = mFont12;
-            P1PointsToPassUpDown.Font = mFont12;
-            P2ChangeColorButton.Font = mFont12;
-            P1ChangeColorButton.Font = mFont12;
-            label2.Font = mFont12;
-            label1.Font = mFont12;
-            P1IncrementUpDown.Font = mFont12;
-            Secs.Font = mFont12;
-            Mins.Font = mFont12;
-            export.Font = mFont12;
-
-            P2StartsRadioButton.Font = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            P1StartsRadioButton.Font = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            listBox1.Font = new Font(mfont.Families[0], 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-
+            //Fonts now no longer need to be set in Form1.Designer.cs -- they are set here instead.
+            //The sizing of other elements though depends on the DPI scaling of the computer you are editing on??
+            //Either we move the size settings also to here which would be kinda ugly ngl gonna lie, or we just keep editing it each PR
 
 
             trackBar1_Set();
@@ -338,6 +346,7 @@ namespace MusicBeePlugin {
             P1TimeAtNew = timeP1;
             P2TimeAtNew = timeP2;
             shouldCountTime = true;
+            havePaused = false;
 
             //show hide stuff
             ScoreP1.Show();
@@ -461,10 +470,21 @@ namespace MusicBeePlugin {
 
 
             gameOverCheck(false);
+            songEndingCheck();
             updateTimers();
         }
         //end timer
 
+        private void songEndingCheck() {
+            int currentSongTime = mApi.Player_GetPosition();
+            int totalSongTime = mApi.NowPlaying_GetDuration();
+            if (totalSongTime - 5000 < currentSongTime && !havePaused) {
+                if (mApi.Player_GetPlayState() == Plugin.PlayState.Playing) {
+                    mApi.Player_PlayPause();
+                }
+                havePaused = true;
+            }
+        }
         private void gameOverCheck(bool quickEnd) {
             int A = mApi.Player_GetPosition(); //song playlength in ms
             if (A <= 700) {
@@ -504,15 +524,18 @@ namespace MusicBeePlugin {
 
 
         public void showSong(bool showBoxes) {
+
             if (showBoxes) {
                 songName.Show();
                 pictureBox1.Show();
                 shouldCountTime = false;
+                havePaused = false;
             }
 
             if (!showBoxes && !GAMEOVER) { //dont update if game is not over, and hide the game 
                 pictureBox1.Hide();
                 songName.Hide();
+                havePaused = false;
                 return;
             }
             if (!showBoxes && GAMEOVER) { //hide the D: if the game is over and a new track plays
@@ -553,17 +576,24 @@ namespace MusicBeePlugin {
 
 
         public class MyListBoxItem {
-            public MyListBoxItem(Color c, string m) {
+            public MyListBoxItem(Color c, string m, string f, Font font) {
                 ItemColor = c;
                 Message = m;
+                FileURL = f;
+                Font = font;
             }
             public Color ItemColor { get; set; }
             public string Message { get; set; }
+            public string FileURL { get; set; }
+
+            public Font Font { get; set; }
         }
 
         public void addSong(int value) {
+            MyListBoxItem EmptyListItem = new MyListBoxItem(Color.Transparent, "empty line", "", listBox1.Font);
             string album = mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.Album);
             string track = mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.TrackTitle);
+            string fileURL = mApi.NowPlayingList_GetListFileUrl(mApi.NowPlayingList_GetCurrentIndex());
             string finalIn = track + "\n" + album + "\n";
 
             Color toBeAss = Color.Tomato;
@@ -578,9 +608,9 @@ namespace MusicBeePlugin {
             }
             if (player == 1 || singlePlayer) {
                 listBox1.DrawMode = DrawMode.OwnerDrawVariable;
-
-                listBox1.Items.Add(new MyListBoxItem(Color.Transparent, "empty line"));
-                listBox1.Items.Add(new MyListBoxItem(toBeAss, finalIn));
+                listBox1.Items.Add(EmptyListItem);
+                listBox1.Items.Add(new MyListBoxItem(toBeAss, finalIn, fileURL, listBox1.Font));
+                
 
                 listBox1.TopIndex = listBox1.Items.Count - 1;
                 listBox1.Refresh();
@@ -590,8 +620,8 @@ namespace MusicBeePlugin {
             else {
                 listBox2.DrawMode = DrawMode.OwnerDrawVariable;
 
-                listBox2.Items.Add(new MyListBoxItem(Color.Transparent, "empty line"));
-                listBox2.Items.Add(new MyListBoxItem(toBeAss, finalIn));
+                listBox2.Items.Add(EmptyListItem);
+                listBox2.Items.Add(new MyListBoxItem(toBeAss, finalIn, fileURL, listBox2.Font));
 
                 listBox2.TopIndex = listBox2.Items.Count - 1;
                 listBox2.Refresh();
@@ -612,7 +642,7 @@ namespace MusicBeePlugin {
                 MyListBoxItem item = listBox1.Items[e.Index] as MyListBoxItem;
                 e.DrawBackground();
                 e.DrawFocusRectangle();
-                e.Graphics.DrawString(item.Message, e.Font, new SolidBrush(item.ItemColor), e.Bounds);
+                e.Graphics.DrawString(item.Message, item.Font, new SolidBrush(item.ItemColor), e.Bounds);
             }
             catch { }
         }
@@ -630,11 +660,123 @@ namespace MusicBeePlugin {
                 MyListBoxItem item = listBox2.Items[e.Index] as MyListBoxItem;
                 e.DrawBackground();
                 e.DrawFocusRectangle();
-                e.Graphics.DrawString(item.Message, e.Font, new SolidBrush(item.ItemColor), e.Bounds);
+                e.Graphics.DrawString(item.Message, item.Font, new SolidBrush(item.ItemColor), e.Bounds);
             }
             catch { }
         }
 
+        private void listBox1_MouseClick(object Sender, MouseEventArgs e)
+        {
+            int index = listBox1.IndexFromPoint(e.Location);
+            if (index != ListBox.NoMatches && (index < 65535)) //Index is meant to return -1 but instead returns 65535 if it can't find something and causes an exception
+            {
+                MyListBoxItem clickedItem = listBox1.Items[index] as MyListBoxItem;
+                if (clickedItem != null)
+                {
+                    Console.WriteLine(clickedItem.FileURL);
+                    mApi.NowPlayingList_PlayNow(clickedItem.FileURL);
+                }
+            }
+        }
+
+        private void listBox2_MouseClick(object Sender, MouseEventArgs e)
+        {
+            int index = listBox2.IndexFromPoint(e.Location);
+            if (index != ListBox.NoMatches && (index < 65535)) //Index is meant to return -1 but instead returns 65535 if it can't find something and causes an exception
+            {
+                MyListBoxItem clickedItem = listBox2.Items[index] as MyListBoxItem;
+                if (clickedItem != null)
+                {
+                    Console.WriteLine(clickedItem.FileURL);
+                    mApi.NowPlayingList_PlayNow(clickedItem.FileURL);
+                }
+            }
+        }
+
+        private void listBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            int index = listBox1.IndexFromPoint(e.Location);
+            
+            if (index != ListBox.NoMatches && (index < 65535)) //Index is meant to return -1 but instead returns 65535 if it can't find something and causes an exception
+            {
+                MyListBoxItem item = listBox1.Items[index] as MyListBoxItem;
+                if (item != null)
+                {
+                    listBox1.Cursor = Cursors.Hand;
+                    if (item != currentlyHighlightedItem)
+                    {
+                        foreach (MyListBoxItem listItem in listBox1.Items)
+                        {
+                            listItem.Font = new Font(listBox1.Font, FontStyle.Bold);
+                        }
+                        item.Font = new Font(listBox1.Font, FontStyle.Underline | FontStyle.Bold);
+                        currentlyHighlightedItem = item;
+                        listBox1.Invalidate();
+                    }
+                }
+            } 
+            else
+            {
+                if (currentlyHighlightedItem != null)
+                {
+                    currentlyHighlightedItem = null;
+                    listBox1.Invalidate();
+                }
+            }
+        }
+
+        private void listBox1_MouseLeave(object sender, EventArgs e)
+        {
+            listBox1.Cursor = Cursors.Default;
+            foreach (MyListBoxItem listItem in listBox1.Items)
+            {
+                listItem.Font = new Font(listBox1.Font, FontStyle.Bold);
+            }
+            currentlyHighlightedItem = null;
+            listBox1.Invalidate();
+        }
+        private void listBox2_MouseMove(object sender, MouseEventArgs e)
+        {
+            int index = listBox2.IndexFromPoint(e.Location);
+
+            if (index != ListBox.NoMatches && (index < 65535)) //Index is meant to return -1 but instead returns 65535 if it can't find something and causes an exception
+            {
+                MyListBoxItem item = listBox2.Items[index] as MyListBoxItem;
+                if (item != null)
+                {
+                    listBox2.Cursor = Cursors.Hand;
+                    if (item != currentlyHighlightedItem)
+                    {
+                        foreach (MyListBoxItem listItem in listBox2.Items)
+                        {
+                            listItem.Font = new Font(listBox2.Font, FontStyle.Bold);
+                        }
+                        item.Font = new Font(listBox2.Font, FontStyle.Underline | FontStyle.Bold);
+                        currentlyHighlightedItem = item;
+                        listBox2.Invalidate();
+                    }
+                }
+            }
+            else
+            {
+                if (currentlyHighlightedItem != null)
+                {
+                    currentlyHighlightedItem = null;
+                    listBox2.Invalidate();
+                }
+            }
+        }
+
+        private void listBox2_MouseLeave(object sender, EventArgs e)
+        {
+            listBox2.Cursor = Cursors.Default;
+            foreach (MyListBoxItem listItem in listBox2.Items)
+            {
+                listItem.Font = new Font(listBox2.Font, FontStyle.Bold);
+            }
+            currentlyHighlightedItem = null;
+            listBox2.Invalidate();
+        }
         public void handleNextSong() {
 
             mApi.Player_PlayNextTrack();
@@ -956,7 +1098,6 @@ namespace MusicBeePlugin {
         private void groupBox1_Enter(object sender, EventArgs e) {
 
         }
-
     }
 
 

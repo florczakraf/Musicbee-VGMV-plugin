@@ -198,6 +198,9 @@
             this.listBox2.TabIndex = 11;
             this.listBox2.TabStop = false;
             this.listBox2.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox2_DrawItem);
+            this.listBox2.MouseClick += listBox2_MouseClick;
+            this.listBox2.MouseMove += listBox2_MouseMove;
+            this.listBox2.MouseLeave += listBox2_MouseLeave;
             // 
             // DisplayHistoryCheckBox
             // 
@@ -619,6 +622,9 @@
             this.listBox1.Size = new System.Drawing.Size(297, 425);
             this.listBox1.TabIndex = 15;
             this.listBox1.TabStop = false;
+            this.listBox1.MouseClick += listBox1_MouseClick;
+            this.listBox1.MouseMove += listBox1_MouseMove;
+            this.listBox1.MouseLeave += listBox1_MouseLeave;
             // 
             // LosingPlayerLabel
             // 
