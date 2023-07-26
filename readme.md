@@ -12,5 +12,6 @@ Then, in the Musicbee text at the top, click tools and there will be a "Start VG
 * T to quickly end a round
 * H to restart a song
 * CTRL + Shift + R to reset settings
+* Click songs in the history to play them
 
 You start by playing a song in the playlist you want to run and then hit start or restart and it'll shuffle in the current playlist.
