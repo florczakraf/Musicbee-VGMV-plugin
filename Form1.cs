@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 namespace MusicBeePlugin {
     public partial class VGMV: Form {
@@ -453,11 +454,7 @@ namespace MusicBeePlugin {
 
 
         //timer
-        private Timer timer1;
         public void InitTimer() {
-            timer1 = new Timer();
-            timer1.Tick += new EventHandler(timer1_Tick);
-            timer1.Interval = 50; // in miliseconds
             timer1.Start();
         }
         private void timer1_Tick(object sender, EventArgs e) {
