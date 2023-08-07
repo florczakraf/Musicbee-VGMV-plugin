@@ -75,6 +75,8 @@
             this.Player1Name = new System.Windows.Forms.Label();
             this.Player2Name = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.P2IncrementUpDown)).BeginInit();
@@ -88,6 +90,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // songName
@@ -218,6 +221,8 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.numericUpDown1);
             this.groupBox1.Controls.Add(this.P2NameTextBox);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.trackBar1);
@@ -711,7 +716,33 @@
             this.timer1.Enabled = true;
             this.timer1.Interval = 50;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.DecimalPlaces = 2;
+            this.numericUpDown1.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDown1.Location = new System.Drawing.Point(1086, 212);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(89, 27);
+            this.numericUpDown1.TabIndex = 28;
+            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged_1);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(974, 214);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(106, 22);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "Auto Pause";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // VGMV
             // 
@@ -756,6 +787,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -811,5 +843,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
     }
 }

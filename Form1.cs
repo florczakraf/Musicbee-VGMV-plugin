@@ -4,7 +4,6 @@ using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Windows.Forms;
 using System.IO;
-using System.Diagnostics;
 
 namespace MusicBeePlugin {
     public partial class VGMV: Form {
@@ -79,6 +78,8 @@ namespace MusicBeePlugin {
         Color P1Col = Color.Green;
         Color P2Col = Color.Blue;
         bool showHistory = true;
+
+        float AutoPause = 4;
 
         //not user changed
         bool shouldCountTime = false;
@@ -274,6 +275,8 @@ namespace MusicBeePlugin {
                     listBox2.Hide();
                 }
 
+                AutoPause = _settingsManager.AutoPause;
+
                 updateColors();
             }
         }
@@ -464,7 +467,7 @@ namespace MusicBeePlugin {
             pictureBox4.Image = images[(i * 2) % 65];
             i++;
 
-
+            
 
             gameOverCheck(false);
             songEndingCheck();
@@ -475,7 +478,7 @@ namespace MusicBeePlugin {
         private void songEndingCheck() {
             int currentSongTime = mApi.Player_GetPosition();
             int totalSongTime = mApi.NowPlaying_GetDuration();
-            if (totalSongTime - 5000 < currentSongTime && !havePaused) {
+            if (totalSongTime - (AutoPause * 1000) < currentSongTime && !havePaused) {
                 if (mApi.Player_GetPlayState() == Plugin.PlayState.Playing) {
                     mApi.Player_PlayPause();
                 }
@@ -1093,6 +1096,17 @@ namespace MusicBeePlugin {
         }
 
         private void groupBox1_Enter(object sender, EventArgs e) {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e) {
+
+        }
+
+        private void numericUpDown1_ValueChanged_1(object sender, EventArgs e) {
+            AutoPause = (float) numericUpDown1.Value;
+            _settingsManager.AutoPause = AutoPause;
+            _settingsManager.SaveSettings();
 
         }
     }

@@ -29,6 +29,7 @@ namespace MusicBeePlugin
         public bool ShufflePlaylist { get; set; }
         public bool SinglePlayer { get; set; }
 
+        public float AutoPause { get; set; }
 
         public void SaveSettings()
         {
@@ -49,6 +50,8 @@ namespace MusicBeePlugin
                 writer.WriteLine($"LoopPlaylist={LoopPlaylist}");
                 writer.WriteLine($"ShufflePlaylist={ShufflePlaylist}");
                 writer.WriteLine($"SinglePlayer={SinglePlayer}");
+                writer.WriteLine($"AutoPause={AutoPause}");
+
             }
         }
 
@@ -110,7 +113,7 @@ namespace MusicBeePlugin
             LoopPlaylist = true;
             ShufflePlaylist = true;
             SinglePlayer = false;
-
+            AutoPause = 4;
             SaveSettings();
         }
 
@@ -190,6 +193,9 @@ namespace MusicBeePlugin
                                     break;
                                 case "SinglePlayer":
                                     SinglePlayer = LoadBool(value);
+                                    break;
+                                case "AutoPause":
+                                    AutoPause = LoadFloat(value);
                                     break;
                             }
                         }
