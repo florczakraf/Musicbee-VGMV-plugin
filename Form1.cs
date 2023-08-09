@@ -425,6 +425,8 @@ namespace MusicBeePlugin {
                 Player2Name.Show();
                 TimerP2.Show();
             }
+            framesWithAudio = 0;
+
         }
 
         public void incPoints(int pointGain) {
