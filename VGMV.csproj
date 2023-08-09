@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="bouncingImage.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +95,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SettingsManager.cs" />
+    <Compile Include="System\Windows\Forms\BufferedPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="VGMV.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

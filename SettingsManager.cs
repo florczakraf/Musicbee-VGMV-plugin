@@ -30,6 +30,8 @@ namespace MusicBeePlugin
         public bool SinglePlayer { get; set; }
 
         public float AutoPause { get; set; }
+        public bool QuickRounds { get; set; }
+        public float QuickRoundLength { get; set; }
 
         public void SaveSettings()
         {
@@ -51,7 +53,8 @@ namespace MusicBeePlugin
                 writer.WriteLine($"ShufflePlaylist={ShufflePlaylist}");
                 writer.WriteLine($"SinglePlayer={SinglePlayer}");
                 writer.WriteLine($"AutoPause={AutoPause}");
-
+                writer.WriteLine($"QuickRounds={QuickRounds}");
+                writer.WriteLine($"QuickRoundLength={QuickRoundLength}");
             }
         }
 
@@ -114,6 +117,8 @@ namespace MusicBeePlugin
             ShufflePlaylist = true;
             SinglePlayer = false;
             AutoPause = 4;
+            QuickRounds = false;
+            QuickRoundLength = 1.0f;
             SaveSettings();
         }
 
@@ -196,6 +201,12 @@ namespace MusicBeePlugin
                                     break;
                                 case "AutoPause":
                                     AutoPause = LoadFloat(value);
+                                    break;
+                                case "QuickRounds":
+                                    QuickRounds = LoadBool(value);
+                                    break;
+                                case "QuickRoundLength":
+                                    QuickRoundLength = LoadFloat(value);
                                     break;
                             }
                         }

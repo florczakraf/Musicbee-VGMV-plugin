@@ -24,7 +24,6 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VGMV));
             this.songName = new System.Windows.Forms.Label();
             this.Start = new System.Windows.Forms.Button();
             this.ScoreP2 = new System.Windows.Forms.Label();
@@ -35,6 +34,9 @@
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.DisplayHistoryCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.P2NameTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
@@ -70,14 +72,15 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.Player1Name = new System.Windows.Forms.Label();
             this.Player2Name = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.BufferedPanel();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.P2IncrementUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.P2PointsToPassUpDown)).BeginInit();
@@ -89,8 +92,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // songName
@@ -221,6 +223,9 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.numericUpDown2);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.numericUpDown1);
             this.groupBox1.Controls.Add(this.P2NameTextBox);
@@ -252,10 +257,49 @@
             this.groupBox1.Controls.Add(this.P1StartsRadioButton);
             this.groupBox1.Location = new System.Drawing.Point(12, 59);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1181, 257);
+            this.groupBox1.Size = new System.Drawing.Size(1181, 296);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.Location = new System.Drawing.Point(11, 225);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(147, 26);
+            this.checkBox1.TabIndex = 30;
+            this.checkBox1.Text = "Quick Rounds";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_2);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(972, 262);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(106, 22);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "Auto Pause";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.DecimalPlaces = 2;
+            this.numericUpDown1.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDown1.Location = new System.Drawing.Point(1084, 260);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(89, 27);
+            this.numericUpDown1.TabIndex = 28;
+            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged_1);
             // 
             // P2NameTextBox
             // 
@@ -304,7 +348,7 @@
             // 
             this.SingePlayerCheckBox.AutoSize = true;
             this.SingePlayerCheckBox.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SingePlayerCheckBox.Location = new System.Drawing.Point(499, 213);
+            this.SingePlayerCheckBox.Location = new System.Drawing.Point(499, 212);
             this.SingePlayerCheckBox.Name = "SingePlayerCheckBox";
             this.SingePlayerCheckBox.Size = new System.Drawing.Size(134, 26);
             this.SingePlayerCheckBox.TabIndex = 18;
@@ -681,22 +725,12 @@
             this.pictureBox2.TabIndex = 16;
             this.pictureBox2.TabStop = false;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(348, 141);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(500, 500);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 9;
-            this.pictureBox1.TabStop = false;
-            // 
             // Player1Name
             // 
             this.Player1Name.Font = new System.Drawing.Font("Riffic Free Medium", 12F, System.Drawing.FontStyle.Bold);
             this.Player1Name.Location = new System.Drawing.Point(8, 110);
             this.Player1Name.Name = "Player1Name";
-            this.Player1Name.Size = new System.Drawing.Size(253, 39);
+            this.Player1Name.Size = new System.Drawing.Size(253, 28);
             this.Player1Name.TabIndex = 21;
             this.Player1Name.Text = "Player1";
             this.Player1Name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -706,7 +740,7 @@
             this.Player2Name.Font = new System.Drawing.Font("Riffic Free Medium", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Player2Name.Location = new System.Drawing.Point(944, 110);
             this.Player2Name.Name = "Player2Name";
-            this.Player2Name.Size = new System.Drawing.Size(253, 39);
+            this.Player2Name.Size = new System.Drawing.Size(253, 28);
             this.Player2Name.TabIndex = 22;
             this.Player2Name.Text = "Player2";
             this.Player2Name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -717,32 +751,43 @@
             this.timer1.Interval = 50;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // numericUpDown1
+            // panel1
             // 
-            this.numericUpDown1.DecimalPlaces = 2;
-            this.numericUpDown1.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown1.Location = new System.Drawing.Point(1086, 212);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(89, 27);
-            this.numericUpDown1.TabIndex = 28;
-            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panel1.ForeColor = System.Drawing.Color.Transparent;
+            this.panel1.Location = new System.Drawing.Point(348, 141);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(500, 500);
+            this.panel1.TabIndex = 30;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.DecimalPlaces = 2;
+            this.numericUpDown2.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDown2.Location = new System.Drawing.Point(11, 257);
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(89, 27);
+            this.numericUpDown2.TabIndex = 28;
+            this.numericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDown2.Value = new decimal(new int[] {
             2,
             0,
             0,
             0});
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged_1);
+            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged_1);
             // 
-            // label6
+            // label9
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(974, 214);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(106, 22);
-            this.label6.TabIndex = 29;
-            this.label6.Text = "Auto Pause";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(106, 262);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(185, 22);
+            this.label9.TabIndex = 29;
+            this.label9.Text = "Quick Round Length";
+            this.label9.Click += new System.EventHandler(this.label6_Click);
             // 
             // VGMV
             // 
@@ -763,18 +808,19 @@
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.restartButton);
             this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.TimerP2);
             this.Controls.Add(this.TimerP1);
             this.Controls.Add(this.ScoreP1);
             this.Controls.Add(this.ScoreP2);
             this.Controls.Add(this.Start);
+            this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "VGMV";
             this.Text = "VGMV";
             this.Load += new System.EventHandler(this.VGMV_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.P2IncrementUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.P2PointsToPassUpDown)).EndInit();
@@ -786,8 +832,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -806,7 +851,6 @@
         private System.Windows.Forms.Label TimerP1;
         private System.Windows.Forms.Label TimerP2;
         private System.Windows.Forms.Button restartButton;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.CheckBox DisplayHistoryCheckBox;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -845,5 +889,11 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.BufferedPanel panel1;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
     }
+
+
 }
