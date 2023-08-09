@@ -4,6 +4,8 @@ using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace MusicBeePlugin {
     public partial class VGMV: Form {
@@ -99,10 +101,26 @@ namespace MusicBeePlugin {
         Font smallerFont;
         Font biggerFont;
 
+        float[] graph = new float[1000];
+        float[] peaks = new float[1000];
+        float[] fft = new float[4096];
+
+        bool stupidMode = false;
+
+
+        private Pen pen = new Pen(Color.FromArgb(170, 245, 245, 245), 2); // Change color and width as needed
+        Pen transPen = new Pen(Color.FromArgb(170, 0, 0, 0), 4);
+        //new Pen(Color.FromArgb(170, 100, 100, 255), 3);
+        Bitmap Art;
+        float timeSinceStart = 0;
+        int ticks = 0;
+
         MyListBoxItem currentlyHighlightedItem = null;
         public bool havePaused = false;
+        
         public void VGMV_Load(object sender, EventArgs e) {
             InitTimer();
+            updateSongSettings();
 
             smallerFont =                   new Font(rfont.Families[0], 15F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
             biggerFont =                    new Font(rfont.Families[0], 30F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
@@ -177,7 +195,7 @@ namespace MusicBeePlugin {
 
             ScoreP1.Hide();
             ScoreP2.Hide();
-            pictureBox1.Hide();
+            panel1.Hide();
             TimerP1.Hide();
             TimerP2.Hide();
 
@@ -207,7 +225,8 @@ namespace MusicBeePlugin {
                 listBox2.Hide();
             }
 
-
+            panel1.BackColor = Color.Transparent;
+            panel1.Parent = this; // Set the actual parent control      
         }
 
 
@@ -356,7 +375,8 @@ namespace MusicBeePlugin {
             ScoreP1.Show();
             ScoreP2.Show();
             songName.Hide();
-            pictureBox1.Hide();
+            panel1.Hide();
+            
             updateColors();
             updateTimers();
             TimerP1.Show();
@@ -455,20 +475,133 @@ namespace MusicBeePlugin {
             }
         }
 
+        public void updateSongSettings() {
+
+            try {
+                Plugin.PictureLocations temp1;
+                string temp2;
+                byte[] img;
+                mApi.Library_GetArtworkEx(mApi.NowPlaying_GetFileUrl(), 0, true, out temp1, out temp2, out img);
+                Art = (Bitmap)new ImageConverter().ConvertFrom(img);
+            }
+            catch {
+                Art = Properties.Resources.nocover;
+            }
+
+
+            if (stupidMode) {
+                Array.Resize(ref graph, mApi.NowPlaying_GetDuration());
+                Array.Resize(ref peaks, mApi.NowPlaying_GetDuration());
+
+                mApi.NowPlaying_GetSoundGraphEx(graph, peaks);
+            }
+        }
+
+        List<Point> graphPoints = new List<Point>();
+
+        private void drawAlbumArtScaled(Graphics g) {
+            //thanks mr gpt he made this code :)
+            float aspectRatio = (float)Art.Width / Art.Height;
+
+            int scaledWidth = panel1.Width;
+            int scaledHeight = (int)(scaledWidth / aspectRatio);
+
+            if (scaledHeight > panel1.Height) {
+                scaledHeight = panel1.Height;
+                scaledWidth = (int)(scaledHeight * aspectRatio);
+            }
+
+            int x = (panel1.Width - scaledWidth) / 2;
+            int y = (panel1.Height - scaledHeight) / 2;
+
+            g.DrawImage(Art, new Rectangle(x, y, scaledWidth, scaledHeight));
+            //okay gpt thats enough thanks :)
+
+        }
+        private void panel1_Paint(object sender, PaintEventArgs e) {
+
+            var g = e.Graphics;
+            g.Clear(Color.Transparent);
+
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+
+            drawAlbumArtScaled(g);
+
+
+
+            Point[] points = graphPoints.ToArray();
+            if (points.Length > 1) {
+                g.DrawCurve(transPen, points);
+                g.DrawCurve(pen, points);
+            }
+
+
+            if (pictureBox2.Visible) {
+                double x = ticks * 10 % 500;
+                double y = Math.Pow(x/10, 2);
+                if(y > 400) {
+                    y = 400 - (y - 400);
+                }
+                y = Math.Abs(y);
+                g.DrawImageUnscaled(Properties.Resources.D_colon, new Point((int) x,(int) y));
+            }
+
+            //
+            //
+            // TODO:
+            // CHANGE THE ALBUM IMAGE TO USE GRAPHICS INSTEAD OF WINFORM SHIT
+            // THIS WAY I CAN SHOW THAT FUNNY WAVEFORM OVERTOP THE IMAGE!
+            //
+            //
+
+
+        }
+
+
+        private List<Point> generateFFT() {
+            mApi.NowPlaying_GetSpectrumData(fft);
+
+            List<Point> pointList = new List<Point>();
+
+            int scaleFactor = fft.Length / panel1.Width;
+            for (int j = 0; j < fft.Length; j += scaleFactor) {
+                int x = (int)((double)j * 500 / fft.Length);
+
+                int y = (int)(450 - Math.Min(fft[j] * 1000, 150));
+
+                //double logScaledValue = Math.Log(1 + Math.Abs(fft[j]) * 1000);
+                //int y = (int)(450 - 50 * logScaledValue);
+
+                pointList.Add(new Point(x, y));
+            }
+
+            return pointList;
+        }
 
         //timer
         public void InitTimer() {
             timer1.Start();
         }
+
         private void timer1_Tick(object sender, EventArgs e) {
+            timeSinceStart += timer1.Interval;
+            ticks++;
 
             i = i % 65;
             pictureBox3.Image = images[(i * 2) % 65];
             pictureBox4.Image = images[(i * 2) % 65];
             i++;
 
-            
+            graphPoints = generateFFT();
+            panel1.Invalidate();
 
+            if (stupidMode) {
+                int size = 1204;
+                int val = (int)(mApi.Player_GetPosition() - 500F);
+                size = (int)(peaks[Math.Max(1, val)] * 1204);
+                ClientSize = new Size(size + 100, 668);
+
+            }
             gameOverCheck(false);
             songEndingCheck();
             updateTimers();
@@ -527,13 +660,13 @@ namespace MusicBeePlugin {
 
             if (showBoxes) {
                 songName.Show();
-                pictureBox1.Show();
+                panel1.Show();
                 shouldCountTime = false;
                 havePaused = false;
             }
 
             if (!showBoxes && !GAMEOVER) { //dont update if game is not over, and hide the game 
-                pictureBox1.Hide();
+                panel1.Hide();
                 songName.Hide();
                 havePaused = false;
                 return;
@@ -544,20 +677,21 @@ namespace MusicBeePlugin {
                 LosingPlayerLabel.Hide();
             }
 
-            try {
+            //pictureBox1.Image = Art;
+            /*try {
 
                 Plugin.PictureLocations temp1;
                 string temp2;
                 byte[] img;
                 mApi.Library_GetArtworkEx(mApi.NowPlaying_GetFileUrl(), 0, true, out temp1, out temp2, out img);
-                Bitmap Art = (Bitmap)new ImageConverter().ConvertFrom(img);
+                Bitmap ArtB = (Bitmap)new ImageConverter().ConvertFrom(img);
 
-                pictureBox1.Image = Art;
+                pictureBox1.Image = ArtB;
             }
             catch {
-                pictureBox1.Image = Properties.Resources.nocover;
+                pictureBox1.Image = Art;
             }
-
+            */
             updateText(songName, mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.TrackTitle) + "\n" + mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.Album));
 
         }
@@ -574,6 +708,7 @@ namespace MusicBeePlugin {
 
 
 
+        #region List Box Section
 
         public class MyListBoxItem {
             public MyListBoxItem(Color c, string m, string f, Font font) {
@@ -777,13 +912,16 @@ namespace MusicBeePlugin {
             currentlyHighlightedItem = null;
             listBox2.Invalidate();
         }
+
+        #endregion
+
         public void handleNextSong() {
 
             mApi.Player_PlayNextTrack();
             shouldCountTime = true;
 
             songName.Hide();
-            pictureBox1.Hide();
+            panel1.Hide();
 
             P1TimeAtNew = timeP1;
             P2TimeAtNew = timeP2;
@@ -799,7 +937,6 @@ namespace MusicBeePlugin {
             if (e.KeyCode == Keys.P) {
                 pictureBox3.Visible = !pictureBox3.Visible;
                 pictureBox4.Visible = !pictureBox4.Visible;
-
             }
 
             if (!GAMEOVER) {
@@ -837,9 +974,20 @@ namespace MusicBeePlugin {
                     gameOverCheck(true);
                 }
                 else if (e.Control && e.Shift && e.KeyCode == Keys.R) {
+
                     //reset settings (with pop-up?)
                     _settingsManager.SetDefaultSettings();
                     UpdateSettings();
+                }
+                else if (e.Control && e.Shift && e.KeyCode == Keys.O) {
+                    if (stupidMode) {
+                        ClientSize = new Size(1204, 668);
+                        stupidMode = false;
+                    }
+                    else {
+                        stupidMode = true;
+                        updateSongSettings();
+                    }
                 }
             }
             else {
@@ -1109,7 +1257,9 @@ namespace MusicBeePlugin {
             _settingsManager.SaveSettings();
 
         }
+
     }
+
 
 
 

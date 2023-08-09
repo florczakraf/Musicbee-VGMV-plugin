@@ -95,6 +95,7 @@ namespace MusicBeePlugin
                     break;
                 case NotificationType.TrackChanged:
                     myForm.showSong(false);
+                    myForm.updateSongSettings();
                     break;
                 case NotificationType.VolumeLevelChanged:
                     myForm.trackBar1_Set();
