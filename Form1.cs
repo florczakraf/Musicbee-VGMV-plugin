@@ -106,7 +106,7 @@ namespace MusicBeePlugin {
 
         bool stupidMode = false;
         bool quickRounds = true;
-
+        float quickRoundLength = 2.0f;
         private Pen pen = new Pen(Color.FromArgb(170, 245, 245, 245), 2); // Change color and width as needed
         Pen transPen = new Pen(Color.FromArgb(170, 0, 0, 0), 4);
         //new Pen(Color.FromArgb(170, 100, 100, 255), 3);
@@ -165,7 +165,11 @@ namespace MusicBeePlugin {
             Secs.Font =                     mFont12;
             Mins.Font =                     mFont12;
             export.Font =                   mFont12;
-
+            numericUpDown1.Font =           mFont12;
+            numericUpDown2.Font =           mFont12;
+            label6.Font =                   mFont12;
+            label9.Font =                   mFont12;
+            checkBox1.Font =                mFont12;
             //Fonts now no longer need to be set in Form1.Designer.cs -- they are set here instead.
             //The sizing of other elements though depends on the DPI scaling of the computer you are editing on??
             //Either we move the size settings also to here which would be kinda ugly ngl gonna lie, or we just keep editing it each PR
@@ -299,6 +303,8 @@ namespace MusicBeePlugin {
                 numericUpDown1.Value = (decimal) AutoPause;
                 quickRounds = _settingsManager.QuickRounds;
                 checkBox1.Checked = quickRounds;
+                quickRoundLength = _settingsManager.QuickRoundLength;
+                numericUpDown2.Value = (decimal) quickRoundLength;
                 updateColors();
             }
         }
@@ -633,8 +639,11 @@ namespace MusicBeePlugin {
                 if (maxFFT > 0) {
                     framesWithAudio++;
                 }
-
-                if (maxFFT > 0 && framesWithAudio == 10) {
+                //quickRoundLength in seconds * 1000 = ms
+                //every 50ms the timer ticks (approx)
+                //10 ticks with audio = 10*50 = 500ms of song
+                //to go backwards, 0.5s = 500ms of song / 50ms per tick = 10
+                if (maxFFT > 0 && framesWithAudio >= (quickRoundLength*1000)/50) {
                     mApi.Player_PlayPause();
                 }
             }
@@ -947,6 +956,7 @@ namespace MusicBeePlugin {
         #endregion
 
         public void handleNextSong() {
+            framesWithAudio = 0;
 
             mApi.Player_PlayNextTrack();
             shouldCountTime = true;
@@ -1288,6 +1298,13 @@ namespace MusicBeePlugin {
         private void numericUpDown1_ValueChanged_1(object sender, EventArgs e) {
             AutoPause = (float) numericUpDown1.Value;
             _settingsManager.AutoPause = AutoPause;
+            _settingsManager.SaveSettings();
+
+        }
+
+        private void numericUpDown2_ValueChanged_1(object sender, EventArgs e) {
+            quickRoundLength = (float)numericUpDown2.Value;
+            _settingsManager.QuickRoundLength = quickRoundLength;
             _settingsManager.SaveSettings();
 
         }
