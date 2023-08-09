@@ -561,9 +561,12 @@ namespace MusicBeePlugin {
             //alien dance
             if (pictureBox3.Visible || GAMEOVER) {
                 g.DrawImage(images[(ticks % 65 * 2) % 65], new Point(500 - images[0].Width, 500 - images[0].Height));
+
                 g.TranslateTransform(images[0].Width, 0);
                 g.ScaleTransform(-1, 1);
                 g.DrawImage(images[(ticks % 65 * 2) % 65], new Point(0, 500 - images[0].Height));
+                g.ScaleTransform(-1, 1);
+                g.TranslateTransform(-images[0].Width, 0);
 
             }
 
@@ -621,13 +624,6 @@ namespace MusicBeePlugin {
             graphPoints = generateFFT();
             panel1.Invalidate();
 
-            if (stupidMode) {
-                int size = 1204;
-                int val = (int)(mApi.Player_GetPosition() - 500F);
-                size = (int)(peaks[Math.Max(1, val)] * 1204);
-                ClientSize = new Size(size + 100, 668);
-
-            }
             if (quickRounds && framesWithAudio > -1000) {
                 float maxFFT = 0;
                 for (int i = 0; i < fft.Length; i++) {
@@ -641,6 +637,13 @@ namespace MusicBeePlugin {
                 if (maxFFT > 0 && framesWithAudio == 10) {
                     mApi.Player_PlayPause();
                 }
+            }
+            if (stupidMode) {
+                int size = 1204;
+                int val = (int)(mApi.Player_GetPosition() - 500F);
+                size = (int)(peaks[Math.Max(1, val)] * 1204);
+                ClientSize = new Size(size + 100, 668);
+
             }
 
 
