@@ -34,6 +34,12 @@
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.DisplayHistoryCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.SecsP2 = new System.Windows.Forms.NumericUpDown();
+            this.MinsP2 = new System.Windows.Forms.NumericUpDown();
+            this.UpdateURLTextBox = new System.Windows.Forms.TextBox();
+            this.WSURLLabel = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
@@ -61,8 +67,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.P1IncrementUpDown = new System.Windows.Forms.NumericUpDown();
-            this.Secs = new System.Windows.Forms.NumericUpDown();
-            this.Mins = new System.Windows.Forms.NumericUpDown();
+            this.SecsP1 = new System.Windows.Forms.NumericUpDown();
+            this.MinsP1 = new System.Windows.Forms.NumericUpDown();
             this.P2StartsRadioButton = new System.Windows.Forms.RadioButton();
             this.P1StartsRadioButton = new System.Windows.Forms.RadioButton();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
@@ -80,6 +86,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.BufferedPanel();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SecsP2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MinsP2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -87,8 +95,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.P2PointsToPassUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.P1PointsToPassUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.P1IncrementUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Secs)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Mins)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SecsP1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MinsP1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -205,10 +213,6 @@
             this.listBox2.TabIndex = 11;
             this.listBox2.TabStop = false;
             this.listBox2.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox2_DrawItem);
-            this.listBox2.MouseClick += listBox2_MouseClick;
-            this.listBox2.MouseMove += listBox2_MouseMove;
-            this.listBox2.MouseLeave += listBox2_MouseLeave;
-
             // 
             // DisplayHistoryCheckBox
             // 
@@ -227,6 +231,12 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.SecsP2);
+            this.groupBox1.Controls.Add(this.MinsP2);
+            this.groupBox1.Controls.Add(this.UpdateURLTextBox);
+            this.groupBox1.Controls.Add(this.WSURLLabel);
             this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.numericUpDown2);
@@ -255,8 +265,8 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.P1IncrementUpDown);
-            this.groupBox1.Controls.Add(this.Secs);
-            this.groupBox1.Controls.Add(this.Mins);
+            this.groupBox1.Controls.Add(this.SecsP1);
+            this.groupBox1.Controls.Add(this.MinsP1);
             this.groupBox1.Controls.Add(this.P2StartsRadioButton);
             this.groupBox1.Controls.Add(this.P1StartsRadioButton);
             this.groupBox1.Location = new System.Drawing.Point(12, 59);
@@ -265,6 +275,81 @@
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(757, 13);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(79, 22);
+            this.label10.TabIndex = 36;
+            this.label10.Text = "Seconds";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(640, 13);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(77, 22);
+            this.label11.TabIndex = 35;
+            this.label11.Text = "Minutes";
+            // 
+            // SecsP2
+            // 
+            this.SecsP2.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SecsP2.Location = new System.Drawing.Point(749, 39);
+            this.SecsP2.Name = "SecsP2";
+            this.SecsP2.Size = new System.Drawing.Size(110, 27);
+            this.SecsP2.TabIndex = 34;
+            this.SecsP2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.SecsP2.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.SecsP2.ValueChanged += new System.EventHandler(this.SecsP2_ValueChanged);
+            // 
+            // MinsP2
+            // 
+            this.MinsP2.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MinsP2.Location = new System.Drawing.Point(630, 39);
+            this.MinsP2.Margin = new System.Windows.Forms.Padding(6);
+            this.MinsP2.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.MinsP2.Name = "MinsP2";
+            this.MinsP2.Size = new System.Drawing.Size(110, 27);
+            this.MinsP2.TabIndex = 33;
+            this.MinsP2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.MinsP2.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.MinsP2.ValueChanged += new System.EventHandler(this.MinsP2_ValueChanged);
+            // 
+            // UpdateURLTextBox
+            // 
+            this.UpdateURLTextBox.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UpdateURLTextBox.Location = new System.Drawing.Point(452, 256);
+            this.UpdateURLTextBox.Name = "UpdateURLTextBox";
+            this.UpdateURLTextBox.Size = new System.Drawing.Size(376, 27);
+            this.UpdateURLTextBox.TabIndex = 32;
+            this.UpdateURLTextBox.TextChanged += new System.EventHandler(this.WSURLTextBox_TextChanged);
+            // 
+            // WSURLLabel
+            // 
+            this.WSURLLabel.Font = new System.Drawing.Font("Montserrat", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WSURLLabel.Location = new System.Drawing.Point(297, 244);
+            this.WSURLLabel.Name = "WSURLLabel";
+            this.WSURLLabel.Size = new System.Drawing.Size(175, 49);
+            this.WSURLLabel.TabIndex = 31;
+            this.WSURLLabel.Text = "Update URL:";
+            this.WSURLLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // checkBox1
             // 
@@ -579,7 +664,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(640, 32);
+            this.label2.Location = new System.Drawing.Point(420, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 22);
             this.label2.TabIndex = 6;
@@ -589,7 +674,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(407, 32);
+            this.label1.Location = new System.Drawing.Point(305, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 22);
             this.label1.TabIndex = 5;
@@ -611,41 +696,41 @@
             0});
             this.P1IncrementUpDown.ValueChanged += new System.EventHandler(this.numericUpDown3_ValueChanged);
             // 
-            // Secs
+            // SecsP1
             // 
-            this.Secs.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Secs.Location = new System.Drawing.Point(585, 58);
-            this.Secs.Name = "Secs";
-            this.Secs.Size = new System.Drawing.Size(200, 27);
-            this.Secs.TabIndex = 3;
-            this.Secs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Secs.Value = new decimal(new int[] {
+            this.SecsP1.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SecsP1.Location = new System.Drawing.Point(409, 34);
+            this.SecsP1.Name = "SecsP1";
+            this.SecsP1.Size = new System.Drawing.Size(110, 27);
+            this.SecsP1.TabIndex = 3;
+            this.SecsP1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.SecsP1.Value = new decimal(new int[] {
             30,
             0,
             0,
             0});
-            this.Secs.ValueChanged += new System.EventHandler(this.Secs_ValueChanged);
+            this.SecsP1.ValueChanged += new System.EventHandler(this.Secs_ValueChanged);
             // 
-            // Mins
+            // MinsP1
             // 
-            this.Mins.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Mins.Location = new System.Drawing.Point(353, 58);
-            this.Mins.Margin = new System.Windows.Forms.Padding(6);
-            this.Mins.Maximum = new decimal(new int[] {
+            this.MinsP1.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MinsP1.Location = new System.Drawing.Point(290, 34);
+            this.MinsP1.Margin = new System.Windows.Forms.Padding(6);
+            this.MinsP1.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.Mins.Name = "Mins";
-            this.Mins.Size = new System.Drawing.Size(200, 27);
-            this.Mins.TabIndex = 2;
-            this.Mins.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Mins.Value = new decimal(new int[] {
+            this.MinsP1.Name = "MinsP1";
+            this.MinsP1.Size = new System.Drawing.Size(110, 27);
+            this.MinsP1.TabIndex = 2;
+            this.MinsP1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.MinsP1.Value = new decimal(new int[] {
             2,
             0,
             0,
             0});
-            this.Mins.ValueChanged += new System.EventHandler(this.Mins_ValueChanged);
+            this.MinsP1.ValueChanged += new System.EventHandler(this.Mins_ValueChanged);
             // 
             // P2StartsRadioButton
             // 
@@ -701,10 +786,6 @@
             this.listBox1.Size = new System.Drawing.Size(297, 425);
             this.listBox1.TabIndex = 15;
             this.listBox1.TabStop = false;
-            this.listBox1.MouseClick += listBox1_MouseClick;
-            this.listBox1.MouseMove += listBox1_MouseMove;
-            this.listBox1.MouseLeave += listBox1_MouseLeave;
-
             // 
             // LosingPlayerLabel
             // 
@@ -828,6 +909,8 @@
             this.Load += new System.EventHandler(this.VGMV_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SecsP2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MinsP2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
@@ -835,8 +918,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.P2PointsToPassUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.P1PointsToPassUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.P1IncrementUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Secs)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Mins)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SecsP1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MinsP1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -866,8 +949,8 @@
         private System.Windows.Forms.RadioButton P1StartsRadioButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown Secs;
-        private System.Windows.Forms.NumericUpDown Mins;
+        private System.Windows.Forms.NumericUpDown SecsP1;
+        private System.Windows.Forms.NumericUpDown MinsP1;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Button P2ChangeColorButton;
         private System.Windows.Forms.Button P1ChangeColorButton;
@@ -901,6 +984,12 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.TextBox UpdateURLTextBox;
+        private System.Windows.Forms.Label WSURLLabel;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.NumericUpDown SecsP2;
+        private System.Windows.Forms.NumericUpDown MinsP2;
     }
 
 

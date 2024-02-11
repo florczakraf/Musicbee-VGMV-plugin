@@ -10,9 +10,11 @@ namespace MusicBeePlugin
         private readonly string SETTINGS_FILE_LOC = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/MusicBee/VGMVSettingsFile.ini";
 
         public bool P1Start { get; set; }
-        public int Minutes { get; set; }
-        public int Seconds { get; set; }
-        
+        public int MinutesP1 { get; set; }
+        public int SecondsP1 { get; set; }
+        public int MinutesP2 { get; set; }
+        public int SecondsP2 { get; set; }
+
 
         public string P1Name { get; set; }
         public Color P1Color { get; set; }
@@ -33,13 +35,17 @@ namespace MusicBeePlugin
         public bool QuickRounds { get; set; }
         public float QuickRoundLength { get; set; }
 
+        public string UpdateURL { get; set; }
+
         public void SaveSettings()
         {
             using (var writer = new StreamWriter(SETTINGS_FILE_LOC))
             {
                 writer.WriteLine($"P1Start={P1Start}");
-                writer.WriteLine($"Minutes={Minutes}");
-                writer.WriteLine($"Seconds={Seconds}");
+                writer.WriteLine($"MinutesP1={MinutesP1}");
+                writer.WriteLine($"SecondsP1={SecondsP1}");
+                writer.WriteLine($"MinutesP2={MinutesP2}");
+                writer.WriteLine($"SecondsP2={SecondsP2}");
                 writer.WriteLine($"P1Name={P1Name}");
                 writer.WriteLine($"P1Color={ColorTranslator.ToHtml(P1Color)}");
                 writer.WriteLine($"P1PointsToPass={P1PointsToPass}");
@@ -55,6 +61,7 @@ namespace MusicBeePlugin
                 writer.WriteLine($"AutoPause={AutoPause}");
                 writer.WriteLine($"QuickRounds={QuickRounds}");
                 writer.WriteLine($"QuickRoundLength={QuickRoundLength}");
+                writer.WriteLine($"UpdateURL={UpdateURL}");
             }
         }
 
@@ -102,8 +109,10 @@ namespace MusicBeePlugin
         public void SetDefaultSettings()
         {
             P1Start = true;
-            Minutes = 2;
-            Seconds = 30;
+            MinutesP1 = 2;
+            SecondsP1 = 30;
+            MinutesP2 = 2;
+            SecondsP2 = 30;
             P1Name = "Player 1";
             P1Color = Color.Green;
             P1PointsToPass = 2;
@@ -119,6 +128,7 @@ namespace MusicBeePlugin
             AutoPause = 4;
             QuickRounds = false;
             QuickRoundLength = 1.0f;
+            UpdateURL = "";
             SaveSettings();
         }
 
@@ -157,11 +167,17 @@ namespace MusicBeePlugin
                                 case "P1Start":
                                     P1Start = LoadBool(value);
                                     break;
-                                case "Minutes":
-                                    Minutes = LoadInt(value);
+                                case "MinutesP1":
+                                    MinutesP1 = LoadInt(value);
                                     break;
-                                case "Seconds":
-                                    Seconds = LoadInt(value);
+                                case "SecondsP1":
+                                    SecondsP1 = LoadInt(value);
+                                    break;
+                                case "MinutesP2":
+                                    MinutesP2 = LoadInt(value);
+                                    break;
+                                case "SecondsP2":
+                                    SecondsP2 = LoadInt(value);
                                     break;
                                 case "P1Name":
                                     P1Name = value;
@@ -207,6 +223,9 @@ namespace MusicBeePlugin
                                     break;
                                 case "QuickRoundLength":
                                     QuickRoundLength = LoadFloat(value);
+                                    break;
+                                case "UpdateURL":
+                                    UpdateURL = value;
                                     break;
                             }
                         }

@@ -6,6 +6,10 @@ using System.Windows.Forms;
 using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text;
+using System.Threading.Tasks;
+using System.Net.Http;
+using System.Json;
 
 namespace MusicBeePlugin {
     public partial class VGMV: Form {
@@ -72,7 +76,8 @@ namespace MusicBeePlugin {
         int player1Needs = 2;
         int player2Needs = 2;
 
-        int startTime = 150000; //ms
+        int startTimeP1 = 150000; //ms
+        int startTimeP2 = 150000; //ms
         int timePass1 = 2000; //ms
         int timePass2 = 2000; //ms
 
@@ -118,6 +123,22 @@ namespace MusicBeePlugin {
         List<Point> graphPoints = new List<Point>();
         List<bouncingImage> Dcolons = new List<bouncingImage>();
 
+        public void PostUpdate(string key, string value)
+        {
+            if (UpdateURLTextBox.Text == "")
+            {
+                return;
+            }
+
+            try
+            {
+                HttpClient client = new HttpClient();
+                JsonObject j = new JsonObject(new KeyValuePair<string, JsonValue>(key, value));
+                var content = new StringContent(j.ToString(), Encoding.UTF8, "application/json");
+                client.PostAsync(UpdateURLTextBox.Text, content);
+            }
+            catch (Exception) {}
+        }
 
         public void VGMV_Load(object sender, EventArgs e) {
             InitTimer();
@@ -162,8 +183,8 @@ namespace MusicBeePlugin {
             label2.Font =                   mFont12;
             label1.Font =                   mFont12;
             P1IncrementUpDown.Font =        mFont12;
-            Secs.Font =                     mFont12;
-            Mins.Font =                     mFont12;
+            SecsP1.Font =                     mFont12;
+            MinsP1.Font =                     mFont12;
             export.Font =                   mFont12;
             numericUpDown1.Font =           mFont12;
             numericUpDown2.Font =           mFont12;
@@ -183,8 +204,8 @@ namespace MusicBeePlugin {
             UpdateSettings();
             player = startingPlayer;
 
-            timeP1 = startTime;
-            timeP2 = startTime;
+            timeP1 = startTimeP1;
+            timeP2 = startTimeP2;
 
             TimerP1.Font = smallerFont;
             TimerP2.Font = smallerFont;
@@ -231,7 +252,7 @@ namespace MusicBeePlugin {
             }
 
             panel1.BackColor = Color.Transparent;
-            panel1.Parent = this; // Set the actual parent control      
+            panel1.Parent = this; // Set the actual parent control
         }
 
 
@@ -245,10 +266,14 @@ namespace MusicBeePlugin {
                     P2StartsRadioButton.Checked = true;
                 }
 
-                Mins.Value = _settingsManager.Minutes;
-                Secs.Value = _settingsManager.Seconds;
+                MinsP1.Value = _settingsManager.MinutesP1;
+                SecsP1.Value = _settingsManager.SecondsP1;
 
-                startTime = (int)(Mins.Value * 60 + Secs.Value) * 1000;
+                MinsP2.Value = _settingsManager.MinutesP2;
+                SecsP2.Value = _settingsManager.SecondsP2;
+
+                startTimeP1 = (int)(MinsP1.Value * 60 + SecsP1.Value) * 1000;
+                startTimeP2 = (int)(MinsP2.Value * 60 + SecsP2.Value) * 1000;
 
                 updateText(Player1Name, _settingsManager.P1Name);
                 P1NameTextBox.Text = _settingsManager.P1Name;
@@ -306,6 +331,8 @@ namespace MusicBeePlugin {
                 quickRoundLength = _settingsManager.QuickRoundLength;
                 numericUpDown2.Value = (decimal) quickRoundLength;
                 updateColors();
+
+                UpdateURLTextBox.Text = _settingsManager.UpdateURL;
             }
         }
 
@@ -351,7 +378,8 @@ namespace MusicBeePlugin {
             pictureBox3.Visible = false;
             pictureBox4.Visible = false;
 
-            startTime = (int)(Mins.Value * 60 + Secs.Value) * 1000;
+            startTimeP1 = (int)(MinsP1.Value * 60 + SecsP1.Value) * 1000;
+            startTimeP2 = (int)(MinsP2.Value * 60 + SecsP2.Value) * 1000;
             timePass1 = (int)(P1IncrementUpDown.Value * 1000);
             timePass2 = (int)(P2IncrementUpDown.Value * 1000);
 
@@ -373,8 +401,8 @@ namespace MusicBeePlugin {
             }
 
             //set times
-            timeP1 = startTime;
-            timeP2 = startTime;
+            timeP1 = startTimeP1;
+            timeP2 = startTimeP2;
             P1TimeAtNew = timeP1;
             P2TimeAtNew = timeP2;
             shouldCountTime = true;
@@ -456,7 +484,8 @@ namespace MusicBeePlugin {
             updateText(ScoreP2, p2Score._score.ToString() + "\n(" + (p2Score._score % player2Needs).ToString() + "/" + player2Needs.ToString() + ")");
             updateTimers();
             updateColors();
-
+            PostUpdate("P1Score", p1Score._score.ToString());
+            PostUpdate("P2Score", p2Score._score.ToString());
         }
 
         public void updateTimers() {
@@ -471,8 +500,21 @@ namespace MusicBeePlugin {
             //add leading 0s
             if (P1Sec < 10) { P1Seconds = "0" + P1Sec.ToString(); }
             if (P2Sec < 10) { P2Seconds = "0" + P2Sec.ToString(); }
-            updateText(TimerP1, P1Min.ToString() + ":" + P1Seconds);
-            updateText(TimerP2, P2Min.ToString() + ":" + P2Seconds);
+
+            string newP1Time = P1Min.ToString() + ":" + P1Seconds;
+            string newP2Time = P2Min.ToString() + ":" + P2Seconds;
+
+            if (TimerP1.Text != newP1Time)
+            {
+                updateText(TimerP1, newP1Time);
+                PostUpdate("TimerP1", newP1Time);
+            }
+
+            if (TimerP2.Text != newP2Time)
+            {
+                updateText(TimerP2, newP2Time);
+                PostUpdate("TimerP2", newP2Time);
+            }
         }
 
         public void updateColors() {
@@ -734,8 +776,9 @@ namespace MusicBeePlugin {
                 LosingPlayerLabel.Hide();
             }
 
-            updateText(songName, mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.TrackTitle) + "\n" + mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.Album));
-
+            string title = mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.TrackTitle);
+            updateText(songName, title + "\n" + mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.Album));
+            PostUpdate("SongTitle", title);
         }
 
         public void updateText(Label label, string textChange) {
@@ -968,6 +1011,8 @@ namespace MusicBeePlugin {
 
             P1TimeAtNew = timeP1;
             P2TimeAtNew = timeP2;
+
+            PostUpdate("SongTitle", "");
         }
 
         public void VGMV_KeyDown(object sender, KeyEventArgs e) {
@@ -1143,14 +1188,20 @@ namespace MusicBeePlugin {
         }
 
         private void Mins_ValueChanged(object sender, EventArgs e) {
-            startTime = (int)(Mins.Value * 60 + Secs.Value) * 1000;
-            _settingsManager.Minutes = (int)Mins.Value;
+            int value = (int)(MinsP1.Value * 60 + SecsP1.Value) * 1000;
+            startTimeP1 = value;
+            timeP1 = value;
+
+            _settingsManager.MinutesP1 = (int)MinsP1.Value;
             _settingsManager.SaveSettings();
         }
 
         private void Secs_ValueChanged(object sender, EventArgs e) {
-            startTime = (int)(Mins.Value * 60 + Secs.Value) * 1000;
-            _settingsManager.Seconds = (int)Secs.Value;
+            int value = (int)(MinsP1.Value * 60 + SecsP1.Value) * 1000;
+            startTimeP1 = value;
+            timeP1 = value;
+
+            _settingsManager.SecondsP1 = (int)SecsP1.Value;
             _settingsManager.SaveSettings();
         }
 
@@ -1314,6 +1365,32 @@ namespace MusicBeePlugin {
         private void checkBox1_CheckedChanged_2(object sender, EventArgs e) {
             quickRounds = checkBox1.Checked;
             _settingsManager.QuickRounds = quickRounds;
+            _settingsManager.SaveSettings();
+        }
+
+        private void WSURLTextBox_TextChanged(object sender, EventArgs e)
+        {
+            _settingsManager.UpdateURL = UpdateURLTextBox.Text;
+            _settingsManager.SaveSettings();
+        }
+
+        private void MinsP2_ValueChanged(object sender, EventArgs e)
+        {
+            int value = (int)(MinsP2.Value * 60 + SecsP2.Value) * 1000;
+            startTimeP2 = value;
+            timeP2 = value;
+
+            _settingsManager.MinutesP2 = (int)MinsP2.Value;
+            _settingsManager.SaveSettings();
+        }
+
+        private void SecsP2_ValueChanged(object sender, EventArgs e)
+        {
+            int value = (int)(MinsP2.Value * 60 + SecsP2.Value) * 1000;
+            startTimeP2 = value;
+            timeP2 = value;
+
+            _settingsManager.SecondsP2 = (int)SecsP2.Value;
             _settingsManager.SaveSettings();
         }
     }
