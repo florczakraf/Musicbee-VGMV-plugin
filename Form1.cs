@@ -425,7 +425,8 @@ namespace MusicBeePlugin {
             Start.Hide();
             Player1Name.Show();
             Player2Name.Show();
-
+            PostUpdate("SongTitle", "");
+            PostUpdate("SongAlbum", "");
 
             if (showHistory) {
                 listBox1.Show();
@@ -777,8 +778,10 @@ namespace MusicBeePlugin {
             }
 
             string title = mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.TrackTitle);
-            updateText(songName, title + "\n" + mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.Album));
+            string album = mApi.NowPlaying_GetFileTag(Plugin.MetaDataType.Album);
+            updateText(songName, title + "\n" + album);
             PostUpdate("SongTitle", title);
+            PostUpdate("SongAlbum", album);
         }
 
         public void updateText(Label label, string textChange) {
@@ -1013,6 +1016,7 @@ namespace MusicBeePlugin {
             P2TimeAtNew = timeP2;
 
             PostUpdate("SongTitle", "");
+            PostUpdate("SongAlbum", "");
         }
 
         public void VGMV_KeyDown(object sender, KeyEventArgs e) {
