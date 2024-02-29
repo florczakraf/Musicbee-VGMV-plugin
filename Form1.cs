@@ -1040,8 +1040,8 @@ namespace MusicBeePlugin {
                     handleNextSong();
                 }
                 else if (e.KeyCode == Keys.Right || e.KeyCode == Keys.L || e.KeyCode == Keys.D) { //should next song 2 point
-                    addSong(2);
-                    incPoints(2);
+                    addSong(1);
+                    incPoints(1);
 
                     handleNextSong();
                 }
