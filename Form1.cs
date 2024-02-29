@@ -1065,25 +1065,6 @@ namespace MusicBeePlugin {
                         mApi.Player_PlayPause();
                     }
                 }
-                else if (e.KeyCode == Keys.T) {
-                    gameOverCheck(true);
-                }
-                else if (e.Control && e.Shift && e.KeyCode == Keys.R) {
-
-                    //reset settings (with pop-up?)
-                    _settingsManager.SetDefaultSettings();
-                    UpdateSettings();
-                }
-                else if (e.Control && e.Shift && e.KeyCode == Keys.O) {
-                    if (stupidMode) {
-                        ClientSize = new Size(1204, 668);
-                        stupidMode = false;
-                    }
-                    else {
-                        stupidMode = true;
-                        updateSongSettings();
-                    }
-                }
             }
             else {
                 if (e.KeyCode == Keys.Down || e.KeyCode == Keys.K || e.KeyCode == Keys.S) { //skip song
