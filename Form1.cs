@@ -78,6 +78,8 @@ namespace MusicBeePlugin {
 
         int startTimeP1 = 150000; //ms
         int startTimeP2 = 150000; //ms
+        int startPointsP1 = 0;
+        int startPointsP2 = 0;
         int timePass1 = 2000; //ms
         int timePass2 = 2000; //ms
 
@@ -234,7 +236,9 @@ namespace MusicBeePlugin {
             listBox2.DrawItem += listBox2_DrawItem;
 
             p1Score.reset();
+            p1Score._score = startPointsP1;
             p2Score.reset();
+            p2Score._score = startPointsP2;
 
             pictureBox2.Hide();
             pictureBox5.Hide();
@@ -333,6 +337,10 @@ namespace MusicBeePlugin {
                 updateColors();
 
                 UpdateURLTextBox.Text = _settingsManager.UpdateURL;
+                startPointsFieldP1.Value = _settingsManager.StartPointsP1;
+                startPointsP1 = _settingsManager.StartPointsP1;
+                startPointsFieldP2.Value = _settingsManager.StartPointsP2;
+                startPointsP2 = _settingsManager.StartPointsP2;
             }
         }
 
@@ -367,10 +375,12 @@ namespace MusicBeePlugin {
             p1Score.reset();
             p2Score.reset();
 
-            incPoints(0); // to update text
 
             p1Score.reset();
+            p1Score._score = startPointsP1;
             p2Score.reset();
+            p2Score._score = startPointsP2;
+            incPoints(0); // to update text
 
             listBox1.Items.Clear();
             listBox2.Items.Clear();
@@ -455,7 +465,6 @@ namespace MusicBeePlugin {
                 TimerP2.Show();
             }
             framesWithAudio = 0;
-
         }
 
         public void incPoints(int pointGain) {
@@ -1376,6 +1385,22 @@ namespace MusicBeePlugin {
             timeP2 = value;
 
             _settingsManager.SecondsP2 = (int)SecsP2.Value;
+            _settingsManager.SaveSettings();
+        }
+
+        private void startPointsFieldP1_ValueChanged(object sender, EventArgs e)
+        {
+            int value = (int)startPointsFieldP1.Value;
+            startPointsP1 = value;
+            _settingsManager.StartPointsP1 = value;
+            _settingsManager.SaveSettings();
+        }
+
+        private void startPointsFieldP2_ValueChanged(object sender, EventArgs e)
+        {
+            int value = (int)startPointsFieldP2.Value;
+            startPointsP2 = value;
+            _settingsManager.StartPointsP2 = value;
             _settingsManager.SaveSettings();
         }
     }

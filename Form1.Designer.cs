@@ -85,6 +85,10 @@
             this.Player2Name = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.BufferedPanel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.startPointsFieldP2 = new System.Windows.Forms.NumericUpDown();
+            this.label13 = new System.Windows.Forms.Label();
+            this.startPointsFieldP1 = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SecsP2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinsP2)).BeginInit();
@@ -101,6 +105,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startPointsFieldP2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startPointsFieldP1)).BeginInit();
             this.SuspendLayout();
             // 
             // songName
@@ -231,6 +237,10 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.startPointsFieldP1);
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.startPointsFieldP2);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.SecsP2);
@@ -420,10 +430,10 @@
             // P2NameTextBox
             // 
             this.P2NameTextBox.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold);
-            this.P2NameTextBox.Location = new System.Drawing.Point(1009, 46);
+            this.P2NameTextBox.Location = new System.Drawing.Point(1003, 54);
             this.P2NameTextBox.Multiline = true;
             this.P2NameTextBox.Name = "P2NameTextBox";
-            this.P2NameTextBox.Size = new System.Drawing.Size(166, 49);
+            this.P2NameTextBox.Size = new System.Drawing.Size(166, 33);
             this.P2NameTextBox.TabIndex = 26;
             this.P2NameTextBox.Text = "Player 2";
             this.P2NameTextBox.TextChanged += new System.EventHandler(this.P2NameTextBox_TextChanged);
@@ -499,10 +509,10 @@
             // P1NameTextBox
             // 
             this.P1NameTextBox.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.P1NameTextBox.Location = new System.Drawing.Point(101, 46);
+            this.P1NameTextBox.Location = new System.Drawing.Point(101, 57);
             this.P1NameTextBox.Multiline = true;
             this.P1NameTextBox.Name = "P1NameTextBox";
-            this.P1NameTextBox.Size = new System.Drawing.Size(166, 49);
+            this.P1NameTextBox.Size = new System.Drawing.Size(166, 33);
             this.P1NameTextBox.TabIndex = 25;
             this.P1NameTextBox.Text = "Player 1";
             this.P1NameTextBox.TextChanged += new System.EventHandler(this.P1NameTextBox_TextChanged);
@@ -878,6 +888,46 @@
             this.panel1.TabIndex = 30;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(803, 93);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(108, 22);
+            this.label12.TabIndex = 38;
+            this.label12.Text = "Start points";
+            // 
+            // startPointsFieldP2
+            // 
+            this.startPointsFieldP2.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.startPointsFieldP2.Location = new System.Drawing.Point(801, 118);
+            this.startPointsFieldP2.Name = "startPointsFieldP2";
+            this.startPointsFieldP2.Size = new System.Drawing.Size(110, 27);
+            this.startPointsFieldP2.TabIndex = 37;
+            this.startPointsFieldP2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.startPointsFieldP2.ValueChanged += new System.EventHandler(this.startPointsFieldP2_ValueChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(238, 93);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(108, 22);
+            this.label13.TabIndex = 40;
+            this.label13.Text = "Start points";
+            // 
+            // startPointsFieldP1
+            // 
+            this.startPointsFieldP1.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.startPointsFieldP1.Location = new System.Drawing.Point(236, 118);
+            this.startPointsFieldP1.Name = "startPointsFieldP1";
+            this.startPointsFieldP1.Size = new System.Drawing.Size(110, 27);
+            this.startPointsFieldP1.TabIndex = 39;
+            this.startPointsFieldP1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.startPointsFieldP1.ValueChanged += new System.EventHandler(this.startPointsFieldP1_ValueChanged);
+            // 
             // VGMV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -924,6 +974,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startPointsFieldP2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startPointsFieldP1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -990,6 +1042,10 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.NumericUpDown SecsP2;
         private System.Windows.Forms.NumericUpDown MinsP2;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.NumericUpDown startPointsFieldP1;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.NumericUpDown startPointsFieldP2;
     }
 
 

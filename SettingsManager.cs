@@ -15,6 +15,9 @@ namespace MusicBeePlugin
         public int MinutesP2 { get; set; }
         public int SecondsP2 { get; set; }
 
+        public int StartPointsP1 { get; set; }
+        public int StartPointsP2 { get; set; }
+
 
         public string P1Name { get; set; }
         public Color P1Color { get; set; }
@@ -46,6 +49,8 @@ namespace MusicBeePlugin
                 writer.WriteLine($"SecondsP1={SecondsP1}");
                 writer.WriteLine($"MinutesP2={MinutesP2}");
                 writer.WriteLine($"SecondsP2={SecondsP2}");
+                writer.WriteLine($"StartPointsP1={StartPointsP1}");
+                writer.WriteLine($"StartPointsP2={StartPointsP2}");
                 writer.WriteLine($"P1Name={P1Name}");
                 writer.WriteLine($"P1Color={ColorTranslator.ToHtml(P1Color)}");
                 writer.WriteLine($"P1PointsToPass={P1PointsToPass}");
@@ -113,6 +118,8 @@ namespace MusicBeePlugin
             SecondsP1 = 30;
             MinutesP2 = 2;
             SecondsP2 = 30;
+            StartPointsP1 = 0;
+            StartPointsP2 = 0;
             P1Name = "Player 1";
             P1Color = Color.Green;
             P1PointsToPass = 2;
@@ -178,6 +185,12 @@ namespace MusicBeePlugin
                                     break;
                                 case "SecondsP2":
                                     SecondsP2 = LoadInt(value);
+                                    break;
+                                case "StartPointsP1":
+                                    StartPointsP1 = LoadInt(value);
+                                    break;
+                                case "StartPointsP2":
+                                    StartPointsP2 = LoadInt(value);
                                     break;
                                 case "P1Name":
                                     P1Name = value;
