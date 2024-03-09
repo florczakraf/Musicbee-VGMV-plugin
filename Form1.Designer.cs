@@ -34,6 +34,10 @@
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.DisplayHistoryCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.startPointsFieldP1 = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.startPointsFieldP2 = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.SecsP2 = new System.Windows.Forms.NumericUpDown();
@@ -85,11 +89,10 @@
             this.Player2Name = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.BufferedPanel();
-            this.label12 = new System.Windows.Forms.Label();
-            this.startPointsFieldP2 = new System.Windows.Forms.NumericUpDown();
-            this.label13 = new System.Windows.Forms.Label();
-            this.startPointsFieldP1 = new System.Windows.Forms.NumericUpDown();
+            this.btnScoreUpdate = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.startPointsFieldP1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startPointsFieldP2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SecsP2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinsP2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -105,8 +108,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.startPointsFieldP2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.startPointsFieldP1)).BeginInit();
             this.SuspendLayout();
             // 
             // songName
@@ -237,6 +238,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.groupBox1.Controls.Add(this.btnScoreUpdate);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.startPointsFieldP1);
             this.groupBox1.Controls.Add(this.label12);
@@ -285,6 +287,46 @@
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(238, 93);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(108, 22);
+            this.label13.TabIndex = 40;
+            this.label13.Text = "Start points";
+            // 
+            // startPointsFieldP1
+            // 
+            this.startPointsFieldP1.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.startPointsFieldP1.Location = new System.Drawing.Point(236, 118);
+            this.startPointsFieldP1.Name = "startPointsFieldP1";
+            this.startPointsFieldP1.Size = new System.Drawing.Size(110, 27);
+            this.startPointsFieldP1.TabIndex = 39;
+            this.startPointsFieldP1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.startPointsFieldP1.ValueChanged += new System.EventHandler(this.startPointsFieldP1_ValueChanged);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(803, 93);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(108, 22);
+            this.label12.TabIndex = 38;
+            this.label12.Text = "Start points";
+            // 
+            // startPointsFieldP2
+            // 
+            this.startPointsFieldP2.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.startPointsFieldP2.Location = new System.Drawing.Point(801, 118);
+            this.startPointsFieldP2.Name = "startPointsFieldP2";
+            this.startPointsFieldP2.Size = new System.Drawing.Size(110, 27);
+            this.startPointsFieldP2.TabIndex = 37;
+            this.startPointsFieldP2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.startPointsFieldP2.ValueChanged += new System.EventHandler(this.startPointsFieldP2_ValueChanged);
             // 
             // label10
             // 
@@ -888,45 +930,15 @@
             this.panel1.TabIndex = 30;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // label12
+            // btnScoreUpdate
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(803, 93);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(108, 22);
-            this.label12.TabIndex = 38;
-            this.label12.Text = "Start points";
-            // 
-            // startPointsFieldP2
-            // 
-            this.startPointsFieldP2.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startPointsFieldP2.Location = new System.Drawing.Point(801, 118);
-            this.startPointsFieldP2.Name = "startPointsFieldP2";
-            this.startPointsFieldP2.Size = new System.Drawing.Size(110, 27);
-            this.startPointsFieldP2.TabIndex = 37;
-            this.startPointsFieldP2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.startPointsFieldP2.ValueChanged += new System.EventHandler(this.startPointsFieldP2_ValueChanged);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(238, 93);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(108, 22);
-            this.label13.TabIndex = 40;
-            this.label13.Text = "Start points";
-            // 
-            // startPointsFieldP1
-            // 
-            this.startPointsFieldP1.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startPointsFieldP1.Location = new System.Drawing.Point(236, 118);
-            this.startPointsFieldP1.Name = "startPointsFieldP1";
-            this.startPointsFieldP1.Size = new System.Drawing.Size(110, 27);
-            this.startPointsFieldP1.TabIndex = 39;
-            this.startPointsFieldP1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.startPointsFieldP1.ValueChanged += new System.EventHandler(this.startPointsFieldP1_ValueChanged);
+            this.btnScoreUpdate.Location = new System.Drawing.Point(834, 211);
+            this.btnScoreUpdate.Name = "btnScoreUpdate";
+            this.btnScoreUpdate.Size = new System.Drawing.Size(162, 31);
+            this.btnScoreUpdate.TabIndex = 41;
+            this.btnScoreUpdate.Text = "Post Score Update";
+            this.btnScoreUpdate.UseVisualStyleBackColor = true;
+            this.btnScoreUpdate.Click += new System.EventHandler(this.btnScoreUpdate_Click);
             // 
             // VGMV
             // 
@@ -959,6 +971,8 @@
             this.Load += new System.EventHandler(this.VGMV_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.startPointsFieldP1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startPointsFieldP2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SecsP2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinsP2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
@@ -974,8 +988,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.startPointsFieldP2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.startPointsFieldP1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1046,6 +1058,7 @@
         private System.Windows.Forms.NumericUpDown startPointsFieldP1;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.NumericUpDown startPointsFieldP2;
+        private System.Windows.Forms.Button btnScoreUpdate;
     }
 
 

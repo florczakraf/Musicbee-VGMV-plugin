@@ -1404,6 +1404,12 @@ namespace MusicBeePlugin {
             _settingsManager.StartPointsP2 = value;
             _settingsManager.SaveSettings();
         }
+
+        private void btnScoreUpdate_Click(object sender, EventArgs e)
+        {
+            PostUpdate("P1Score", p1Score._score.ToString());
+            PostUpdate("P2Score", p2Score._score.ToString());
+        }
     }
 
 
