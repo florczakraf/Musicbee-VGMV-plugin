@@ -90,6 +90,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnScoreUpdate = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.BufferedPanel();
+            this.btnHideSong = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.startPointsFieldP1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.startPointsFieldP2)).BeginInit();
@@ -238,6 +239,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.groupBox1.Controls.Add(this.btnHideSong);
             this.groupBox1.Controls.Add(this.btnScoreUpdate);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.startPointsFieldP1);
@@ -940,6 +942,16 @@
             this.panel1.TabIndex = 30;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // btnHideSong
+            // 
+            this.btnHideSong.Location = new System.Drawing.Point(1002, 211);
+            this.btnHideSong.Name = "btnHideSong";
+            this.btnHideSong.Size = new System.Drawing.Size(162, 31);
+            this.btnHideSong.TabIndex = 42;
+            this.btnHideSong.Text = "Hide Song";
+            this.btnHideSong.UseVisualStyleBackColor = true;
+            this.btnHideSong.Click += new System.EventHandler(this.btnHideSong_Click);
+            // 
             // VGMV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1059,6 +1071,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.NumericUpDown startPointsFieldP2;
         private System.Windows.Forms.Button btnScoreUpdate;
+        private System.Windows.Forms.Button btnHideSong;
     }
 
 

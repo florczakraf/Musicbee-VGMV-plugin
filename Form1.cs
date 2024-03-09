@@ -1410,6 +1410,12 @@ namespace MusicBeePlugin {
             PostUpdate("P1Score", _settingsManager.StartPointsP1.ToString());
             PostUpdate("P2Score", _settingsManager.StartPointsP2.ToString());
         }
+
+        private void btnHideSong_Click(object sender, EventArgs e)
+        {
+            PostUpdate("SongTitle", "");
+            PostUpdate("SongAlbum", "");
+        }
     }
 
 
