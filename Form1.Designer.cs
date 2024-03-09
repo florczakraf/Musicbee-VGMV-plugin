@@ -88,8 +88,8 @@
             this.Player1Name = new System.Windows.Forms.Label();
             this.Player2Name = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.panel1 = new System.Windows.Forms.BufferedPanel();
             this.btnScoreUpdate = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.BufferedPanel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.startPointsFieldP1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.startPointsFieldP2)).BeginInit();
@@ -919,6 +919,16 @@
             this.timer1.Interval = 50;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // btnScoreUpdate
+            // 
+            this.btnScoreUpdate.Location = new System.Drawing.Point(834, 211);
+            this.btnScoreUpdate.Name = "btnScoreUpdate";
+            this.btnScoreUpdate.Size = new System.Drawing.Size(162, 31);
+            this.btnScoreUpdate.TabIndex = 41;
+            this.btnScoreUpdate.Text = "Post Start Scores Update";
+            this.btnScoreUpdate.UseVisualStyleBackColor = true;
+            this.btnScoreUpdate.Click += new System.EventHandler(this.btnScoreUpdate_Click);
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
@@ -929,16 +939,6 @@
             this.panel1.Size = new System.Drawing.Size(500, 500);
             this.panel1.TabIndex = 30;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-            // 
-            // btnScoreUpdate
-            // 
-            this.btnScoreUpdate.Location = new System.Drawing.Point(834, 211);
-            this.btnScoreUpdate.Name = "btnScoreUpdate";
-            this.btnScoreUpdate.Size = new System.Drawing.Size(162, 31);
-            this.btnScoreUpdate.TabIndex = 41;
-            this.btnScoreUpdate.Text = "Post Score Update";
-            this.btnScoreUpdate.UseVisualStyleBackColor = true;
-            this.btnScoreUpdate.Click += new System.EventHandler(this.btnScoreUpdate_Click);
             // 
             // VGMV
             // 

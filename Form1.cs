@@ -1407,8 +1407,8 @@ namespace MusicBeePlugin {
 
         private void btnScoreUpdate_Click(object sender, EventArgs e)
         {
-            PostUpdate("P1Score", p1Score._score.ToString());
-            PostUpdate("P2Score", p2Score._score.ToString());
+            PostUpdate("P1Score", _settingsManager.StartPointsP1.ToString());
+            PostUpdate("P2Score", _settingsManager.StartPointsP2.ToString());
         }
     }
 
