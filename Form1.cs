@@ -381,6 +381,7 @@ namespace MusicBeePlugin {
             p2Score.reset();
             p2Score._score = startPointsP2;
             incPoints(0); // to update text
+            updateTimers(true);
 
             listBox1.Items.Clear();
             listBox2.Items.Clear();
@@ -498,7 +499,7 @@ namespace MusicBeePlugin {
             PostUpdate("P2Score", p2Score._score.ToString());
         }
 
-        public void updateTimers() {
+        public void updateTimers(bool forceUpdate = false) {
             int P1Min = (int)Math.Ceiling(timeP1 / 1000.0) / 60;
             int P2Min = (int)Math.Ceiling(timeP2 / 1000.0) / 60;
             int P1Sec = (int)Math.Ceiling(timeP1 / 1000.0) % 60;
@@ -514,13 +515,13 @@ namespace MusicBeePlugin {
             string newP1Time = P1Min.ToString() + ":" + P1Seconds;
             string newP2Time = P2Min.ToString() + ":" + P2Seconds;
 
-            if (TimerP1.Text != newP1Time)
+            if (TimerP1.Text != newP1Time || forceUpdate)
             {
                 updateText(TimerP1, newP1Time);
                 PostUpdate("TimerP1", newP1Time);
             }
 
-            if (TimerP2.Text != newP2Time)
+            if (TimerP2.Text != newP2Time || forceUpdate)
             {
                 updateText(TimerP2, newP2Time);
                 PostUpdate("TimerP2", newP2Time);
